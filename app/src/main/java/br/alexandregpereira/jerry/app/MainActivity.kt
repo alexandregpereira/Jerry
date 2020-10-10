@@ -49,7 +49,7 @@ fun getAnimationComponentsName(): List<String> {
 }
 
 enum class AnimationComponent {
-    FADE, COLLAPSE_FADING, EXPAND_FADING, COLLAPSE, EXPAND, TEXT_EXPANDABLE
+    COLLAPSE, COLLAPSE_FADING, EXPAND, EXPAND_FADING, FADE, TEXT_EXPANDABLE
 }
 
 class MainAdapter(
