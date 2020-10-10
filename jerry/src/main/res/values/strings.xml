@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Used to check if animation is running-->
+    <string name="is_expanding_collapsing_key">is_expanding_collapsing_key</string>
+    <string name="is_fade_in_fade_out_key">is_fade_in_fade_out_key</string>
+</resources>

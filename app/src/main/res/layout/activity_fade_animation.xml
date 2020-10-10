@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/small"
+        android:paddingBottom="@dimen/x_large">
+
+        <TextView
+            android:id="@+id/fadeLabel"
+            style="@style/Title.XLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fade" />
+
+        <TextView
+            android:id="@+id/fadeTextView"
+            android:textColor="@color/textSecondaryColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x_small"
+            android:text="@string/fade_text_change" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/fadeTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fade_text_change" />
+
+        <TextView
+            android:id="@+id/goneTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/x_small"
+            android:text="@string/invisible_visible_fade_out" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/goneTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/invisible_fade_out" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/goneVisibleTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/visible_fade_in" />
+
+        <TextView
+            android:id="@+id/visibleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/x_small"
+            android:text="@string/visible_invisible_fade_in"
+            android:visibility="invisible" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/visibleTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/visible_fade_in" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/visibleInvisibleTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/invisible_fade_out" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/small"
+        android:paddingBottom="@dimen/x_large">
+
+        <TextView
+            style="@style/Title.XLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_expandable" />
+
+        <TextView
+            android:id="@+id/expandCancelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/medium"
+            android:text="@string/expand"
+            android:visibility="gone" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/expandCancelTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_cancel_animation" />
+
+        <TextView
+            android:id="@+id/collapseCancelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/medium"
+            android:text="@string/collapse" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseCancelTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:text="@string/collapse_cancel_animation" />
+
+        <TextView
+            android:id="@+id/expandFadingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/medium"
+            android:text="@string/expand_collapse_animation"
+            android:visibility="gone" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/expandFadingTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/expandCollapseFadingTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse_animation" />
+
+        <TextView
+            android:id="@+id/collapseFadingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/medium"
+            android:text="@string/collapse_expand_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseFadingTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseExpandFadingTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_animation" />
+
+        <TextView
+            android:id="@+id/textFadeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textSecondaryColor"
+            android:padding="@dimen/medium"
+            android:text="@string/fade_text_change" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/textFadeTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fade_text_change" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

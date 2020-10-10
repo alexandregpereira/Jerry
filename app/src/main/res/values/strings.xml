@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Jerry</string>
+
+    <string name="fade">Fade</string>
+    <string name="fade_text_change">Fade text change</string>
+    <string name="invisible_visible_fade_out">Invisible/visible fade out</string>
+    <string name="invisible_fade_out">Invisible fade out</string>
+    <string name="visible_fade_in">Visible fade in</string>
+    <string name="visible_invisible_fade_in">Visible/invisible fade in</string>
+    <string name="collapse_fading">Collapse Fading</string>
+    <string name="collapse_expand_animation">Collapse/expand animation</string>
+    <string name="collapse_animation">Collapse animation</string>
+    <string name="collapse_cancel_animation">Collapse and cancel animation</string>
+    <string name="expand_animation">Expand animation</string>
+    <string name="expand_cancel_animation">Expand and Cancel animation</string>
+    <string name="collapse_fixed_height_animation">Collapse fixed height animation</string>
+    <string name="expand_fixed_height_animation">Expand fixed height animation</string>
+    <string name="collapse_wrap_width_animation">Collapse wrap Width animation</string>
+    <string name="expand_wrap_width_animation">Expand wrap Width animation</string>
+    <string name="collapse_match_width_animation">Collapse match Width animation</string>
+    <string name="expand_match_width_animation">Expand match Width animation</string>
+    <string name="collapse_fixed_width_animation">Collapse fixed Width animation</string>
+    <string name="expand_fixed_width_animation">Expand fixed Width animation</string>
+    <string name="expand_fading">Expand Fading</string>
+    <string name="text_expandable">Text Expandable</string>
+    <string name="expand_collapse_animation">Expand/collapse animation</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+    <string name="measures">Measures</string>
+    <string name="change_text_size">Change text size</string>
+    <string name="change_top_margin">Change top margin</string>
+    <string name="scale_view">Scale view</string>
+    <string name="colors">Colors</string>
+    <string name="change_background_color">Change background color</string>
+    <string name="change_text_color">Change text color</string>
+    <string name="this_text_needs_to_show_entirely">This text needs to show entirely</string>
+</resources>

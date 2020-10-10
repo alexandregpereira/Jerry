@@ -1,0 +1,40 @@
+ <resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+
+     <style name="Title">
+         <item name="android:textStyle">bold</item>
+         <item name="android:textColor">@color/textColor</item>
+     </style>
+
+     <style name="Title.XLarge">
+         <item name="android:textSize">24sp</item>
+         <item name="android:layout_marginEnd">@dimen/small</item>
+         <item name="android:layout_marginStart">@dimen/small</item>
+         <item name="android:layout_marginTop">@dimen/large</item>
+         <item name="android:layout_marginBottom">@dimen/x_large</item>
+     </style>
+
+     <style name="FirstButton">
+         <item name="android:layout_marginEnd">@dimen/x_small</item>
+         <item name="android:layout_marginStart">@dimen/x_small</item>
+         <item name="android:layout_marginTop">@dimen/small</item>
+     </style>
+
+     <style name="FirstButton.SecondButton">
+         <item name="android:layout_marginTop">@dimen/x_small</item>
+         <item name="android:layout_marginBottom">@dimen/x_large</item>
+     </style>
+
+     <style name="Container">
+         <item name="android:background">@color/backgroundColor</item>
+         <item name="android:textColor">@color/textSecondaryColor</item>
+     </style>
+
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_padding">16dp</dimen>
+    <dimen name="elevation">8dp</dimen>
+    <dimen name="elevation2">18dp</dimen>
+    <dimen name="corner_size">8dp</dimen>
+
+    <dimen name="xxx_small">2dp</dimen>
+
+    <dimen name="xx_small">4dp</dimen>
+
+    <dimen name="x_small">8dp</dimen>
+
+    <dimen name="small">16dp</dimen>
+
+    <dimen name="medium">24dp</dimen>
+
+    <dimen name="large">32dp</dimen>
+
+    <dimen name="x_large">40dp</dimen>
+</resources>

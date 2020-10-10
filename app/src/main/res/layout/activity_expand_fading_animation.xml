@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/small"
+        android:paddingBottom="@dimen/x_large">
+
+        <TextView
+            android:id="@+id/expandFadingLabel"
+            style="@style/Title.XLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_fading" />
+
+        <TextView
+            android:id="@+id/expandFadingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/medium"
+            android:text="@string/expand_collapse_animation"
+            android:visibility="gone" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/expandFadingTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/expandCollapseFadingTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse_animation" />
+
+        <View
+            android:id="@+id/expandFixedFadingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:visibility="gone"
+            android:background="@color/backgroundColor" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/expandFixedFadingTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_fixed_height_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/expandCollapseFixedFadingTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse_fixed_height_animation" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/expandWidthFadingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@color/backgroundColor"
+                android:lines="1"
+                android:text="@string/this_text_needs_to_show_entirely"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/expandWidthFadingView"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/small"
+                android:background="@color/backgroundHelperColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/expandWidthFadingTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/expandWidthFadingTextButton"
+                style="@style/FirstButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/expand_wrap_width_animation"
+                app:layout_constraintTop_toBottomOf="@id/expandWidthFadingView" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/expandCollapseWidthFadingTextButton"
+                style="@style/FirstButton.SecondButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/collapse_wrap_width_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/expandWidthFadingTextButton" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/expandMatchWidthFadingView"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/backgroundColor" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/expandMatchWidthFadingButton"
+                style="@style/FirstButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_goneMarginTop="76dp"
+                android:text="@string/expand_match_width_animation"
+                app:layout_constraintTop_toBottomOf="@id/expandMatchWidthFadingView" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/expandCollapseMatchWidthFadingButton"
+                style="@style/FirstButton.SecondButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/collapse_match_width_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/expandMatchWidthFadingButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/expandFixedWidthFadingView"
+                android:layout_width="220dp"
+                android:layout_height="60dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/backgroundColor" />
+
+            <View
+                android:id="@+id/expandFixedWidthFadingView2"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="@dimen/small"
+                android:background="@color/backgroundHelperColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/expandFixedWidthFadingView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/expandFixedWidthFadingButton"
+                style="@style/FirstButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/expand_fixed_width_animation"
+                app:layout_constraintTop_toBottomOf="@id/expandFixedWidthFadingView2" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/expandCollapseFixedWidthFadingButton"
+                style="@style/FirstButton.SecondButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/collapse_fixed_width_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/expandFixedWidthFadingButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

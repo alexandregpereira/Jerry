@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/small"
+        android:paddingBottom="@dimen/x_large">
+
+        <TextView
+            android:id="@+id/collapseLabel"
+            style="@style/Title.XLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse" />
+
+        <TextView
+            android:id="@+id/collapseTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:padding="@dimen/medium"
+            android:text="@string/collapse_expand_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseExpandTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_animation" />
+
+        <View
+            android:id="@+id/collapseFixedTextView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/backgroundColor" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseFixedTextButton"
+            style="@style/FirstButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse_fixed_height_animation" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseExpandFixedTextButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/expand_fixed_height_animation" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/collapseWidthTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:background="@color/backgroundColor"
+                android:lines="1"
+                android:text="@string/this_text_needs_to_show_entirely"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/collapseWidthTextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x_small"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginEnd="@dimen/x_small"
+                android:text="@string/collapse_wrap_width_animation"
+                app:layout_constraintTop_toBottomOf="@id/collapseWidthTextView"
+                app:layout_goneMarginTop="66dp" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/collapseExpandWidthTextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x_small"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginEnd="@dimen/x_small"
+                android:layout_marginBottom="@dimen/x_large"
+                android:text="@string/expand_wrap_width_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/collapseWidthTextButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/collapseMatchWidthView"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/backgroundColor"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/collapseMatchWidthButton"
+                style="@style/FirstButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/collapse_match_width_animation"
+                app:layout_constraintTop_toBottomOf="@id/collapseMatchWidthView"
+                app:layout_goneMarginTop="76dp" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/collapseExpandMatchWidthButton"
+                style="@style/FirstButton.SecondButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/expand_match_width_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/collapseMatchWidthButton"
+                app:layout_goneMarginTop="68dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/collapseFixedWidthView"
+                android:layout_width="220dp"
+                android:layout_height="60dp"
+                android:background="@color/backgroundColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/collapseFixedWidthButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/x_small"
+                android:text="@string/collapse_fixed_width_animation"
+                app:layout_constraintTop_toBottomOf="@id/collapseFixedWidthView"
+                app:layout_goneMarginTop="68dp" />
+
+            <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+                android:id="@+id/collapseExpandFixedWidthButton"
+                style="@style/FirstButton.SecondButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/expand_fixed_width_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/collapseFixedWidthButton"
+                app:layout_goneMarginTop="68dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
