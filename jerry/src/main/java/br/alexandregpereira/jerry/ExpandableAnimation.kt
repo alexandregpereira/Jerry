@@ -62,9 +62,8 @@ fun View.collapseFading(
 /**
  * Animates expanding the height or the width and changes the visibility status to VISIBLE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [collapse] method is called. The parent width needs to be match_parent or fixed
- * to work properly. Any alteration of the parent width during the this animation makes glitches
- * in the animation.
+ * if the [collapse] method is called. Any alteration of the parent width during the this animation
+ * makes glitches in the animation.
  *
  * @param duration The duration of the animation
  * @param isHeight Define if is going to animate the height or the width
