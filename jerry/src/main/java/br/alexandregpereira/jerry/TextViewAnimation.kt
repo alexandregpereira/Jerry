@@ -5,9 +5,10 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
 
 /**
- * Uses the [setTextFade], [expandFading] or [collapseFading] animation methods depending of the
- * TextView state. If the new text is null or empty, the [collapseFading] is used, else if the
- * TextView is already visible, the [setTextFade] is used, else the [expandFading] is used.
+ * Uses the [setTextFade], [expandHeightFading] or [collapseHeightFading] animation methods
+ * depending of the TextView state. If the new text is null or empty, the [collapseHeightFading]
+ * is used, else if the TextView is already visible, the [setTextFade] is used, else the
+ * [expandHeightFading] is used.
  *
  * @param text The new text of the TextView
  * @param duration The duration of the animation
@@ -21,7 +22,7 @@ fun TextView.setTextExpandableAnimation(
     onFirstFadeEnd: (() -> Unit)? = null
 ) {
     if (text == null || text.trim().isEmpty()) {
-        collapseFading(onAnimationEnd = onAnimationEnd)
+        collapseHeightFading(onAnimationEnd = onAnimationEnd)
         return
     }
 
@@ -34,7 +35,7 @@ fun TextView.setTextExpandableAnimation(
         return
     }
     setText(text)
-    expandFading(onAnimationEnd = onAnimationEnd)
+    expandHeightFading(onAnimationEnd = onAnimationEnd)
 }
 
 /**

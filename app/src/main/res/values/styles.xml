@@ -21,6 +21,16 @@
          <item name="android:layout_marginBottom">@dimen/x_large</item>
      </style>
 
+     <style name="Title.Medium">
+         <item name="android:textStyle">normal</item>
+         <item name="android:textColor">@color/textSecondaryColor</item>
+         <item name="android:textSize">14sp</item>
+         <item name="android:layout_marginEnd">@dimen/small</item>
+         <item name="android:layout_marginStart">@dimen/small</item>
+         <item name="android:layout_marginTop">@dimen/small</item>
+         <item name="android:layout_marginBottom">@dimen/small</item>
+     </style>
+
      <style name="FirstButton">
          <item name="android:layout_marginEnd">@dimen/x_small</item>
          <item name="android:layout_marginStart">@dimen/x_small</item>
@@ -35,6 +45,12 @@
      <style name="Container">
          <item name="android:background">@color/backgroundColor</item>
          <item name="android:textColor">@color/textSecondaryColor</item>
+     </style>
+
+     <style name="SeekBar">
+         <item name="android:layout_marginEnd">@dimen/x_small</item>
+         <item name="android:layout_marginStart">@dimen/x_small</item>
+         <item name="android:layout_marginTop">@dimen/small</item>
      </style>
 
 </resources>

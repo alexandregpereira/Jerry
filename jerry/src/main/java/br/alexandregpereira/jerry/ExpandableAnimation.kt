@@ -6,21 +6,37 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 
 /**
- * Uses the [expand] and [visibleFadeIn] animations in sequence. This animation
+ * Uses the [expandHeight] and [visibleFadeIn] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [collapseFading] method is called.
+ * [collapseHeightFading] method is called.
  *
  * @param duration The duration of the animation
- * @param isHeight Define if is the height or the width that is going to be animate
  * @param onAnimationEnd The function to call when the animation is finished
  */
-fun View.expandFading(
+fun View.expandHeightFading(
+    duration: Long = ANIMATION_SHORT_TIME,
+    onAnimationEnd: (() -> Unit)? = null
+) = expandFading(duration, isHeight = true, onAnimationEnd)
+
+/**
+ * Uses the [expandWidth] and [visibleFadeIn] animations in sequence. This animation
+ * handles double click. This method can be reverted in the middle of the animation if the
+ * [collapseWidthFading] method is called.
+ *
+ * @param duration The duration of the animation
+ * @param onAnimationEnd The function to call when the animation is finished
+ */
+fun View.expandWidthFading(
+    duration: Long = ANIMATION_SHORT_TIME,
+    onAnimationEnd: (() -> Unit)? = null
+) = expandFading(duration, isHeight = false, onAnimationEnd)
+
+private fun View.expandFading(
     duration: Long = ANIMATION_SHORT_TIME,
     isHeight: Boolean = true,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     if (alpha == 1f && (isVisible() && isCollapsingRunning().not())) {
-        onAnimationEnd?.invoke()
         return
     }
     if (alpha == 1f) alpha = 0f
@@ -36,15 +52,32 @@ fun View.expandFading(
 }
 
 /**
- * Uses the [hideFadeOut] and [collapse] animations in sequence. This animation
+ * Uses the [hideFadeOut] and [collapseHeight] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [expandFading] method is called.
+ * [expandHeightFading] method is called.
  *
  * @param duration The duration of the animation
- * @param isHeight Define if is going to animate the height or the width
  * @param onAnimationEnd The function to call when the animation is finished
  */
-fun View.collapseFading(
+fun View.collapseHeightFading(
+    duration: Long = ANIMATION_SHORT_TIME,
+    onAnimationEnd: (() -> Unit)? = null
+) = collapseFading(duration, isHeight = true, onAnimationEnd)
+
+/**
+ * Uses the [hideFadeOut] and [collapseWidth] animations in sequence. This animation
+ * handles double click. This method can be reverted in the middle of the animation if the
+ * [expandWidthFading] method is called.
+ *
+ * @param duration The duration of the animation
+ * @param onAnimationEnd The function to call when the animation is finished
+ */
+fun View.collapseWidthFading(
+    duration: Long = ANIMATION_SHORT_TIME,
+    onAnimationEnd: (() -> Unit)? = null
+) = collapseFading(duration, isHeight = false, onAnimationEnd)
+
+private fun View.collapseFading(
     duration: Long = ANIMATION_SHORT_TIME,
     isHeight: Boolean = true,
     onAnimationEnd: (() -> Unit)? = null
@@ -60,29 +93,54 @@ fun View.collapseFading(
 }
 
 /**
- * Animates expanding the height or the width and changes the visibility status to VISIBLE.
+ * Animates expanding the height and changes the visibility status to VISIBLE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [collapse] method is called. Any alteration of the parent width during the this animation
+ * if the [collapseHeight] method is called. Any alteration of the parent width during the this animation
  * makes glitches in the animation.
  *
- * @param duration The duration of the animation
- * @param isHeight Define if is going to animate the height or the width
- * @param onAnimationEnd The function to call when the animation is finished
+ * @param duration The duration of the animation.
+ * @param onAnimationEnd The function to call when the animation is finished.
  */
-fun View.expand(
+fun View.expandHeight(
     duration: Long = ANIMATION_SHORT_TIME,
-    isHeight: Boolean = true,
+    onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
-) = expand(duration, isHeight, null, onAnimationEnd)
+) = expand(
+    duration,
+    isHeight = true,
+    onAnimationStart = null,
+    onProgressChange = onProgressChange,
+    onAnimationEnd = onAnimationEnd
+)
 
-fun View.expand(
+/**
+ * Animates expanding the width and changes the visibility status to VISIBLE.
+ * This animation handles double click. This method can be reverted in the middle of the animation
+ * if the [collapseWidth] method is called. Any alteration of the parent width during the this animation
+ * makes glitches in the animation.
+ *
+ * @param duration The duration of the animation.
+ * @param onAnimationEnd The function to call when the animation is finished.
+ */
+fun View.expandWidth(
+    duration: Long = ANIMATION_SHORT_TIME,
+    onAnimationEnd: (() -> Unit)? = null
+) = expand(
+    duration,
+    isHeight = false,
+    onAnimationStart = null,
+    onProgressChange = null,
+    onAnimationEnd = onAnimationEnd
+)
+
+private fun View.expand(
     duration: Long = ANIMATION_SHORT_TIME,
     isHeight: Boolean = true,
+    onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
     onAnimationStart: (() -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     if (isExpandingRunning() || (isVisible() && isCollapsingRunning().not())) {
-        onAnimationEnd?.invoke()
         return
     }
 
@@ -115,6 +173,7 @@ fun View.expand(
             }
 
             setLayoutParamSize(finalValue, isHeight)
+            onProgressChange?.invoke(interpolatedTime)
             requestLayout()
         }
 
@@ -131,28 +190,52 @@ fun View.expand(
 }
 
 /**
- * Animates collapsing the height or the width and changes the visibility status to GONE.
+ * Animates collapsing the height and changes the visibility status to GONE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [expand] method is called.
+ * if the [expandHeight] method is called.
  *
- * @param duration The duration of the animation
- * @param isHeight Define if is going to animate the height or the width
- * @param onAnimationEnd The function to call when the animation is finished
+ * @param duration The duration of the animation.
+ * @param onAnimationEnd The function to call when the animation is finished.
  */
-fun View.collapse(
+fun View.collapseHeight(
     duration: Long = ANIMATION_SHORT_TIME,
-    isHeight: Boolean = true,
+    onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
-) = collapse(duration, isHeight, null, onAnimationEnd)
+) = collapse(
+    duration,
+    isHeight = true,
+    onAnimationStart = null,
+    onProgressChange = onProgressChange,
+    onAnimationEnd = onAnimationEnd
+)
 
-fun View.collapse(
+/**
+ * Animates collapsing the width and changes the visibility status to GONE.
+ * This animation handles double click. This method can be reverted in the middle of the animation
+ * if the [expandWidth] method is called.
+ *
+ * @param duration The duration of the animation.
+ * @param onAnimationEnd The function to call when the animation is finished.
+ */
+fun View.collapseWidth(
+    duration: Long = ANIMATION_SHORT_TIME,
+    onAnimationEnd: (() -> Unit)? = null
+) = collapse(
+    duration,
+    isHeight = false,
+    onAnimationStart = null,
+    onProgressChange = null,
+    onAnimationEnd = onAnimationEnd
+)
+
+private fun View.collapse(
     duration: Long = ANIMATION_SHORT_TIME,
     isHeight: Boolean = true,
+    onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
     onAnimationStart: (() -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     if (isVisible().not() || isCollapsingRunning()) {
-        onAnimationEnd?.invoke()
         return
     }
     startCollapsingRunning()
@@ -171,6 +254,7 @@ fun View.collapse(
 
                 setLayoutParamSize(finalValue, isHeight)
             }
+            onProgressChange?.invoke(interpolatedTime)
             requestLayout()
         }
 
