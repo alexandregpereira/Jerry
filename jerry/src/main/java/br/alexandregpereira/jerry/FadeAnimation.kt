@@ -33,7 +33,7 @@ fun View.invisibleFadeOut(
 }
 
 /**
- * Change the visibility to VISIBLE of the view using fade out animation. This method can be
+ * Change the visibility to VISIBLE of the view using fade in animation. This method can be
  * reverted in the middle of the animation if the [invisibleFadeOut] or [goneFadeOut]
  * method is called.
  *
@@ -60,11 +60,14 @@ fun View.visibleFadeIn(
 }
 
 /**
- * Start the fade out animation without changing the visibility status.
+ * Start the fade out animation without changing the visibility status. The changes in the
+ * visibility status is delegate to the function [hide].
  *
  * @param duration The duration of the animation
- * @param hide The function to call when the animation is finished
  * @param onAnimationEnd The function to call when the animation is finished
+ *
+ * @see [goneFadeOut]
+ * @see [invisibleFadeOut]
  */
 fun View.hideFadeOut(
     duration: Long = ANIMATION_SHORT_TIME,

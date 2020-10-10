@@ -38,7 +38,7 @@ fun TextView.setTextExpandableAnimation(
 }
 
 /**
- * Changes the text of the TextView using cross fade animation.
+ * Changes the text of the [TextView] using cross fade animation.
  *
  * @param text The new text of the TextView
  * @param duration The duration of the animation
