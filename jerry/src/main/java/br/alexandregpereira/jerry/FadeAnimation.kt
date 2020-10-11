@@ -234,7 +234,7 @@ fun View.hideFadeOutSpring(
     )
 }
 
-private fun View.startFadeSpringAnimation(
+internal fun View.startFadeSpringAnimation(
     targetValue: Float,
     stiffness: Float,
     onAnimationEnd: (() -> Unit)?,

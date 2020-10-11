@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
 import br.alexandregpereira.jerry.invisibleFadeOutSpring
-import br.alexandregpereira.jerry.setTextFade
+import br.alexandregpereira.jerry.setTextFadeSpring
 import br.alexandregpereira.jerry.visibleFadeInSpring
 import kotlinx.android.synthetic.main.activity_fade_animation.*
 
@@ -23,14 +23,14 @@ class FadeAnimationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_fade_animation)
 
         val list = listOf(
-            "Fade text change 2",
-            "Fade text change 3",
-            "Fade text change 4",
-            "Fade text change 5",
+            "Fade text changeasaaaaa 2",
+            "Fade text change asda sdas 3",
+            "asdasd asdasdasd 4",
+            "Fade asdasdasddas change 5",
             "Fade text change 1",
         ).circularIterator()
         fadeTextButton.setOnClickListener {
-            fadeTextView.setTextFade(list.next())
+            fadeTextView.setTextFadeSpring(list.next())
         }
 
         goneTextButton.setOnClickListener {
