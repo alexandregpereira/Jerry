@@ -12,8 +12,6 @@
         android:paddingTop="@dimen/small"
         android:paddingBottom="@dimen/x_large">
 
-        <include layout="@layout/container_seek_bar"/>
-
         <TextView
             android:id="@+id/collapseLabel"
             style="@style/Title.XLarge"
@@ -21,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/collapse"
             app:layout_constraintBottom_toTopOf="@id/collapseTextView"
-            app:layout_constraintTop_toBottomOf="@id/seekBarValue" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/collapseTextView"

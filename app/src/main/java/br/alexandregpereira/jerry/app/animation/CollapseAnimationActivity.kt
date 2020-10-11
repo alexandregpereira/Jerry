@@ -3,19 +3,15 @@ package br.alexandregpereira.jerry.app.animation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.collapseHeight
 import br.alexandregpereira.jerry.collapseHeightSpring
-import br.alexandregpereira.jerry.collapseWidth
-import br.alexandregpereira.jerry.expandHeight
+import br.alexandregpereira.jerry.collapseWidthSpring
 import br.alexandregpereira.jerry.expandHeightSpring
-import br.alexandregpereira.jerry.expandWidth
+import br.alexandregpereira.jerry.expandWidthSpring
 import kotlinx.android.synthetic.main.activity_collapse_animation.*
 import kotlinx.android.synthetic.main.container_animation_info.view.*
-import kotlinx.android.synthetic.main.container_seek_bar.*
 
 class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_animation) {
 
@@ -34,18 +30,6 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
             collapseAnimationInfo,
             resources.getDimension(R.dimen.strong_elevation)
         )
-
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                seekBarValue.text = progress.getSeekBarAnimationDuration().run {
-                    "$this ms"
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
 
         collapseTextButton.setOnClickListener {
             collapseTextView.collapseHeightSpring(
@@ -68,39 +52,35 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
         }
 
         collapseFixedTextButton.setOnClickListener {
-            collapseFixedTextView.collapseHeight(
-                duration = seekBar.progress.getSeekBarAnimationDuration()
-            )
+            collapseFixedTextView.collapseHeightSpring()
         }
 
         collapseExpandFixedTextButton.setOnClickListener {
-            collapseFixedTextView.expandHeight(
-                duration = seekBar.progress.getSeekBarAnimationDuration()
-            )
+            collapseFixedTextView.expandHeightSpring()
         }
 
         collapseWidthTextButton.setOnClickListener {
-            collapseWidthTextView.collapseWidth()
+            collapseWidthTextView.collapseWidthSpring()
         }
 
         collapseExpandWidthTextButton.setOnClickListener {
-            collapseWidthTextView.expandWidth()
+            collapseWidthTextView.expandWidthSpring()
         }
 
         collapseMatchWidthButton.setOnClickListener {
-            collapseMatchWidthView.collapseWidth()
+            collapseMatchWidthView.collapseWidthSpring()
         }
 
         collapseExpandMatchWidthButton.setOnClickListener {
-            collapseMatchWidthView.expandWidth()
+            collapseMatchWidthView.expandWidthSpring()
         }
 
         collapseFixedWidthButton.setOnClickListener {
-            collapseFixedWidthView.collapseWidth()
+            collapseFixedWidthView.collapseWidthSpring()
         }
 
         collapseExpandFixedWidthButton.setOnClickListener {
-            collapseFixedWidthView.expandWidth()
+            collapseFixedWidthView.expandWidthSpring()
         }
     }
 }

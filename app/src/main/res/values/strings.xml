@@ -36,7 +36,7 @@
     <string name="change_background_color">Change background color</string>
     <string name="change_text_color">Change text color</string>
     <string name="this_text_needs_to_show_entirely">This text needs to show entirely</string>
-    <string name="animation_duration">Animation duration</string>
-    <string name="seek_bar_initial_value">200 ms</string>
+    <string name="animation_duration">Animation stiffness</string>
+    <string name="seek_bar_initial_value">600</string>
 
 </resources>

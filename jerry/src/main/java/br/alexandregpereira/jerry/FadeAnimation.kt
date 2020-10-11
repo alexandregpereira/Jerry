@@ -137,13 +137,13 @@ private fun View.startFadeOutRunning() = setFadeInFadeOutRunning(POP_ANIMATION_M
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.goneFadeOutSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     hideFadeOutSpring(stiffness, ::gone, onAnimationEnd = onAnimationEnd)
@@ -155,13 +155,13 @@ fun View.goneFadeOutSpring(
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.invisibleFadeOutSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     hideFadeOutSpring(stiffness, ::invisible, onAnimationEnd)
@@ -174,13 +174,13 @@ fun View.invisibleFadeOutSpring(
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.visibleFadeInSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     if (isFadeInRunning() || (alpha == 1f && isVisible() && isFadeOutRunning().not())) {
@@ -206,13 +206,13 @@ fun View.visibleFadeInSpring(
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.hideFadeOutSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     hide: (() -> Unit),
     onAnimationEnd: (() -> Unit)? = null
 ) {

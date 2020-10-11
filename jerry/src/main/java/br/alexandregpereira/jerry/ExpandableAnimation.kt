@@ -205,7 +205,7 @@ fun Animation.setAnimationListener(
 
 fun View.animateHeightVisibility(
     visible: Boolean,
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) {
@@ -223,13 +223,13 @@ fun View.animateHeightVisibility(
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.collapseHeightSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) = collapseSpring(
@@ -246,13 +246,13 @@ fun View.collapseHeightSpring(
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.collapseWidthSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) = collapseSpring(
@@ -270,13 +270,13 @@ fun View.collapseWidthSpring(
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.expandHeightSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) = expandSpring(
@@ -294,13 +294,13 @@ fun View.expandHeightSpring(
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_FAST_STIFFNESS].
+ * [ANIMATION_STIFFNESS].
  * @param onAnimationEnd The function to call when the animation is finished.
  *
  * @see [SpringAnimation]
  */
 fun View.expandWidthSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) = expandSpring(
@@ -311,7 +311,7 @@ fun View.expandWidthSpring(
 )
 
 internal fun View.collapseSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
@@ -337,7 +337,7 @@ internal fun View.collapseSpring(
 }
 
 internal fun View.expandSpring(
-    stiffness: Float = ANIMATION_FAST_STIFFNESS,
+    stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null

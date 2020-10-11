@@ -9,7 +9,7 @@ import androidx.dynamicanimation.animation.SpringForce
 
 const val ANIMATION_SHORT_TIME = 200L
 
-const val ANIMATION_FAST_STIFFNESS = 600f
+const val ANIMATION_STIFFNESS = 500f
 
 /**
  * Used to clear the key to verify if a animation is running.
@@ -45,7 +45,7 @@ fun View.spring(
     return springAnimation
 }
 
-internal fun View.startSpringAnimation(
+fun View.startSpringAnimation(
     key: Int,
     property: FloatPropertyCompat<View>,
     targetValue: Float,

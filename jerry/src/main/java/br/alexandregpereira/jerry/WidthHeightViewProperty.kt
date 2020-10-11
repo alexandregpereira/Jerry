@@ -47,11 +47,10 @@ internal fun View.widthHeightViewProperty(
     }
 
     private fun setCollapsingValue(value: Float) {
-        if (value == 0f) {
-            setLayoutParamSize(originalValue, isHeight)
-        } else {
-            setLayoutParamSize(value.toInt(), isHeight)
+        val finalValue = value.toInt().let {
+            if (it == 0) 1 else it
         }
+        setLayoutParamSize(finalValue, isHeight)
     }
 
     private fun setExpandingValue(value: Float, targetValue: Int) {
