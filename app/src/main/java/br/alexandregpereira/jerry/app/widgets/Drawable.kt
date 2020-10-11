@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
-import android.graphics.drawable.ShapeDrawable
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
@@ -50,10 +49,10 @@ fun View.setMaterialShapeDrawable(): View {
 
     val materialShapeDrawable = MaterialShapeDrawable(shapeAppearanceModel).apply {
         this.fillColor = ColorStateList.valueOf(Color.WHITE)
-        this.elevation = resources.getDimension(R.dimen.elevation)
+        this.elevation = resources.getDimension(R.dimen.strong_elevation)
     }
 
-    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.elevation))
+    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.strong_elevation))
 
     return this.apply {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -70,7 +69,7 @@ fun View.setRoundShape(): View {
         shape = GradientDrawable.OVAL
     }
 
-    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.elevation2))
+    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.medium_elevation))
     ViewCompat.setBackground(this, ovalDrawable)
 
     return this

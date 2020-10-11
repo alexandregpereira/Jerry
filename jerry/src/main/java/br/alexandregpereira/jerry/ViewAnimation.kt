@@ -2,13 +2,12 @@ package br.alexandregpereira.jerry
 
 import android.view.View
 import android.view.ViewPropertyAnimator
+import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FloatPropertyCompat
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 
 const val ANIMATION_SHORT_TIME = 200L
-const val ANIMATION_MEDIUM_TIME = 400L
-const val ANIMATION_LONG_TIME = 600L
 
 const val ANIMATION_FAST_STIFFNESS = 600f
 
@@ -31,8 +30,7 @@ fun View.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
-    stiffness: Float = SpringForce.STIFFNESS_LOW,
-    onValueUpdated: ((progress: Float) -> Unit)? = null
+    stiffness: Float = SpringForce.STIFFNESS_LOW
 ): SpringAnimation {
     var springAnimation = getTag(key) as? SpringAnimation
     if (springAnimation == null) {
@@ -40,11 +38,6 @@ fun View.spring(
             spring = SpringForce().apply {
                 this.dampingRatio = dampingRatio
                 this.stiffness = stiffness
-            }
-            onValueUpdated?.let {
-                addUpdateListener { _, value, _ ->
-                    onValueUpdated(value)
-                }
             }
         }
         setTag(key, springAnimation)

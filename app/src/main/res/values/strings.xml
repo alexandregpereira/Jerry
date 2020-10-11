@@ -9,6 +9,7 @@
     <string name="visible_invisible_fade_in">Visible/invisible fade in</string>
     <string name="collapse_fading">Collapse Fading</string>
     <string name="collapse_expand_animation">Collapse/expand animation</string>
+    <string name="collapse_reverse_animation">Collapse/Expand animation</string>
     <string name="collapse_animation">Collapse animation</string>
     <string name="collapse_cancel_animation">Collapse and cancel animation</string>
     <string name="expand_animation">Expand animation</string>

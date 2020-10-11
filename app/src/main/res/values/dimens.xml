@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_padding">16dp</dimen>
-    <dimen name="elevation">8dp</dimen>
-    <dimen name="elevation2">18dp</dimen>
+    <dimen name="low_elevation">2dp</dimen>
+    <dimen name="medium_elevation">4dp</dimen>
+    <dimen name="strong_elevation">8dp</dimen>
     <dimen name="corner_size">8dp</dimen>
 
     <dimen name="xxx_small">2dp</dimen>

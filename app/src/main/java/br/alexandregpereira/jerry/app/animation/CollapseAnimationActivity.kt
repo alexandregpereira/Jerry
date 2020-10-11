@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import br.alexandregpereira.jerry.app.R
 import br.alexandregpereira.jerry.collapseHeight
 import br.alexandregpereira.jerry.collapseHeightSpring
@@ -13,11 +14,12 @@ import br.alexandregpereira.jerry.expandHeight
 import br.alexandregpereira.jerry.expandHeightSpring
 import br.alexandregpereira.jerry.expandWidth
 import kotlinx.android.synthetic.main.activity_collapse_animation.*
+import kotlinx.android.synthetic.main.container_animation_info.view.*
 import kotlinx.android.synthetic.main.container_seek_bar.*
 
 class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_animation) {
 
-    var collapseTextViewCount = 1
+    private var collapseTextViewCount = 1
 
     companion object {
         fun getStartIntent(context: Context): Intent {
@@ -27,6 +29,11 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ViewCompat.setTranslationZ(
+            collapseAnimationInfo,
+            resources.getDimension(R.dimen.strong_elevation)
+        )
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -43,20 +50,20 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
         collapseTextButton.setOnClickListener {
             collapseTextView.collapseHeightSpring(
                 onProgressChange = { interpolatedTime ->
-                    collapsePercentageTextView.text = (interpolatedTime * 100).toInt().toString()
+                    collapseAnimationInfo.percentageTextView.text = (interpolatedTime * 100).toInt().toString()
                 }
             ) {
-                collapseCountTextView.text = collapseTextViewCount++.toString()
+                collapseAnimationInfo.countTextView.text = collapseTextViewCount++.toString()
             }
         }
 
         collapseExpandTextButton.setOnClickListener {
             collapseTextView.expandHeightSpring(
                 onProgressChange = { interpolatedTime ->
-                    collapsePercentageTextView.text = (interpolatedTime * 100).toInt().toString()
+                    collapseAnimationInfo.percentageTextView.text = (interpolatedTime * 100).toInt().toString()
                 }
             ) {
-                collapseCountTextView.text = collapseTextViewCount++.toString()
+                collapseAnimationInfo.countTextView.text = collapseTextViewCount++.toString()
             }
         }
 
