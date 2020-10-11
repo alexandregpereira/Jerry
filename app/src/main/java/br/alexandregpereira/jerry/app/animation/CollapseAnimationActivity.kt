@@ -7,8 +7,10 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
 import br.alexandregpereira.jerry.collapseHeight
+import br.alexandregpereira.jerry.collapseHeightSpring
 import br.alexandregpereira.jerry.collapseWidth
 import br.alexandregpereira.jerry.expandHeight
+import br.alexandregpereira.jerry.expandHeightSpring
 import br.alexandregpereira.jerry.expandWidth
 import kotlinx.android.synthetic.main.activity_collapse_animation.*
 import kotlinx.android.synthetic.main.container_seek_bar.*
@@ -39,8 +41,7 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
         })
 
         collapseTextButton.setOnClickListener {
-            collapseTextView.collapseHeight(
-                duration = seekBar.progress.getSeekBarAnimationDuration(),
+            collapseTextView.collapseHeightSpring(
                 onProgressChange = { interpolatedTime ->
                     collapsePercentageTextView.text = (interpolatedTime * 100).toInt().toString()
                 }
@@ -50,8 +51,7 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
         }
 
         collapseExpandTextButton.setOnClickListener {
-            collapseTextView.expandHeight(
-                duration = seekBar.progress.getSeekBarAnimationDuration(),
+            collapseTextView.expandHeightSpring(
                 onProgressChange = { interpolatedTime ->
                     collapsePercentageTextView.text = (interpolatedTime * 100).toInt().toString()
                 }
@@ -61,11 +61,15 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
         }
 
         collapseFixedTextButton.setOnClickListener {
-            collapseFixedTextView.collapseHeight()
+            collapseFixedTextView.collapseHeight(
+                duration = seekBar.progress.getSeekBarAnimationDuration()
+            )
         }
 
         collapseExpandFixedTextButton.setOnClickListener {
-            collapseFixedTextView.expandHeight()
+            collapseFixedTextView.expandHeight(
+                duration = seekBar.progress.getSeekBarAnimationDuration()
+            )
         }
 
         collapseWidthTextButton.setOnClickListener {
