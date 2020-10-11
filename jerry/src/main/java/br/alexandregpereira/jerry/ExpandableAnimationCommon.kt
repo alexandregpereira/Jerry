@@ -2,51 +2,6 @@ package br.alexandregpereira.jerry
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.dynamicanimation.animation.DynamicAnimation
-import androidx.dynamicanimation.animation.SpringAnimation
-
-internal fun View.startExpandCollapseAnimation(
-    stiffness: Float,
-    isHeight: Boolean = true,
-    targetValue: Float,
-    onProgressChange: ((progress: Float) -> Unit)?,
-    onAnimationEnd: (() -> Unit)?
-) {
-    val springAnimation = this.spring(
-        getExpandingCollapsingSpringKey(isHeight),
-        widthHeightViewProperty(isHeight, onProgressChange),
-        stiffness = stiffness
-    )
-
-    getExpandingCollapsingEndListener(isHeight)?.also {
-        springAnimation.removeEndListener(it)
-    }
-    springAnimation.addExpandingCollapsingEndListener(view = this, isHeight, onAnimationEnd)
-
-    springAnimation.animateToFinalPosition(targetValue)
-}
-
-internal fun SpringAnimation.addExpandingCollapsingEndListener(
-    view: View,
-    isHeight: Boolean,
-    onAnimationEnd: (() -> Unit)? = null
-) {
-    DynamicAnimation.OnAnimationEndListener { _, _, _, _ ->
-        view.getExpandingCollapsingEndListener(isHeight)?.let {
-            this.removeEndListener(it)
-        }
-        view.finishExpandingCollapsingAnimation(onAnimationEnd)
-    }.let {
-        this.addEndListener(it)
-        view.setTag(getExpandingCollapsingEndListenerKey(isHeight), it)
-    }
-}
-
-internal fun View.getExpandingCollapsingEndListener(isHeight: Boolean): DynamicAnimation.OnAnimationEndListener? {
-    return getTag(getExpandingCollapsingEndListenerKey(isHeight)).run {
-        this as? DynamicAnimation.OnAnimationEndListener
-    }
-}
 
 internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): Int {
     return if (isHeight) {

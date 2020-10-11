@@ -45,6 +45,57 @@ fun View.spring(
     return springAnimation
 }
 
+internal fun View.startSpringAnimation(
+    key: Int,
+    property: FloatPropertyCompat<View>,
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
+    endListenerPair: Pair<Int, (() -> Unit)>? = null
+) {
+    val springAnimation = this.spring(
+        key,
+        property,
+        stiffness = stiffness,
+        dampingRatio = dampingRatio
+    )
+
+    endListenerPair?.let {
+        getSpringEndListener(key = it.first)?.also { endListener ->
+            springAnimation.removeEndListener(endListener)
+        }
+        springAnimation.addSpringEndListener(
+            key = it.first,
+            view = this,
+            onAnimationEnd = it.second
+        )
+    }
+
+    springAnimation.animateToFinalPosition(targetValue)
+}
+
+internal fun SpringAnimation.addSpringEndListener(
+    key: Int,
+    view: View,
+    onAnimationEnd: () -> Unit
+) {
+    DynamicAnimation.OnAnimationEndListener { _, _, _, _ ->
+        view.getSpringEndListener(key)?.let {
+            this.removeEndListener(it)
+        }
+        onAnimationEnd()
+    }.let {
+        this.addEndListener(it)
+        view.setTag(key, it)
+    }
+}
+
+internal fun View.getSpringEndListener(key: Int): DynamicAnimation.OnAnimationEndListener? {
+    return getTag(key).run {
+        this as? DynamicAnimation.OnAnimationEndListener
+    }
+}
+
 /**
  * Check if is animation is running using the view tag system.
  *

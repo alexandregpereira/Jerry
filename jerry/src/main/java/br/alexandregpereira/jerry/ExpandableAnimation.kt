@@ -324,10 +324,10 @@ internal fun View.collapseSpring(
     getOriginalValue(isHeight)
     getCollapsingInitialValue(isHeight)
 
-    startExpandCollapseAnimation(
+    startExpandCollapseSpringAnimation(
+        targetValue = 0f,
         stiffness = stiffness,
         isHeight = isHeight,
-        targetValue = 0f,
         onProgressChange = onProgressChange,
         onAnimationEnd = {
             gone()
@@ -363,11 +363,27 @@ internal fun View.expandSpring(
     }
     visible()
 
-    startExpandCollapseAnimation(
+    startExpandCollapseSpringAnimation(
+        targetValue = targetValue.toFloat(),
         stiffness = stiffness,
         isHeight = isHeight,
-        targetValue = targetValue.toFloat(),
         onProgressChange = onProgressChange,
         onAnimationEnd = onAnimationEnd
     )
 }
+
+private fun View.startExpandCollapseSpringAnimation(
+    targetValue: Float,
+    stiffness: Float,
+    isHeight: Boolean,
+    onProgressChange: ((progress: Float) -> Unit)?,
+    onAnimationEnd: (() -> Unit)?,
+) = startSpringAnimation(
+    key = getExpandingCollapsingSpringKey(isHeight),
+    property = widthHeightViewProperty(isHeight, onProgressChange),
+    targetValue = targetValue,
+    stiffness = stiffness,
+    endListenerPair = getExpandingCollapsingEndListenerKey(isHeight) to {
+        finishExpandingCollapsingAnimation(onAnimationEnd)
+    }
+)

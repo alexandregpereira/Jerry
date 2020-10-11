@@ -2,7 +2,8 @@
     <string name="app_name">Jerry</string>
 
     <string name="fade">Fade</string>
-    <string name="fade_text_change">Fade text change</string>
+    <string name="fade_text_change">Fade text change 1</string>
+    <string name="fade_text_change_button">Fade text change</string>
     <string name="invisible_visible_fade_out">Invisible/visible fade out</string>
     <string name="invisible_fade_out">Invisible fade out</string>
     <string name="visible_fade_in">Visible fade in</string>
