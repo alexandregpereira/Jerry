@@ -3,7 +3,7 @@ package br.alexandregpereira.jerry
 import android.view.View
 
 /**
- * Uses the [expandHeight] and [visibleFadeIn] animations in sequence. This animation
+ * Uses the [expandHeight] and [fadeIn] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
  * [collapseHeightFading] method is called.
  *
@@ -16,7 +16,7 @@ fun View.expandHeightFading(
 ) = expandFading(duration, isHeight = true, onAnimationEnd)
 
 /**
- * Uses the [expandWidth] and [visibleFadeIn] animations in sequence. This animation
+ * Uses the [expandWidth] and [fadeIn] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
  * [collapseWidthFading] method is called.
  *
@@ -80,11 +80,11 @@ private fun View.expandFading(
     if (alpha == 1f) alpha = 0f
 
     if (alpha > 0f && alpha < 1f) {
-        visibleFadeIn(duration = duration, onAnimationEnd = onAnimationEnd)
+        fadeIn(duration = duration, onAnimationEnd = onAnimationEnd)
         return
     }
 
     expand(duration = duration / 2, isHeight = isHeight) {
-        visibleFadeIn(duration = duration / 2, onAnimationEnd = onAnimationEnd)
+        fadeIn(duration = duration / 2, onAnimationEnd = onAnimationEnd)
     }
 }

@@ -4,27 +4,21 @@ import android.view.View
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 
-/**
- * Change the visibility to GONE of the view using fade out animation. This method can be
- * reverted in the middle of the animation if the [visibleFadeIn] method is called.
- *
- * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
- * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_STIFFNESS].
- * @param onAnimationEnd The function to call when the animation is finished.
- *
- * @see [SpringAnimation]
- */
-fun View.goneFadeOutSpring(
+fun View.animateAlphaVisibility(
+    visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: (() -> Unit)? = null
 ) {
-    hideFadeOutSpring(stiffness, ::gone, onAnimationEnd = onAnimationEnd)
+    if (visible) {
+        fadeInSpring(stiffness, onAnimationEnd = onAnimationEnd)
+    } else {
+        fadeOutSpring(stiffness, onAnimationEnd = onAnimationEnd)
+    }
 }
 
 /**
- * Change the visibility to INVISIBLE of the view using fade out animation. This method can be
- * reverted in the middle of the animation if the [visibleFadeIn] method is called.
+ * Change the visibility to GONE of the view using fade out animation. This method can be
+ * reverted in the middle of the animation if the [fadeIn] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -33,16 +27,16 @@ fun View.goneFadeOutSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.invisibleFadeOutSpring(
+fun View.fadeOutSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: (() -> Unit)? = null
 ) {
-    hideFadeOutSpring(stiffness, ::invisible, onAnimationEnd)
+    hideFadeOutSpring(stiffness, hide = ::gone, onAnimationEnd = onAnimationEnd)
 }
 
 /**
  * Change the visibility to VISIBLE of the view using fade in animation. This method can be
- * reverted in the middle of the animation if the [invisibleFadeOut] or [goneFadeOut]
+ * reverted in the middle of the animation if the [fadeOut]
  * method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
@@ -52,7 +46,7 @@ fun View.invisibleFadeOutSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.visibleFadeInSpring(
+fun View.fadeInSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: (() -> Unit)? = null
 ) {
@@ -84,10 +78,10 @@ fun View.visibleFadeInSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.hideFadeOutSpring(
-    stiffness: Float = ANIMATION_STIFFNESS,
+internal fun View.hideFadeOutSpring(
+    stiffness: Float,
     hide: (() -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: (() -> Unit)?
 ) {
     if (isVisible().not() || isFadeOutRunning()) {
         if (isFadeOutRunning().not()) {

@@ -4,10 +4,10 @@ import android.widget.TextView
 import androidx.dynamicanimation.animation.SpringAnimation
 
 /**
- * Uses the [setTextFade], [expandHeightFading] or [collapseHeightFading] animation methods
- * depending of the TextView state. If the new text is null or empty, the [collapseHeightFading]
- * is used, else if the TextView is already visible, the [setTextFade] is used, else the
- * [expandHeightFading] is used.
+ * Uses the [setTextFadeSpring], [expandHeightFadingSpring] or [collapseHeightFadingSpring]
+ * animation methods depending of the TextView state. If the new text is null or empty,
+ * the [collapseHeightFadingSpring] is used, else if the TextView is already visible,
+ * the [setTextFadeSpring] is used, else the [expandHeightFadingSpring] is used.
  *
  * @param text The new text of the TextView
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to

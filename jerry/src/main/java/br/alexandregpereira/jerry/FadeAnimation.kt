@@ -6,12 +6,12 @@ import android.view.animation.Interpolator
 
 /**
  * Change the visibility to GONE of the view using fade out animation. This method can be
- * reverted in the middle of the animation if the [visibleFadeIn] method is called.
+ * reverted in the middle of the animation if the [fadeIn] method is called.
  *
  * @param duration The duration of the animation
  * @param onAnimationEnd The function to call when the animation is finished
  */
-fun View.goneFadeOut(
+fun View.fadeOut(
     duration: Long = ANIMATION_SHORT_TIME,
     onAnimationEnd: (() -> Unit)? = null
 ) {
@@ -19,28 +19,14 @@ fun View.goneFadeOut(
 }
 
 /**
- * Change the visibility to INVISIBLE of the view using fade out animation. This method can be
- * reverted in the middle of the animation if the [visibleFadeIn] method is called.
- *
- * @param duration The duration of the animation
- * @param onAnimationEnd The function to call when the animation is finished
- */
-fun View.invisibleFadeOut(
-    duration: Long = ANIMATION_SHORT_TIME,
-    onAnimationEnd: (() -> Unit)? = null
-) {
-    hideFadeOut(duration, ::invisible, onAnimationEnd)
-}
-
-/**
  * Change the visibility to VISIBLE of the view using fade in animation. This method can be
- * reverted in the middle of the animation if the [invisibleFadeOut] or [goneFadeOut]
+ * reverted in the middle of the animation if the [fadeOut]
  * method is called.
  *
  * @param duration The duration of the animation
  * @param onAnimationEnd The function to call when the animation is finished
  */
-fun View.visibleFadeIn(
+fun View.fadeIn(
     duration: Long = ANIMATION_SHORT_TIME,
     onAnimationEnd: (() -> Unit)? = null
 ) {
@@ -66,10 +52,9 @@ fun View.visibleFadeIn(
  * @param duration The duration of the animation
  * @param onAnimationEnd The function to call when the animation is finished
  *
- * @see [goneFadeOut]
- * @see [invisibleFadeOut]
+ * @see [fadeOut]
  */
-fun View.hideFadeOut(
+internal fun View.hideFadeOut(
     duration: Long = ANIMATION_SHORT_TIME,
     hide: (() -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null

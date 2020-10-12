@@ -3,8 +3,32 @@ package br.alexandregpereira.jerry
 import android.view.View
 import androidx.dynamicanimation.animation.SpringAnimation
 
+fun View.animateHeightFadingVisibility(
+    visible: Boolean,
+    stiffness: Float = ANIMATION_STIFFNESS,
+    onAnimationEnd: (() -> Unit)? = null
+) {
+    if (visible) {
+        expandHeightFadingSpring(stiffness, onAnimationEnd)
+    } else {
+        collapseHeightFadingSpring(stiffness, onAnimationEnd)
+    }
+}
+
+fun View.animateWidthFadingVisibility(
+    visible: Boolean,
+    stiffness: Float = ANIMATION_STIFFNESS,
+    onAnimationEnd: (() -> Unit)? = null
+) {
+    if (visible) {
+        expandWidthFadingSpring(stiffness, onAnimationEnd)
+    } else {
+        collapseWidthFadingSpring(stiffness, onAnimationEnd)
+    }
+}
+
 /**
- * Uses the [expandHeight] and [visibleFadeIn] animations in sequence. This animation
+ * Uses the [expandHeight] and [fadeIn] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
  * [collapseHeightFading] method is called.
  *
@@ -21,7 +45,7 @@ fun View.expandHeightFadingSpring(
 ) = expandFadingSpring(stiffness, isHeight = true, onAnimationEnd)
 
 /**
- * Uses the [expandWidth] and [visibleFadeIn] animations in sequence. This animation
+ * Uses the [expandWidth] and [fadeIn] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
  * [collapseWidthFading] method is called.
  *
@@ -101,11 +125,11 @@ private fun View.expandFadingSpring(
     if (alpha == 1f) alpha = 0f
 
     if (alpha > 0f && alpha < 1f) {
-        visibleFadeInSpring(onAnimationEnd = onAnimationEnd)
+        fadeInSpring(onAnimationEnd = onAnimationEnd)
         return
     }
 
     expandSpring(stiffness = stiffness * 2f, isHeight = isHeight) {
-        visibleFadeInSpring(stiffness = stiffness * 2f, onAnimationEnd = onAnimationEnd)
+        fadeInSpring(stiffness = stiffness * 2f, onAnimationEnd = onAnimationEnd)
     }
 }

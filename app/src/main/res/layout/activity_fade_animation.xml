@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -15,67 +16,85 @@
             style="@style/Title.XLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fade" />
+            android:text="@string/fade"
+            app:layout_constraintBottom_toTopOf="@id/fadeTextView"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/fadeTextView"
-            android:textColor="@color/textSecondaryColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/x_small"
-            android:text="@string/fade_text_change" />
+            android:text="@string/fade_text_change"
+            android:textColor="@color/textSecondaryColor"
+            app:layout_constraintBottom_toTopOf="@id/fadeTextButton"
+            app:layout_constraintTop_toBottomOf="@id/fadeLabel" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/fadeTextButton"
             style="@style/FirstButton.SecondButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fade_text_change_button" />
+            android:text="@string/fade_text_change_button"
+            app:layout_constraintBottom_toTopOf="@id/goneTextView"
+            app:layout_constraintTop_toBottomOf="@id/fadeTextView" />
 
         <TextView
             android:id="@+id/goneTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@color/backgroundColor"
             android:padding="@dimen/x_small"
-            android:text="@string/invisible_visible_fade_out" />
+            android:text="@string/invisible_visible_fade_out"
+            app:layout_constraintBottom_toTopOf="@id/goneTextButton"
+            app:layout_constraintTop_toBottomOf="@id/fadeTextButton" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/goneTextButton"
             style="@style/FirstButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/invisible_fade_out" />
+            android:text="@string/invisible_fade_out"
+            app:layout_constraintTop_toBottomOf="@id/goneTextView"
+            app:layout_goneMarginTop="56dp" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/goneVisibleTextButton"
             style="@style/FirstButton.SecondButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/visible_fade_in" />
+            android:text="@string/visible_fade_in"
+            app:layout_constraintBottom_toTopOf="@id/visibleTextView"
+            app:layout_constraintTop_toBottomOf="@id/goneTextButton" />
 
         <TextView
             android:id="@+id/visibleTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@color/backgroundColor"
             android:padding="@dimen/x_small"
             android:text="@string/visible_invisible_fade_in"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/visibleTextButton"
+            app:layout_constraintTop_toBottomOf="@id/goneVisibleTextButton" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/visibleTextButton"
             style="@style/FirstButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/visible_fade_in" />
+            android:text="@string/visible_fade_in"
+            app:layout_constraintTop_toBottomOf="@id/visibleTextView"
+            app:layout_goneMarginTop="56dp" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/visibleInvisibleTextButton"
             style="@style/FirstButton.SecondButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/invisible_fade_out" />
+            android:text="@string/invisible_fade_out"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/visibleTextButton" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
