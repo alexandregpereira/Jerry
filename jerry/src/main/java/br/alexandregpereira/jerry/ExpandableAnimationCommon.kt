@@ -1,6 +1,7 @@
 package br.alexandregpereira.jerry
 
 import android.view.View
+import android.view.View.MeasureSpec
 import android.view.ViewGroup
 
 internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): Int {
@@ -62,7 +63,7 @@ internal fun View.getCollapsingInitialValue(isHeight: Boolean): Int {
     }
 }
 
-internal fun View.getWidthOrHeightOriginalValue(isHeight: Boolean): Int {
+internal fun View.getOrStoreWidthOrHeightOriginalValue(isHeight: Boolean): Int {
     val key = getWidthOrHeightOriginalValueKey(isHeight)
     return runCatching {
         getTag(key) as Int
@@ -94,35 +95,14 @@ internal fun View.getTargetValue(originalValue: Int, isHeight: Boolean): Int? {
         return null
     }
 
-    if (originalValue == ViewGroup.LayoutParams.MATCH_PARENT) return parentSize
-
-    val widthMeasureSize: Int
-    val heightMeasureSize: Int
-
-    val widthMeasureSpecMode: Int
-    val heightMeasureSpecMode: Int
-
-    if (isHeight) {
-        widthMeasureSize = parentSize
-        heightMeasureSize = 0
-
-        widthMeasureSpecMode = View.MeasureSpec.EXACTLY
-        heightMeasureSpecMode = View.MeasureSpec.UNSPECIFIED
-    } else {
-        widthMeasureSize = 0
-        heightMeasureSize = parentSize
-
-        widthMeasureSpecMode = View.MeasureSpec.UNSPECIFIED
-        heightMeasureSpecMode = View.MeasureSpec.EXACTLY
+    if (originalValue == ViewGroup.LayoutParams.MATCH_PARENT || originalValue == 0) {
+        return parentSize
     }
 
-    val widthMeasureSpec =
-        View.MeasureSpec.makeMeasureSpec(widthMeasureSize, widthMeasureSpecMode)
-
-    val heightMeasureSpec =
-        View.MeasureSpec.makeMeasureSpec(heightMeasureSize, heightMeasureSpecMode)
-
-    measure(widthMeasureSpec, heightMeasureSpec)
+    measure(
+        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+    )
 
     return if (isHeight) measuredHeight else measuredWidth
 }

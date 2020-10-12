@@ -86,7 +86,7 @@ fun View.visibleFadeInSpring(
  */
 fun View.hideFadeOutSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
-    hide: (() -> Unit),
+    hide: (() -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     if (isVisible().not() || isFadeOutRunning()) {
@@ -101,7 +101,7 @@ fun View.hideFadeOutSpring(
         targetValue = 0f,
         stiffness = stiffness,
         onAnimationEnd = {
-            hide()
+            hide?.invoke()
             onAnimationEnd?.invoke()
         }
     )

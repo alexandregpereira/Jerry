@@ -102,8 +102,8 @@ fun View.expandHeightSpring(
 /**
  * Animates expanding the width and changes the visibility status to VISIBLE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [collapseWidth] method is called. Any alteration of the parent width during the this animation
- * makes glitches in the animation.
+ * if the [collapseWidth] method is called. Any alteration of the parent width during the this
+ * animation makes glitches in the animation.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -133,7 +133,7 @@ internal fun View.collapseSpring(
         return
     }
     startCollapsingRunning()
-    getWidthOrHeightOriginalValue(isHeight)
+    getOrStoreWidthOrHeightOriginalValue(isHeight)
     startExpandCollapseSpringAnimation(
         targetValue = 0f,
         stiffness = stiffness,
@@ -156,7 +156,7 @@ internal fun View.expandSpring(
         return
     }
 
-    val originalValue = getWidthOrHeightOriginalValue(isHeight)
+    val originalValue = getOrStoreWidthOrHeightOriginalValue(isHeight)
     val initialValue = (getLayoutParamSize(isHeight)).let {
         if (it == originalValue || it < 0) 0 else it
     }

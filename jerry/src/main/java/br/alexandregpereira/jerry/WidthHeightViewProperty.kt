@@ -10,7 +10,7 @@ internal fun View.widthHeightViewProperty(
 ) = object : FloatPropertyCompat<View>("viewProperty") {
 
     private val originalValue: Int
-        get() = getWidthOrHeightOriginalValue(isHeight)
+        get() = getOrStoreWidthOrHeightOriginalValue(isHeight)
 
     private val initialValue: Int
         get() = if (isExpandingRunning()) {
@@ -21,52 +21,40 @@ internal fun View.widthHeightViewProperty(
             getCollapsingInitialValue(isHeight)
         }
 
-    private val targetValue: Int?
-        get() = if (isExpandingRunning()) {
+    private var targetValue: Int? = null
+
+    private val progressFunction by lazy { createProgressFunction() }
+
+    override fun getValue(view: View?): Float {
+        targetValue =  if (isExpandingRunning()) {
             getTargetValue(originalValue, isHeight)
         } else {
             null
         }
-
-    private val progressFunction = createProgressFunction()
-
-    override fun getValue(view: View?): Float {
         return initialValue.toFloat()
     }
 
     override fun setValue(view: View?, value: Float) {
         val targetValue = targetValue
-        if (targetValue != null) {
-            setExpandingValue(value, targetValue)
-        } else {
-            setCollapsingValue(value)
+        val finalValue = value.toInt().let {
+            if (it == 0) {
+                1
+            } else {
+                if (it == targetValue &&
+                    originalValue == ViewGroup.LayoutParams.WRAP_CONTENT
+                ) {
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                } else {
+                    it
+                }
+            }
         }
 
+        setLayoutParamSize(finalValue, isHeight)
         onProgressChange?.let {
             it(progressFunction(value))
         }
         requestLayout()
-    }
-
-    private fun setCollapsingValue(value: Float) {
-        val finalValue = value.toInt().let {
-            if (it == 0) 1 else it
-        }
-        setLayoutParamSize(finalValue, isHeight)
-    }
-
-    private fun setExpandingValue(value: Float, targetValue: Int) {
-        val finalValue = if (value == 0f) 1f else {
-            if (value == targetValue.toFloat() &&
-                originalValue == ViewGroup.LayoutParams.WRAP_CONTENT
-            ) {
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            } else {
-                value
-            }
-        }
-
-        setLayoutParamSize(finalValue.toInt(), isHeight)
     }
 
     private fun createProgressFunction(): (Float) -> Float {

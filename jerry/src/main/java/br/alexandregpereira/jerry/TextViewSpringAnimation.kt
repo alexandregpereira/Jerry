@@ -4,6 +4,41 @@ import android.widget.TextView
 import androidx.dynamicanimation.animation.SpringAnimation
 
 /**
+ * Uses the [setTextFade], [expandHeightFading] or [collapseHeightFading] animation methods
+ * depending of the TextView state. If the new text is null or empty, the [collapseHeightFading]
+ * is used, else if the TextView is already visible, the [setTextFade] is used, else the
+ * [expandHeightFading] is used.
+ *
+ * @param text The new text of the TextView
+ * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
+ * the object attached when the spring is not at the final position. Default stiffness is
+ * [ANIMATION_STIFFNESS].
+ *
+ * @see [SpringAnimation]
+ */
+fun TextView.setTextExpandableSpring(
+    text: String?,
+    stiffness: Float = ANIMATION_STIFFNESS,
+    onAnimationEnd: (() -> Unit)? = null
+) {
+    if (text == null || text.trim().isEmpty()) {
+        collapseHeightFadingSpring(stiffness = stiffness, onAnimationEnd = onAnimationEnd)
+        return
+    }
+
+    if (isVisible() && isCollapsingRunning().not() && isFadeOutRunning().not()) {
+        setTextFadeSpring(
+            text,
+            stiffness = stiffness,
+            onAnimationEnd = onAnimationEnd
+        )
+        return
+    }
+    setText(text)
+    expandHeightFadingSpring(stiffness = stiffness, onAnimationEnd = onAnimationEnd)
+}
+
+/**
  * Changes the text of the [TextView] using cross fade animation.
  *
  * @param text The new text of the TextView

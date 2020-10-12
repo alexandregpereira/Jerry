@@ -94,7 +94,7 @@ internal fun View.collapse(
     }
     startCollapsingRunning()
 
-    val originalValue = getWidthOrHeightOriginalValue(isHeight)
+    val originalValue = getOrStoreWidthOrHeightOriginalValue(isHeight)
     val initialValue = getCollapsingInitialValue(isHeight)
 
     val animation = object : Animation() {
@@ -136,7 +136,7 @@ internal fun View.expand(
         return
     }
 
-    val originalValue = getWidthOrHeightOriginalValue(isHeight)
+    val originalValue = getOrStoreWidthOrHeightOriginalValue(isHeight)
     val initialValue = (getLayoutParamSize(isHeight)).let {
         if (it == originalValue || it < 0) 0 else it
     }

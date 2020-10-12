@@ -28,8 +28,10 @@
             android:background="@color/backgroundColor"
             android:padding="@dimen/medium"
             android:text="@string/collapse_expand_animation"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/collapseTextButton"
-            app:layout_constraintTop_toBottomOf="@id/collapseLabel" />
+            app:layout_constraintTop_toBottomOf="@id/collapseLabel"
+            tools:visibility="visible" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/collapseTextButton"
@@ -99,7 +101,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/collapse_wrap_width_animation"
-            app:layout_constraintTop_toBottomOf="@id/collapseWidthTextView" />
+            app:layout_constraintTop_toBottomOf="@id/collapseWidthTextView"
+            app:layout_goneMarginTop="66dp" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/collapseExpandWidthTextButton"

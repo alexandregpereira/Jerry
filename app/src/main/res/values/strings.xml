@@ -21,6 +21,10 @@
     <string name="expand_wrap_width_animation">Expand wrap Width animation</string>
     <string name="collapse_match_width_animation">Collapse match Width animation</string>
     <string name="expand_match_width_animation">Expand match Width animation</string>
+    <string name="collapse_0dp_width_animation">Collapse 0dp Width animation</string>
+    <string name="expand_0dp_width_animation">Expand 0dp Width animation</string>
+    <string name="collapse_half_0dp_width_animation">Collapse half 0dp Width animation</string>
+    <string name="expand_half_0dp_width_animation">Expand half 0dp Width animation</string>
     <string name="collapse_fixed_width_animation">Collapse fixed Width animation</string>
     <string name="expand_fixed_width_animation">Expand fixed Width animation</string>
     <string name="expand_fading">Expand Fading</string>

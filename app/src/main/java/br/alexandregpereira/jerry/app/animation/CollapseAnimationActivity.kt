@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import br.alexandregpereira.jerry.animateHeightVisibility
 import br.alexandregpereira.jerry.animateWidthVisibility
 import br.alexandregpereira.jerry.app.R
 import br.alexandregpereira.jerry.collapseHeightSpring
@@ -34,6 +33,7 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
             resources.getDimension(R.dimen.strong_elevation)
         )
 
+        collapseTextView.expandHeightSpring()
         collapseTextButton.setOnClickListener {
             collapseTextView.collapseHeightSpring(
                 onProgressChange = { interpolatedTime ->

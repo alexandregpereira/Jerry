@@ -106,7 +106,7 @@
             style="@style/FirstButton.SecondButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fade_text_change" />
+            android:text="@string/fade_text_change_button" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
