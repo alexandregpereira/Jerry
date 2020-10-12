@@ -21,7 +21,6 @@ fun View.expandHeight(
 ) = expand(
     duration,
     isHeight = true,
-    onAnimationStart = null,
     onProgressChange = onProgressChange,
     onAnimationEnd = onAnimationEnd
 )
@@ -37,12 +36,12 @@ fun View.expandHeight(
  */
 fun View.expandWidth(
     duration: Long = ANIMATION_SHORT_TIME,
+    onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) = expand(
     duration,
     isHeight = false,
-    onAnimationStart = null,
-    onProgressChange = null,
+    onProgressChange = onProgressChange,
     onAnimationEnd = onAnimationEnd
 )
 
@@ -61,7 +60,6 @@ fun View.collapseHeight(
 ) = collapse(
     duration,
     isHeight = true,
-    onAnimationStart = null,
     onProgressChange = onProgressChange,
     onAnimationEnd = onAnimationEnd
 )
@@ -76,12 +74,12 @@ fun View.collapseHeight(
  */
 fun View.collapseWidth(
     duration: Long = ANIMATION_SHORT_TIME,
+    onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) = collapse(
     duration,
     isHeight = false,
-    onAnimationStart = null,
-    onProgressChange = null,
+    onProgressChange = onProgressChange,
     onAnimationEnd = onAnimationEnd
 )
 
@@ -89,7 +87,6 @@ internal fun View.collapse(
     duration: Long = ANIMATION_SHORT_TIME,
     isHeight: Boolean = true,
     onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
-    onAnimationStart: (() -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     if (isVisible().not() || isCollapsingRunning()) {
@@ -97,7 +94,7 @@ internal fun View.collapse(
     }
     startCollapsingRunning()
 
-    val originalValue = getOriginalValue(isHeight)
+    val originalValue = getWidthOrHeightOriginalValue(isHeight)
     val initialValue = getCollapsingInitialValue(isHeight)
 
     val animation = object : Animation() {
@@ -118,10 +115,12 @@ internal fun View.collapse(
             return true
         }
     }
-    animation.setAnimationListener(onEnd = {
-        gone()
-        finishExpandingCollapsingAnimation(onAnimationEnd)
-    }, onStart = onAnimationStart)
+    animation.setAnimationListener(
+        onEnd = {
+            gone()
+            finishExpandingCollapsingAnimation(onAnimationEnd)
+        }
+    )
 
     animation.duration = duration
     startAnimation(animation)
@@ -131,14 +130,13 @@ internal fun View.expand(
     duration: Long = ANIMATION_SHORT_TIME,
     isHeight: Boolean = true,
     onProgressChange: ((interpolatedTime: Float) -> Unit)? = null,
-    onAnimationStart: (() -> Unit)? = null,
     onAnimationEnd: (() -> Unit)? = null
 ) {
     if (isExpandingRunning() || (isVisible() && isCollapsingRunning().not())) {
         return
     }
 
-    val originalValue = getOriginalValue(isHeight)
+    val originalValue = getWidthOrHeightOriginalValue(isHeight)
     val initialValue = (getLayoutParamSize(isHeight)).let {
         if (it == originalValue || it < 0) 0 else it
     }
@@ -175,9 +173,11 @@ internal fun View.expand(
             return true
         }
     }
-    animation.setAnimationListener(onEnd = {
-        finishExpandingCollapsingAnimation(onAnimationEnd)
-    }, onStart = onAnimationStart)
+    animation.setAnimationListener(
+        onEnd = {
+            finishExpandingCollapsingAnimation(onAnimationEnd)
+        }
+    )
 
     animation.duration = duration
     startAnimation(animation)

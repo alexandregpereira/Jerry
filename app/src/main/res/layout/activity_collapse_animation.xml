@@ -95,23 +95,17 @@
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/collapseWidthTextButton"
+            style="@style/FirstButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x_small"
-            android:layout_marginTop="@dimen/small"
-            android:layout_marginEnd="@dimen/x_small"
             android:text="@string/collapse_wrap_width_animation"
-            app:layout_constraintTop_toBottomOf="@id/collapseWidthTextView"
-            app:layout_goneMarginTop="66dp" />
+            app:layout_constraintTop_toBottomOf="@id/collapseWidthTextView" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/collapseExpandWidthTextButton"
+            style="@style/FirstButton.SecondButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x_small"
-            android:layout_marginTop="@dimen/small"
-            android:layout_marginEnd="@dimen/x_small"
-            android:layout_marginBottom="@dimen/x_large"
             android:text="@string/expand_wrap_width_animation"
             app:layout_constraintBottom_toTopOf="@id/collapseMatchWidthView"
             app:layout_constraintTop_toBottomOf="@id/collapseWidthTextButton" />
@@ -121,11 +115,11 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/backgroundColor"
-            app:layout_constraintBottom_toTopOf="@id/collapseMatchWidthButton"
+            app:layout_constraintBottom_toTopOf="@id/collapseReverseMatchWidthButton"
             app:layout_constraintTop_toBottomOf="@id/collapseExpandWidthTextButton" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
-            android:id="@+id/collapseMatchWidthButton"
+            android:id="@+id/collapseReverseMatchWidthButton"
             style="@style/FirstButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,14 +128,21 @@
             app:layout_goneMarginTop="76dp" />
 
         <br.alexandregpereira.jerry.app.widgets.SecondaryButton
+            android:id="@+id/collapseMatchWidthButton"
+            style="@style/FirstButton.SecondButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/collapse_match_width_animation"
+            app:layout_constraintTop_toBottomOf="@id/collapseReverseMatchWidthButton" />
+
+        <br.alexandregpereira.jerry.app.widgets.SecondaryButton
             android:id="@+id/collapseExpandMatchWidthButton"
             style="@style/FirstButton.SecondButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/expand_match_width_animation"
             app:layout_constraintBottom_toTopOf="@id/collapseFixedWidthView"
-            app:layout_constraintTop_toBottomOf="@id/collapseMatchWidthButton"
-            app:layout_goneMarginTop="68dp" />
+            app:layout_constraintTop_toBottomOf="@id/collapseMatchWidthButton" />
 
         <View
             android:id="@+id/collapseFixedWidthView"

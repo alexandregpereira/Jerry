@@ -62,8 +62,8 @@ internal fun View.getCollapsingInitialValue(isHeight: Boolean): Int {
     }
 }
 
-internal fun View.getOriginalValue(isHeight: Boolean): Int {
-    val key = getOriginalValueKey(isHeight)
+internal fun View.getWidthOrHeightOriginalValue(isHeight: Boolean): Int {
+    val key = getWidthOrHeightOriginalValueKey(isHeight)
     return runCatching {
         getTag(key) as Int
     }.getOrElse {
@@ -73,7 +73,7 @@ internal fun View.getOriginalValue(isHeight: Boolean): Int {
     }
 }
 
-internal fun getOriginalValueKey(isHeight: Boolean): Int {
+internal fun getWidthOrHeightOriginalValueKey(isHeight: Boolean): Int {
     return if (isHeight) {
         R.string.expanding_collapsing_height_original_value_key
     } else {

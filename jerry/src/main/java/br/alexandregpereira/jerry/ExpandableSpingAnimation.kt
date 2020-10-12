@@ -16,6 +16,19 @@ fun View.animateHeightVisibility(
     }
 }
 
+fun View.animateWidthVisibility(
+    visible: Boolean,
+    stiffness: Float = ANIMATION_STIFFNESS,
+    onProgressChange: ((progress: Float) -> Unit)? = null,
+    onAnimationEnd: (() -> Unit)? = null
+) {
+    if (visible) {
+        expandWidthSpring(stiffness, onProgressChange, onAnimationEnd)
+    } else {
+        collapseWidthSpring(stiffness, onProgressChange, onAnimationEnd)
+    }
+}
+
 /**
  * Animates collapsing the height and changes the visibility status to GONE.
  * This animation handles double click. This method can be reverted in the middle of the animation
@@ -120,10 +133,7 @@ internal fun View.collapseSpring(
         return
     }
     startCollapsingRunning()
-
-    getOriginalValue(isHeight)
-    getCollapsingInitialValue(isHeight)
-
+    getWidthOrHeightOriginalValue(isHeight)
     startExpandCollapseSpringAnimation(
         targetValue = 0f,
         stiffness = stiffness,
@@ -146,7 +156,7 @@ internal fun View.expandSpring(
         return
     }
 
-    val originalValue = getOriginalValue(isHeight)
+    val originalValue = getWidthOrHeightOriginalValue(isHeight)
     val initialValue = (getLayoutParamSize(isHeight)).let {
         if (it == originalValue || it < 0) 0 else it
     }

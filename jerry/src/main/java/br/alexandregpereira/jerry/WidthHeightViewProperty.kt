@@ -10,7 +10,7 @@ internal fun View.widthHeightViewProperty(
 ) = object : FloatPropertyCompat<View>("viewProperty") {
 
     private val originalValue: Int
-        get() = getOriginalValue(isHeight)
+        get() = getWidthOrHeightOriginalValue(isHeight)
 
     private val initialValue: Int
         get() = if (isExpandingRunning()) {
@@ -42,7 +42,9 @@ internal fun View.widthHeightViewProperty(
             setCollapsingValue(value)
         }
 
-        onProgressChange?.invoke(progressFunction(value))
+        onProgressChange?.let {
+            it(progressFunction(value))
+        }
         requestLayout()
     }
 

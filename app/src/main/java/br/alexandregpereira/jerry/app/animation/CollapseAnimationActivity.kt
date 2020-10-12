@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import br.alexandregpereira.jerry.animateHeightVisibility
+import br.alexandregpereira.jerry.animateWidthVisibility
 import br.alexandregpereira.jerry.app.R
 import br.alexandregpereira.jerry.collapseHeightSpring
 import br.alexandregpereira.jerry.collapseWidthSpring
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.container_animation_info.view.*
 class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_animation) {
 
     private var collapseTextViewCount = 1
+    private var collapseMatchWidthViewVisible = true
 
     companion object {
         fun getStartIntent(context: Context): Intent {
@@ -65,6 +68,14 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
 
         collapseExpandWidthTextButton.setOnClickListener {
             collapseWidthTextView.expandWidthSpring()
+        }
+
+        collapseReverseMatchWidthButton.setOnClickListener {
+            collapseMatchWidthView.animateWidthVisibility(
+                visible = collapseMatchWidthViewVisible.not().also {
+                    collapseMatchWidthViewVisible = it
+                }
+            )
         }
 
         collapseMatchWidthButton.setOnClickListener {
