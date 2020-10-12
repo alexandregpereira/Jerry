@@ -9,7 +9,7 @@ import androidx.dynamicanimation.animation.SpringForce
 
 const val ANIMATION_SHORT_TIME = 200L
 
-const val ANIMATION_STIFFNESS = 500f
+const val ANIMATION_STIFFNESS = 600f
 
 /**
  * Used to clear the key to verify if a animation is running.
