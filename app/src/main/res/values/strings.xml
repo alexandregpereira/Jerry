@@ -43,4 +43,11 @@
     <string name="animation_duration">Animation stiffness</string>
     <string name="seek_bar_initial_value">600</string>
 
+    <string name="add_all_button">Add All</string>
+    <string name="remove_all_button">Remove All</string>
+    <string name="add_button">Add</string>
+    <string name="remove_button">Remove</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="change">Change</string>
+
 </resources>

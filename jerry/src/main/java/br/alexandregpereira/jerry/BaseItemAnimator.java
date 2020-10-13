@@ -39,15 +39,14 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
     ArrayList<RecyclerView.ViewHolder> mRemoveAnimations = new ArrayList<>();
     ArrayList<RecyclerView.ViewHolder> mChangeAnimations = new ArrayList<>();
 
-    protected boolean preAnimateRemove(RecyclerView.ViewHolder holder) {
-        return false;
-    }
-
     protected boolean preAnimateAdd(RecyclerView.ViewHolder holder) {
         return false;
     }
 
-    protected boolean startRemoveAnimation(RecyclerView.ViewHolder holder, OnAnimationEndListener onAnimationEndListener) {
+    protected boolean startRemoveAnimation(
+            RecyclerView.ViewHolder holder,
+            OnAnimationEndListener onAnimationEndListener
+    ) {
         return false;
     }
 
@@ -227,7 +226,6 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
     @Override
     public boolean animateRemove(final RecyclerView.ViewHolder holder) {
         resetAnimation(holder);
-        preAnimateRemove(holder);
         mPendingRemovals.add(holder);
         return true;
     }

@@ -115,3 +115,7 @@ fun View.startFadeSpringAnimation(
         onAnimationEnd?.invoke()
     }
 )
+
+fun View.isFadeSpringAnimationRunning() : Boolean {
+    return isSpringAnimationRunning(R.string.alpha_spring_key)
+}

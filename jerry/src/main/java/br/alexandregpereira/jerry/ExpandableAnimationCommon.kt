@@ -39,22 +39,22 @@ internal fun View.getLayoutParamSize(isHeight: Boolean): Int {
 }
 
 
-internal fun View.isExpandingCollapsingRunning(animationMode: Int): Boolean =
+internal fun View.isExpandingCollapsingRunning(animationMode: AnimationMode): Boolean =
     isAnimationRunning(R.string.is_expanding_collapsing_key, animationMode)
 
-internal fun View.setExpandingCollapsingRunning(animationMode: Int) =
+internal fun View.setExpandingCollapsingRunning(animationMode: AnimationMode) =
     setAnimationRunning(R.string.is_expanding_collapsing_key, animationMode)
 
-internal fun View.isExpandingRunning() = isExpandingCollapsingRunning(ENTER_ANIMATION_MODE)
+internal fun View.isExpandingRunning() = isExpandingCollapsingRunning(AnimationMode.ENTER_ANIMATION_MODE)
 
-internal fun View.isCollapsingRunning() = isExpandingCollapsingRunning(POP_ANIMATION_MODE)
+internal fun View.isCollapsingRunning() = isExpandingCollapsingRunning(AnimationMode.POP_ANIMATION_MODE)
 
 internal fun View.clearExpandingCollapsingRunning() =
-    setExpandingCollapsingRunning(NONE_ANIMATION_MODE)
+    setExpandingCollapsingRunning(AnimationMode.NONE_ANIMATION_MODE)
 
-internal fun View.startExpandingRunning() = setExpandingCollapsingRunning(ENTER_ANIMATION_MODE)
+internal fun View.startExpandingRunning() = setExpandingCollapsingRunning(AnimationMode.ENTER_ANIMATION_MODE)
 
-internal fun View.startCollapsingRunning() = setExpandingCollapsingRunning(POP_ANIMATION_MODE)
+internal fun View.startCollapsingRunning() = setExpandingCollapsingRunning(AnimationMode.POP_ANIMATION_MODE)
 
 internal fun View.getCollapsingInitialValue(isHeight: Boolean): Int {
     val value = getLayoutParamSize(isHeight)
