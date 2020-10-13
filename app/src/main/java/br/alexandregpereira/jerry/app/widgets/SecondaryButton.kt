@@ -13,7 +13,7 @@ class SecondaryButton @JvmOverloads constructor(
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     init {
-        setMaterialShapeDrawable()
+        configMaterialShapeDrawable()
         setTextColor(ContextCompat.getColor(context, R.color.textColor))
         textAlignment = TEXT_ALIGNMENT_CENTER
     }

@@ -32,8 +32,7 @@ fun View.setRippleDrawable(contentDrawable: Drawable): View {
     }
 }
 
-fun View.setMaterialShapeDrawable(): View {
-    val cornerSize = resources.getDimension(R.dimen.corner_size)
+fun View.configMaterialShapeDrawable(): View {
     val padding = resources.getDimensionPixelOffset(R.dimen.text_padding)
 
     layoutParams = ViewGroup.MarginLayoutParams(
@@ -44,12 +43,19 @@ fun View.setMaterialShapeDrawable(): View {
     }
     setPadding(padding, padding, padding, padding)
 
+    return setMaterialShapeDrawable()
+}
+
+fun View.setMaterialShapeDrawable(
+    color: Int = Color.WHITE
+): View {
+    val cornerSize = resources.getDimension(R.dimen.corner_size)
     val shapeAppearanceModel = ShapeAppearanceModel.builder()
         .setAllCornerSizes(cornerSize).build()
 
     val materialShapeDrawable = MaterialShapeDrawable(shapeAppearanceModel).apply {
-        this.fillColor = ColorStateList.valueOf(Color.WHITE)
-        this.elevation = resources.getDimension(R.dimen.strong_elevation)
+        this.fillColor = ColorStateList.valueOf(color)
+        this.elevation = resources.getDimension(R.dimen.low_elevation)
     }
 
     ViewCompat.setElevation(this,  resources.getDimension(R.dimen.strong_elevation))

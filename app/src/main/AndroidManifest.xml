@@ -28,6 +28,8 @@
         <activity android:name=".animation.CollapseAnimationActivity" />
 
         <activity android:name=".animation.ExpandAnimationActivity" />
+
+        <activity android:name=".RecyclerViewActivity" />
     </application>
 
 </manifest>

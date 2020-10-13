@@ -7,6 +7,9 @@
     <string name="alpha_spring_key">alpha_spring_key</string>
     <string name="alpha_end_listener_key">alpha_end_listener_key</string>
 
+    <string name="elevation_spring_key">elevation_spring_key</string>
+    <string name="elevation_end_listener_key">elevation_end_listener_key</string>
+
     <string name="expanding_collapsing_height_original_value_key">expanding_collapsing_height_original_value_key</string>
     <string name="expanding_collapsing_height_spring_key">expanding_collapsing_height_spring_key</string>
     <string name="expanding_collapsing_height_end_listener_key">expanding_collapsing_height_end_listener_key</string>

@@ -51,7 +51,7 @@ fun View.startSpringAnimation(
     targetValue: Float,
     stiffness: Float = SpringForce.STIFFNESS_LOW,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
-    endListenerPair: Pair<Int, (() -> Unit)>? = null
+    endListenerPair: Pair<Int, () -> Unit>? = null
 ) {
     val springAnimation = this.spring(
         key,

@@ -7,8 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.alexandregpereira.jerry.app.animation.*
-import br.alexandregpereira.jerry.app.widgets.setMaterialShapeDrawable
+import br.alexandregpereira.jerry.app.animation.CollapseAnimationActivity
+import br.alexandregpereira.jerry.app.animation.CollapseFadingAnimationActivity
+import br.alexandregpereira.jerry.app.animation.ExpandAnimationActivity
+import br.alexandregpereira.jerry.app.animation.ExpandFadingAnimationActivity
+import br.alexandregpereira.jerry.app.animation.FadeAnimationActivity
+import br.alexandregpereira.jerry.app.animation.TextExpandableAnimationActivity
+import br.alexandregpereira.jerry.app.widgets.configMaterialShapeDrawable
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +43,9 @@ class MainActivity : AppCompatActivity() {
                     AnimationComponent.TEXT_EXPANDABLE.ordinal -> startActivity(
                         TextExpandableAnimationActivity.getStartIntent(this@MainActivity)
                     )
+                    AnimationComponent.RECYCLER.ordinal -> startActivity(
+                        RecyclerViewActivity.getStartIntent(this@MainActivity)
+                    )
                 }
             }
         }
@@ -49,7 +57,7 @@ fun getAnimationComponentsName(): List<String> {
 }
 
 enum class AnimationComponent {
-    COLLAPSE, COLLAPSE_FADING, EXPAND, EXPAND_FADING, FADE, TEXT_EXPANDABLE
+    COLLAPSE, COLLAPSE_FADING, EXPAND, EXPAND_FADING, FADE, TEXT_EXPANDABLE, RECYCLER
 }
 
 class MainAdapter(
@@ -78,7 +86,7 @@ class MainAdapter(
            }
 
            setTextColor(ContextCompat.getColor(context, R.color.textSecondaryColor))
-           setMaterialShapeDrawable()
+           configMaterialShapeDrawable()
        })
     }
 

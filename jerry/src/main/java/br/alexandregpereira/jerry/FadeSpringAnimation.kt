@@ -101,10 +101,10 @@ internal fun View.hideFadeOutSpring(
     )
 }
 
-internal fun View.startFadeSpringAnimation(
+fun View.startFadeSpringAnimation(
     targetValue: Float,
-    stiffness: Float,
-    onAnimationEnd: (() -> Unit)?,
+    stiffness: Float = ANIMATION_STIFFNESS,
+    onAnimationEnd: (() -> Unit)? = null,
 ) = startSpringAnimation(
     key = R.string.alpha_spring_key,
     property = DynamicAnimation.ALPHA,
