@@ -28,7 +28,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
     }
 
-    private val list = (0..33).map {
+    private val list = (0..4).map {
         Item(id = it, value = it.toString())
     }
 
