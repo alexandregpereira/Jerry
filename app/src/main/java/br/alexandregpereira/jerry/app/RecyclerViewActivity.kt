@@ -44,10 +44,10 @@ class RecyclerViewActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             recyclerView.itemAnimator = SpringItemAnimator()
         }
-        recyclerView.itemAnimator?.addDuration = 2000
-        recyclerView.itemAnimator?.removeDuration = 2000
-        recyclerView.itemAnimator?.changeDuration = 2000
-        recyclerView.itemAnimator?.moveDuration = 2000
+//        recyclerView.itemAnimator?.addDuration = 2000
+//        recyclerView.itemAnimator?.removeDuration = 2000
+//        recyclerView.itemAnimator?.changeDuration = 2000
+//        recyclerView.itemAnimator?.moveDuration = 2000
 
         button.setOnClickListener {
             adapter.setData(list2)
