@@ -51,7 +51,7 @@ fun View.startSpringAnimation(
     targetValue: Float,
     stiffness: Float = SpringForce.STIFFNESS_LOW,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
-    endListenerPair: Pair<Int, () -> Unit>? = null
+    endListenerPair: Pair<Int, (canceled: Boolean) -> Unit>? = null
 ) {
     val springAnimation = this.spring(
         key,
@@ -77,13 +77,13 @@ fun View.startSpringAnimation(
 internal fun SpringAnimation.addSpringEndListener(
     key: Int,
     view: View,
-    onAnimationEnd: () -> Unit
+    onAnimationEnd: (canceled: Boolean) -> Unit
 ) {
-    DynamicAnimation.OnAnimationEndListener { _, _, _, _ ->
+    DynamicAnimation.OnAnimationEndListener { animation, canceled, _, _ ->
         view.getSpringEndListener(key)?.let {
-            this.removeEndListener(it)
+            animation.removeEndListener(it)
         }
-        onAnimationEnd()
+        onAnimationEnd(canceled)
     }.let {
         this.addEndListener(it)
         view.setTag(key, it)

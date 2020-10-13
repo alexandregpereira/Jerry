@@ -7,7 +7,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 fun View.animateAlphaVisibility(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
         fadeInSpring(stiffness, onAnimationEnd = onAnimationEnd)
@@ -29,7 +29,7 @@ fun View.animateAlphaVisibility(
  */
 fun View.fadeOutSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     hideFadeOutSpring(stiffness, hide = ::gone, onAnimationEnd = onAnimationEnd)
 }
@@ -48,11 +48,11 @@ fun View.fadeOutSpring(
  */
 fun View.fadeInSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (isFadeInRunning() || (alpha == 1f && isVisible() && isFadeOutRunning().not())) {
         if (isFadeInRunning().not()) {
-            onAnimationEnd?.invoke()
+            onAnimationEnd?.invoke(false)
         }
         return
     }
@@ -81,11 +81,11 @@ fun View.fadeInSpring(
 internal fun View.hideFadeOutSpring(
     stiffness: Float,
     hide: (() -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)?
+    onAnimationEnd: ((canceled: Boolean) -> Unit)?
 ) {
     if (isVisible().not() || isFadeOutRunning()) {
         if (isFadeOutRunning().not()) {
-            onAnimationEnd?.invoke()
+            onAnimationEnd?.invoke(false)
         }
         return
     }
@@ -94,28 +94,32 @@ internal fun View.hideFadeOutSpring(
     startFadeSpringAnimation(
         targetValue = 0f,
         stiffness = stiffness,
-        onAnimationEnd = {
+        onAnimationEnd = { canceled ->
             hide?.invoke()
-            onAnimationEnd?.invoke()
+            onAnimationEnd?.invoke(canceled)
         }
     )
 }
 
+fun View.fadeSpring(
+    stiffness: Float = ANIMATION_STIFFNESS
+) = spring(
+    key = R.string.alpha_spring_key,
+    property = DynamicAnimation.ALPHA,
+    stiffness = stiffness
+)
+
 fun View.startFadeSpringAnimation(
     targetValue: Float,
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null,
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null,
 ) = startSpringAnimation(
     key = R.string.alpha_spring_key,
     property = DynamicAnimation.ALPHA,
     targetValue = targetValue,
     stiffness = stiffness,
-    endListenerPair = R.string.alpha_end_listener_key to {
+    endListenerPair = R.string.alpha_end_listener_key to { canceled ->
         clearFadeInFadeOutRunning()
-        onAnimationEnd?.invoke()
+        onAnimationEnd?.invoke(canceled)
     }
 )
-
-fun View.isFadeSpringAnimationRunning() : Boolean {
-    return isSpringAnimationRunning(R.string.alpha_spring_key)
-}

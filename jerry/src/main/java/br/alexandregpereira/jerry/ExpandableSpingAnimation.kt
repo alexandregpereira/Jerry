@@ -7,7 +7,7 @@ fun View.animateHeightVisibility(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
         expandHeightSpring(stiffness, onProgressChange, onAnimationEnd)
@@ -20,7 +20,7 @@ fun View.animateWidthVisibility(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
         expandWidthSpring(stiffness, onProgressChange, onAnimationEnd)
@@ -44,7 +44,7 @@ fun View.animateWidthVisibility(
 fun View.collapseHeightSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) = collapseSpring(
     stiffness = stiffness,
     isHeight = true,
@@ -67,7 +67,7 @@ fun View.collapseHeightSpring(
 fun View.collapseWidthSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) = collapseSpring(
     stiffness = stiffness,
     isHeight = false,
@@ -91,7 +91,7 @@ fun View.collapseWidthSpring(
 fun View.expandHeightSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) = expandSpring(
     stiffness = stiffness,
     isHeight = true,
@@ -115,7 +115,7 @@ fun View.expandHeightSpring(
 fun View.expandWidthSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) = expandSpring(
     stiffness = stiffness,
     isHeight = false,
@@ -127,7 +127,7 @@ internal fun View.collapseSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (isVisible().not() || isCollapsingRunning()) {
         return
@@ -141,7 +141,7 @@ internal fun View.collapseSpring(
         onProgressChange = onProgressChange,
         onAnimationEnd = {
             gone()
-            onAnimationEnd?.invoke()
+            onAnimationEnd?.invoke(it)
         }
     )
 }
@@ -150,7 +150,7 @@ internal fun View.expandSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
     onProgressChange: ((progress: Float) -> Unit)? = null,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (isExpandingRunning() || (isVisible() && isCollapsingRunning().not())) {
         return
@@ -163,7 +163,7 @@ internal fun View.expandSpring(
     val targetValue = getTargetValue(originalValue, isHeight)
 
     if (targetValue == null) {
-        finishExpandingCollapsingAnimation(onAnimationEnd)
+        finishExpandingCollapsingAnimation(canceled = false, onAnimationEnd = onAnimationEnd)
         return
     }
     startExpandingRunning()
@@ -187,13 +187,13 @@ private fun View.startExpandCollapseSpringAnimation(
     stiffness: Float,
     isHeight: Boolean,
     onProgressChange: ((progress: Float) -> Unit)?,
-    onAnimationEnd: (() -> Unit)?,
+    onAnimationEnd: ((canceled: Boolean) -> Unit)?,
 ) = startSpringAnimation(
     key = getExpandingCollapsingSpringKey(isHeight),
     property = widthHeightViewProperty(isHeight, onProgressChange),
     targetValue = targetValue,
     stiffness = stiffness,
-    endListenerPair = getExpandingCollapsingEndListenerKey(isHeight) to {
-        finishExpandingCollapsingAnimation(onAnimationEnd)
+    endListenerPair = getExpandingCollapsingEndListenerKey(isHeight) to { canceled ->
+        finishExpandingCollapsingAnimation(canceled, onAnimationEnd)
     }
 )

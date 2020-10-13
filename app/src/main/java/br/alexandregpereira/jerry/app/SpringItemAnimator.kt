@@ -2,12 +2,13 @@ package br.alexandregpereira.jerry.app
 
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.BaseItemAnimator
 import br.alexandregpereira.jerry.dpToPx
+import br.alexandregpereira.jerry.elevationSpring
+import br.alexandregpereira.jerry.fadeSpring
 import br.alexandregpereira.jerry.startElevationSpringAnimation
 import br.alexandregpereira.jerry.startFadeSpringAnimation
-
-private const val ANIMATION_STIFFNESS = 500f
 
 @RequiresApi(21)
 class SpringItemAnimator : BaseItemAnimator() {
@@ -26,16 +27,22 @@ class SpringItemAnimator : BaseItemAnimator() {
     }
 
     override fun startAddAnimation(
-        holder: RecyclerView.ViewHolder?,
+        holder: RecyclerView.ViewHolder,
         onAnimationEndListener: OnAnimationEndListener
     ): Boolean {
-        holder?.itemView?.startFadeSpringAnimation(
-            targetValue = alphaFinalValue,
-            stiffness = alphaStiffness
-        ) {
-            holder.itemView.startElevationSpringAnimation(
-                targetValue = elevationFinalValue.dpToPx(holder.itemView.resources),
-                stiffness = elevationStiffness
+        val view = holder.itemView
+
+        holder.itemView.fadeSpring(stiffness = alphaStiffness).cancel()
+        holder.itemView.startFadeSpringAnimation(targetValue = alphaFinalValue) { canceled ->
+
+            if (canceled) {
+                onAnimationEndListener.onAnimationEnd()
+                return@startFadeSpringAnimation
+            }
+
+            holder.itemView.elevationSpring(stiffness = elevationStiffness).cancel()
+            view.startElevationSpringAnimation(
+                targetValue = elevationFinalValue.dpToPx(view.resources)
             ) {
                 onAnimationEndListener.onAnimationEnd()
             }
@@ -44,17 +51,25 @@ class SpringItemAnimator : BaseItemAnimator() {
     }
 
     override fun startRemoveAnimation(
-        holder: RecyclerView.ViewHolder?,
+        holder: RecyclerView.ViewHolder,
         onAnimationEndListener: OnAnimationEndListener
     ): Boolean {
-        holder?.itemView?.startElevationSpringAnimation(
-            targetValue = elevationInitialValue.dpToPx(holder.itemView.resources),
-            stiffness = elevationStiffness
-        ) {
-            holder.itemView.startFadeSpringAnimation(
-                targetValue = alphaInitialValue,
-                stiffness = alphaStiffness
-            ) {
+        val view = holder.itemView
+
+        holder.itemView.elevationSpring(stiffness = elevationStiffness).cancel()
+        holder.itemView.startElevationSpringAnimation(
+            targetValue = elevationInitialValue.dpToPx(view.resources)
+        ) { canceled ->
+
+            if (canceled) {
+                onAnimationEndListener.onAnimationEnd()
+                return@startElevationSpringAnimation
+            }
+
+            holder.itemView.fadeSpring(stiffness = alphaStiffness).cancel()
+            view.startFadeSpringAnimation(targetValue = alphaInitialValue) {
+                view.alpha = alphaFinalValue
+                view.elevation = elevationFinalValue
                 onAnimationEndListener.onAnimationEnd()
             }
         }

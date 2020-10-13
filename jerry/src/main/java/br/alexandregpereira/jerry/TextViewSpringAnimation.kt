@@ -19,7 +19,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 fun TextView.setTextExpandableSpring(
     text: String?,
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (text == null || text.trim().isEmpty()) {
         collapseHeightFadingSpring(stiffness = stiffness, onAnimationEnd = onAnimationEnd)
@@ -51,7 +51,7 @@ fun TextView.setTextExpandableSpring(
 fun TextView.setTextFadeSpring(
     text: String = "",
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     val textView = this
     val oldText = textView.text.toString()

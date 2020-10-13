@@ -6,7 +6,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 fun View.animateHeightFadingVisibility(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
         expandHeightFadingSpring(stiffness, onAnimationEnd)
@@ -18,7 +18,7 @@ fun View.animateHeightFadingVisibility(
 fun View.animateWidthFadingVisibility(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
         expandWidthFadingSpring(stiffness, onAnimationEnd)
@@ -41,8 +41,8 @@ fun View.animateWidthFadingVisibility(
  */
 fun View.expandHeightFadingSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
-) = expandFadingSpring(stiffness, isHeight = true, onAnimationEnd)
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) = expandFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
  * Uses the [expandWidth] and [fadeIn] animations in sequence. This animation
@@ -58,8 +58,8 @@ fun View.expandHeightFadingSpring(
  */
 fun View.expandWidthFadingSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
-) = expandFadingSpring(stiffness, isHeight = false, onAnimationEnd)
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) = expandFadingSpring(stiffness, isHeight = false, onAnimationEnd = onAnimationEnd)
 
 /**
  * Uses the [hideFadeOut] and [collapseHeight] animations in sequence. This animation
@@ -75,8 +75,8 @@ fun View.expandWidthFadingSpring(
  */
 fun View.collapseHeightFadingSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
-) = collapseFadingSpring(stiffness, isHeight = true, onAnimationEnd)
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) = collapseFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
  * Uses the [hideFadeOut] and [collapseWidth] animations in sequence. This animation
@@ -92,13 +92,13 @@ fun View.collapseHeightFadingSpring(
  */
 fun View.collapseWidthFadingSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
-    onAnimationEnd: (() -> Unit)? = null
-) = collapseFadingSpring(stiffness, isHeight = false, onAnimationEnd)
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) = collapseFadingSpring(stiffness, isHeight = false, onAnimationEnd = onAnimationEnd)
 
 private fun View.collapseFadingSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (isExpandingRunning()) {
         collapseSpring(isHeight = isHeight, onAnimationEnd = onAnimationEnd)
@@ -117,7 +117,7 @@ private fun View.collapseFadingSpring(
 private fun View.expandFadingSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
-    onAnimationEnd: (() -> Unit)? = null
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (alpha == 1f && (isVisible() && isCollapsingRunning().not())) {
         return

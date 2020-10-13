@@ -26,6 +26,15 @@ internal fun View.finishExpandingCollapsingAnimation(onAnimationEnd: (() -> Unit
     onAnimationEnd?.invoke()
 }
 
+internal fun View.finishExpandingCollapsingAnimation(
+    canceled: Boolean,
+    onAnimationEnd: ((canceled: Boolean) -> Unit)?
+) {
+    clearOriginalValue()
+    clearExpandingCollapsingRunning()
+    onAnimationEnd?.invoke(canceled)
+}
+
 internal fun View.setLayoutParamSize(value: Int, isHeight: Boolean) {
     if (isHeight) {
         layoutParams.height = value

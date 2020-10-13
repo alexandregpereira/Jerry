@@ -28,11 +28,11 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
     }
 
-    private val list = (0..3).map {
+    private val list = (0..33).map {
         Item(id = it, value = it.toString())
     }
 
-    private val list2 = listOf(list[0], list[2], list[3])
+    private val list2 = listOf(list[0]) + list.subList(2, list.size)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
