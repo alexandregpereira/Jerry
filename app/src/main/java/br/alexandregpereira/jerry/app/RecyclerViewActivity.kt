@@ -28,6 +28,10 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
     }
 
+    private val list = (0..2).map {
+        Item(id = it, value = it.toString())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
@@ -39,11 +43,8 @@ class RecyclerViewActivity : AppCompatActivity() {
             recyclerView.itemAnimator = SpringItemAnimator()
         }
 
-        val list = (0..2).map {
-            Item(id = it, value = it.toString())
-        }
         button.setOnClickListener {
-            adapter.submitList(list.shuffled())
+            adapter.submitList(list)
         }
 
         button2.setOnClickListener {
@@ -53,7 +54,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
 
         button3.setOnClickListener {
-            adapter.submitList(listOf())
+            adapter.submitList(listOf(list[0], list[2]))
         }
     }
 }

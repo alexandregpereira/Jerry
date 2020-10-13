@@ -20,8 +20,8 @@ class SpringItemAnimator : BaseItemAnimator() {
         holder: RecyclerView.ViewHolder?,
         onAnimationEndListener: OnAnimationEndListener
     ): Boolean {
-        holder?.itemView?.startFadeSpringAnimation(1f) {
-            holder.itemView.startSpringElevation(4f.dpToPx(holder.itemView.resources)) {
+        holder?.itemView?.startFadeSpringAnimation(1f, stiffness = 1200f) {
+            holder.itemView.startSpringElevation(4f.dpToPx(holder.itemView.resources), stiffness = 1200f) {
                 onAnimationEndListener.onAnimationEnd()
             }
         }
@@ -32,8 +32,8 @@ class SpringItemAnimator : BaseItemAnimator() {
         holder: RecyclerView.ViewHolder?,
         onAnimationEndListener: OnAnimationEndListener
     ): Boolean {
-        holder?.itemView?.startSpringElevation(0f.dpToPx(holder.itemView.resources)) {
-            holder.itemView.startFadeSpringAnimation(0f) {
+        holder?.itemView?.startSpringElevation(0f.dpToPx(holder.itemView.resources), stiffness = 1200f) {
+            holder.itemView.startFadeSpringAnimation(0f, stiffness = 1200f) {
                 holder.itemView.alpha = 1f
                 holder.itemView.elevation = 4f
                 onAnimationEndListener.onAnimationEnd()
