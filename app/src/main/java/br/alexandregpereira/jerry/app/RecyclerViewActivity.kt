@@ -116,7 +116,7 @@ class ExampleAdapter : ListAdapter<Item, ExampleAdapter.ExampleViewHolder>(DiffU
                 val padding = resources.getDimensionPixelOffset(R.dimen.text_padding)
                 layoutParams = ViewGroup.MarginLayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    60.dpToPx(resources)
+                    height.dpToPx(resources)
                 ).apply {
                     setMargins(padding / 2, padding / 2, padding / 2, padding / 2)
                 }
