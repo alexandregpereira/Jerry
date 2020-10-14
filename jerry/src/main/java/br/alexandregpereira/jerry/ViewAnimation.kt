@@ -26,13 +26,25 @@ enum class AnimationMode {
     POP_ANIMATION_MODE
 }
 
+fun View.cancelSpringAnimation() {
+    SpringAnimationPropertyKey.values().forEach {
+        getSpringAnimation(it)?.cancel()
+    }
+}
+
+fun View.skipToEndSpringAnimation() {
+    SpringAnimationPropertyKey.values().forEach { property ->
+        getSpringAnimation(property)?.takeIf { it.canSkipToEnd() }?.skipToEnd()
+    }
+}
+
 fun View.spring(
-    key: Int,
+    key: SpringAnimationPropertyKey,
     property: FloatPropertyCompat<View>,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     stiffness: Float = SpringForce.STIFFNESS_LOW
 ): SpringAnimation {
-    var springAnimation = getTag(key) as? SpringAnimation
+    var springAnimation = getSpringAnimation(key)
     if (springAnimation == null) {
         springAnimation = SpringAnimation(this, property).apply {
             spring = SpringForce().apply {
@@ -40,13 +52,13 @@ fun View.spring(
                 this.stiffness = stiffness
             }
         }
-        setTag(key, springAnimation)
+        setTag(key.id, springAnimation)
     }
     return springAnimation
 }
 
 fun View.startSpringAnimation(
-    key: Int,
+    key: SpringAnimationPropertyKey,
     property: FloatPropertyCompat<View>,
     targetValue: Float,
     stiffness: Float = SpringForce.STIFFNESS_LOW,
@@ -88,6 +100,10 @@ internal fun SpringAnimation.addSpringEndListener(
         this.addEndListener(it)
         view.setTag(key, it)
     }
+}
+
+fun View.getSpringAnimation(key: SpringAnimationPropertyKey): SpringAnimation? {
+    return getTag(key.id) as? SpringAnimation
 }
 
 internal fun View.getSpringEndListener(key: Int): DynamicAnimation.OnAnimationEndListener? {

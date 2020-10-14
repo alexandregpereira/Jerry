@@ -23,7 +23,7 @@ internal fun elevationViewProperty() = object : FloatPropertyCompat<View>(
 fun View.elevationSpring(
     stiffness: Float = SpringForce.STIFFNESS_LOW
 ) = spring(
-    key = R.string.elevation_spring_key,
+    key = SpringAnimationPropertyKey.ELEVATION,
     property = elevationViewProperty(),
     stiffness = stiffness
 )
@@ -35,7 +35,7 @@ fun View.startElevationSpringAnimation(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     startSpringAnimation(
-        key = R.string.elevation_spring_key,
+        key = SpringAnimationPropertyKey.ELEVATION,
         property = elevationViewProperty(),
         targetValue = targetValue,
         stiffness = stiffness,

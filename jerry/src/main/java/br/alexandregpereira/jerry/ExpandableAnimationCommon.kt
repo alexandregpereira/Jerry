@@ -4,11 +4,11 @@ import android.view.View
 import android.view.View.MeasureSpec
 import android.view.ViewGroup
 
-internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): Int {
+internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): SpringAnimationPropertyKey {
     return if (isHeight) {
-        R.string.expanding_collapsing_height_spring_key
+        SpringAnimationPropertyKey.HEIGHT
     } else {
-        R.string.expanding_collapsing_width_spring_key
+        SpringAnimationPropertyKey.WIDTH
     }
 }
 

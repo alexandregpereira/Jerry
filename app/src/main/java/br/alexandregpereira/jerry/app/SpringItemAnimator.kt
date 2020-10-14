@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.RecyclerView
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.BaseItemAnimator
 import br.alexandregpereira.jerry.dpToPx
-import br.alexandregpereira.jerry.elevationSpring
 import br.alexandregpereira.jerry.fadeSpring
 import br.alexandregpereira.jerry.startElevationSpringAnimation
 import br.alexandregpereira.jerry.startFadeSpringAnimation
+import br.alexandregpereira.jerry.startTranslationXSpringAnimation
+import br.alexandregpereira.jerry.startTranslationYSpringAnimation
+import br.alexandregpereira.jerry.translationXSpring
+import br.alexandregpereira.jerry.translationYSpring
 
 @RequiresApi(21)
 class SpringItemAnimator : BaseItemAnimator() {
@@ -27,52 +30,118 @@ class SpringItemAnimator : BaseItemAnimator() {
     }
 
     override fun startAddAnimation(
-        holder: RecyclerView.ViewHolder,
-        onAnimationEndListener: OnAnimationEndListener
+        holder: RecyclerView.ViewHolder
     ): Boolean {
-        val view = holder.itemView
-
-        holder.itemView.fadeSpring(stiffness = alphaStiffness).cancel()
-        holder.itemView.startFadeSpringAnimation(targetValue = alphaFinalValue) { canceled ->
+        holder.itemView.startFadeSpringAnimation(
+            stiffness = alphaStiffness,
+            targetValue = alphaFinalValue
+        ) { canceled ->
 
             if (canceled) {
-                onAnimationEndListener.onAnimationEnd()
+                onAnimateAddFinished(holder)
                 return@startFadeSpringAnimation
             }
 
-            holder.itemView.elevationSpring(stiffness = elevationStiffness).cancel()
-            view.startElevationSpringAnimation(
-                targetValue = elevationFinalValue.dpToPx(view.resources)
+            holder.itemView.startElevationSpringAnimation(
+                stiffness = elevationStiffness,
+                targetValue = elevationFinalValue.dpToPx(holder.itemView.resources)
             ) {
-                onAnimationEndListener.onAnimationEnd()
+                onAnimateAddFinished(holder)
             }
         }
         return true
     }
 
     override fun startRemoveAnimation(
-        holder: RecyclerView.ViewHolder,
-        onAnimationEndListener: OnAnimationEndListener
+        holder: RecyclerView.ViewHolder
     ): Boolean {
-        val view = holder.itemView
-
-        holder.itemView.elevationSpring(stiffness = elevationStiffness).cancel()
         holder.itemView.startElevationSpringAnimation(
-            targetValue = elevationInitialValue.dpToPx(view.resources)
+            stiffness = elevationStiffness,
+            targetValue = elevationInitialValue.dpToPx(holder.itemView.resources)
         ) { canceled ->
 
             if (canceled) {
-                onAnimationEndListener.onAnimationEnd()
+                onAnimateRemoveFinished(holder)
                 return@startElevationSpringAnimation
             }
 
-            holder.itemView.fadeSpring(stiffness = alphaStiffness).cancel()
-            view.startFadeSpringAnimation(targetValue = alphaInitialValue) {
-                view.alpha = alphaFinalValue
-                view.elevation = elevationFinalValue
-                onAnimationEndListener.onAnimationEnd()
+            holder.itemView.startFadeSpringAnimation(stiffness = alphaStiffness, targetValue = alphaInitialValue) {
+                holder.itemView.alpha = alphaFinalValue
+                holder.itemView.elevation = elevationFinalValue
+                onAnimateRemoveFinished(holder)
             }
         }
         return true
+    }
+
+    override fun startOldHolderChangeAnimation(
+        oldHolder: RecyclerView.ViewHolder,
+        translationX: Float,
+        translationY: Float
+    ): Boolean {
+        oldHolder.startChangeAnimation(
+            alphaTargetValue = alphaInitialValue,
+            translationXTargetValue = translationX,
+            translationYTargetValue = translationY,
+            oldItem = true
+        )
+        return true
+    }
+
+    override fun startNewHolderChangeAnimation(
+        newHolder: RecyclerView.ViewHolder
+    ): Boolean {
+        onNewViewAnimateChangeStarted(newHolder)
+
+        newHolder.startChangeAnimation(
+            alphaTargetValue = alphaFinalValue,
+            translationXTargetValue = 0f,
+            translationYTargetValue = 0f,
+            oldItem = false
+        )
+        return true
+    }
+
+    private fun RecyclerView.ViewHolder.startChangeAnimation(
+        alphaTargetValue: Float,
+        translationXTargetValue: Float,
+        translationYTargetValue: Float,
+        oldItem: Boolean
+    ) {
+        val onAnimationEnd: RecyclerView.ViewHolder.(completed: Boolean) -> Unit =  { completed ->
+            if (completed) {
+                itemView.alpha = alphaFinalValue
+                itemView.elevation = elevationFinalValue
+                itemView.translationX = 0f
+                itemView.translationY = 0f
+                onAnimateChangeFinished(this, oldItem)
+            }
+        }
+
+        this.itemView.apply {
+            elevation = elevationInitialValue
+            startFadeSpringAnimation(
+                stiffness = alphaStiffness,
+                targetValue = alphaTargetValue
+            ) {
+                this@startChangeAnimation.onAnimationEnd(
+                    translationYSpring().isRunning.not()
+                            && translationXSpring().isRunning.not()
+                )
+            }
+
+            startTranslationXSpringAnimation(targetValue = translationXTargetValue) {
+                this@startChangeAnimation.onAnimationEnd(
+                    translationYSpring().isRunning.not()
+                            && fadeSpring().isRunning.not()
+                )
+            }
+            startTranslationYSpringAnimation(targetValue = translationYTargetValue) {
+                this@startChangeAnimation.onAnimationEnd(
+                    fadeSpring().isRunning.not()
+                            && translationXSpring().isRunning.not()
+                )
+            }
+        }
     }
 }
