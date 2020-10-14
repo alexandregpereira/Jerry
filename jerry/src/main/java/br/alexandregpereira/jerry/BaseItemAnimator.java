@@ -71,10 +71,8 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
 
     protected boolean startMoveAnimation(
             RecyclerView.ViewHolder holder,
-            int fromX,
-            int fromY,
-            int toX,
-            int toY
+            int deltaX,
+            int deltaY
     ) {
         return false;
     }
@@ -320,12 +318,15 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
 
     void animateMoveImpl(final RecyclerView.ViewHolder holder, int fromX, int fromY, int toX, int toY) {
         mMoveAnimations.add(holder);
-        if (startMoveAnimation(holder, fromX, fromY, toX, toY)) {
-            return;
-        }
+
         final View view = holder.itemView;
         final int deltaX = toX - fromX;
         final int deltaY = toY - fromY;
+
+        if (startMoveAnimation(holder, deltaX, deltaY)) {
+            return;
+        }
+
         if (deltaX != 0) {
             view.animate().translationX(0);
         }
@@ -355,11 +356,15 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
             @Override
             public void onAnimationEnd(Animator animator) {
                 animation.setListener(null);
-                dispatchMoveFinished(holder);
-                mMoveAnimations.remove(holder);
-                dispatchFinishedWhenDone();
+                onAnimateMoveFinished(holder);
             }
         }).start();
+    }
+
+    public void onAnimateMoveFinished(final RecyclerView.ViewHolder holder) {
+        dispatchMoveFinished(holder);
+        mMoveAnimations.remove(holder);
+        dispatchFinishedWhenDone();
     }
 
     @Override

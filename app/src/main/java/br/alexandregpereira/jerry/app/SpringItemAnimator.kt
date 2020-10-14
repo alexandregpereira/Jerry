@@ -65,10 +65,48 @@ class SpringItemAnimator : BaseItemAnimator() {
                 return@startElevationSpringAnimation
             }
 
-            holder.itemView.startFadeSpringAnimation(stiffness = alphaStiffness, targetValue = alphaInitialValue) {
+            holder.itemView.startFadeSpringAnimation(
+                stiffness = alphaStiffness,
+                targetValue = alphaInitialValue
+            ) {
                 holder.itemView.alpha = alphaFinalValue
                 holder.itemView.elevation = elevationFinalValue
                 onAnimateRemoveFinished(holder)
+            }
+        }
+        return true
+    }
+
+    override fun startMoveAnimation(
+        holder: RecyclerView.ViewHolder,
+        deltaX: Int,
+        deltaY: Int
+    ): Boolean {
+        val onAnimationEnd: RecyclerView.ViewHolder.(completed: Boolean) -> Unit =  { completed ->
+            if (completed) {
+                onAnimateMoveFinished(this)
+            }
+        }
+
+        holder.itemView.apply {
+            val translationXTargetValue = if (deltaX != 0) 0f else translationX
+            val translationYTargetValue = if (deltaY != 0) 0f else translationY
+
+            startTranslationXSpringAnimation(targetValue = translationXTargetValue) { canceled ->
+                if (canceled) {
+                    if (deltaX != 0) translationX = 0f
+                }
+                holder.onAnimationEnd(
+                    translationYSpring().isRunning.not()
+                )
+            }
+            startTranslationYSpringAnimation(targetValue = translationYTargetValue) { canceled ->
+                if (canceled) {
+                    if (deltaY != 0) translationY = 0f
+                }
+                holder.onAnimationEnd(
+                    translationXSpring().isRunning.not()
+                )
             }
         }
         return true

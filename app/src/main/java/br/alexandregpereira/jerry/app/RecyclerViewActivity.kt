@@ -74,7 +74,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
 
         button6.setOnClickListener {
-            adapter.setData(list2)
+            adapter.setData(list.subList(0, 3) + list[4])
         }
     }
 }
