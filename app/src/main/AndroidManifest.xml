@@ -17,19 +17,33 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".animation.TextExpandableSpringAnimationActivity" />
+
         <activity android:name=".animation.TextExpandableAnimationActivity" />
+
+        <activity android:name=".animation.FadeSpringAnimationActivity" />
 
         <activity android:name=".animation.FadeAnimationActivity" />
 
+        <activity android:name=".animation.CollapseFadingSpringAnimationActivity" />
+
         <activity android:name=".animation.CollapseFadingAnimationActivity" />
+
+        <activity android:name=".animation.ExpandFadingSpringAnimationActivity" />
 
         <activity android:name=".animation.ExpandFadingAnimationActivity" />
 
+        <activity android:name=".animation.CollapseSpringAnimationActivity" />
+
         <activity android:name=".animation.CollapseAnimationActivity" />
+
+        <activity android:name=".animation.ExpandSpringAnimationActivity" />
 
         <activity android:name=".animation.ExpandAnimationActivity" />
 
-        <activity android:name=".RecyclerViewActivity" />
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
+
+        <activity android:name=".recyclerview.RecyclerViewSpringActivity" />
     </application>
 
 </manifest>

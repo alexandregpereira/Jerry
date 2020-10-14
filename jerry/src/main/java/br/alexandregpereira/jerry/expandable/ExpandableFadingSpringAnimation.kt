@@ -5,6 +5,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.fadeInSpring
 import br.alexandregpereira.jerry.fadeOutSpring
+import br.alexandregpereira.jerry.hideFadeOutSpring
 import br.alexandregpereira.jerry.isVisible
 
 /**
@@ -91,7 +92,7 @@ fun View.collapseHeightFadingSpring(
 ) = collapseFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [fadeOutSpring] and [collapseWidthSpring] animations in sequence. This animation
+ * Uses the [hideFadeOutSpring] and [collapseWidthSpring] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
  * [expandWidthFadingSpring] method is called.
  *
@@ -117,7 +118,7 @@ private fun View.collapseFadingSpring(
         return
     }
 
-    fadeOutSpring(stiffness = stiffness * 2f) {
+    hideFadeOutSpring(stiffness = stiffness * 2f) {
         collapseSpring(
             stiffness = stiffness * 2f,
             isHeight = isHeight,

@@ -15,7 +15,7 @@ fun View.fadeOut(
     duration: Long = ANIMATION_SHORT_TIME,
     onAnimationEnd: (() -> Unit)? = null
 ) {
-    hideFadeOut(duration, ::gone, onAnimationEnd = onAnimationEnd)
+    hideFadeOut(duration, hide = { gone() }, onAnimationEnd = onAnimationEnd)
 }
 
 /**

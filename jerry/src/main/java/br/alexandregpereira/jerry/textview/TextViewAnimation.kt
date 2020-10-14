@@ -24,7 +24,7 @@ import br.alexandregpereira.jerry.onAnimationEnd
  * @param onFirstFadeEnd The function to call when the first fade of the [setTextFade] is finished
  * @param onAnimationEnd The function to call when the animation is finished
  */
-fun TextView.setTextExpandableAnimation(
+fun TextView.setTextExpandable(
     text: String?,
     duration: Long = ANIMATION_SHORT_TIME,
     onAnimationEnd: (() -> Unit)? = null,

@@ -7,14 +7,14 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.textview.setTextExpandable
+import br.alexandregpereira.jerry.textview.setTextExpandableSpring
 import kotlinx.android.synthetic.main.activity_text_expandable_animation.*
 
-class TextExpandableAnimationActivity : AppCompatActivity() {
+class TextExpandableSpringAnimationActivity : AppCompatActivity() {
 
     companion object {
         fun getStartIntent(context: Context): Intent {
-            return Intent(context, TextExpandableAnimationActivity::class.java)
+            return Intent(context, TextExpandableSpringAnimationActivity::class.java)
         }
     }
 
@@ -22,40 +22,42 @@ class TextExpandableAnimationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_expandable_animation)
 
+        textExpandableLabel.setText(R.string.text_expandable_spring)
+
         expandCancelTextButton.setOnClickListener {
-            expandCancelTextView.setTextExpandable(
+            expandCancelTextView.setTextExpandableSpring(
                 getString(R.string.expand)
             )
             Handler(Looper.getMainLooper()).postDelayed({
-                expandCancelTextView.setTextExpandable(null)
+                expandCancelTextView.setTextExpandableSpring(null)
             }, 100)
         }
 
         collapseCancelTextButton.setOnClickListener {
-            collapseCancelTextView.setTextExpandable(null)
+            collapseCancelTextView.setTextExpandableSpring(null)
             Handler(Looper.getMainLooper()).postDelayed({
-                collapseCancelTextView.setTextExpandable(
+                collapseCancelTextView.setTextExpandableSpring(
                     getString(R.string.collapse)
                 )
             }, 100)
         }
 
         expandFadingTextButton.setOnClickListener {
-            expandFadingTextView.setTextExpandable(
+            expandFadingTextView.setTextExpandableSpring(
                 getString(R.string.expand_collapse_animation)
             )
         }
 
         expandCollapseFadingTextButton.setOnClickListener {
-            expandFadingTextView.setTextExpandable(null)
+            expandFadingTextView.setTextExpandableSpring(null)
         }
 
         collapseFadingTextButton.setOnClickListener {
-            collapseFadingTextView.setTextExpandable(null)
+            collapseFadingTextView.setTextExpandableSpring(null)
         }
 
         collapseExpandFadingTextButton.setOnClickListener {
-            collapseFadingTextView.setTextExpandable(
+            collapseFadingTextView.setTextExpandableSpring(
                 getString(R.string.collapse_expand_animation)
             )
         }
@@ -68,7 +70,7 @@ class TextExpandableAnimationActivity : AppCompatActivity() {
             "Fade text change 1",
         ).circularIterator()
         textFadeTextButton.setOnClickListener {
-            textFadeTextView.setTextExpandable(list.next())
+            textFadeTextView.setTextExpandableSpring(list.next())
         }
     }
 }

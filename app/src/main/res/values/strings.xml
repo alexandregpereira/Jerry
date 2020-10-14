@@ -2,6 +2,7 @@
     <string name="app_name">Jerry</string>
 
     <string name="fade">Fade</string>
+    <string name="fade_spring">Fade Spring</string>
     <string name="fade_text_change">Fade text change 1</string>
     <string name="fade_text_change_button">Fade text change</string>
     <string name="invisible_visible_fade_out">Fade out/Fade in</string>
@@ -9,6 +10,7 @@
     <string name="visible_fade_in">Fade in</string>
     <string name="visible_invisible_fade_in">Fade in/Fade out</string>
     <string name="collapse_fading">Collapse Fading</string>
+    <string name="collapse_fading_spring">Collapse Fading Spring</string>
     <string name="collapse_expand_animation">Collapse/expand animation</string>
     <string name="collapse_reverse_animation">Collapse/Expand animation</string>
     <string name="collapse_animation">Collapse animation</string>
@@ -28,20 +30,15 @@
     <string name="collapse_fixed_width_animation">Collapse fixed Width animation</string>
     <string name="expand_fixed_width_animation">Expand fixed Width animation</string>
     <string name="expand_fading">Expand Fading</string>
+    <string name="expand_fading_spring">Expand Fading Spring</string>
     <string name="text_expandable">Text Expandable</string>
+    <string name="text_expandable_spring">Text Expandable Spring</string>
     <string name="expand_collapse_animation">Expand/collapse animation</string>
     <string name="collapse">Collapse</string>
+    <string name="collapse_spring">Collapse Spring</string>
     <string name="expand">Expand</string>
-    <string name="measures">Measures</string>
-    <string name="change_text_size">Change text size</string>
-    <string name="change_top_margin">Change top margin</string>
-    <string name="scale_view">Scale view</string>
-    <string name="colors">Colors</string>
-    <string name="change_background_color">Change background color</string>
-    <string name="change_text_color">Change text color</string>
+    <string name="expand_spring">Expand Spring</string>
     <string name="this_text_needs_to_show_entirely">This text needs to show entirely</string>
-    <string name="animation_duration">Animation stiffness</string>
-    <string name="seek_bar_initial_value">600</string>
 
     <string name="add_all_button">Add All</string>
     <string name="remove_all_button">Remove All</string>

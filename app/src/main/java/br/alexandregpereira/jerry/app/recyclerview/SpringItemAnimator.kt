@@ -1,4 +1,4 @@
-package br.alexandregpereira.jerry.app
+package br.alexandregpereira.jerry.app.recyclerview
 
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
