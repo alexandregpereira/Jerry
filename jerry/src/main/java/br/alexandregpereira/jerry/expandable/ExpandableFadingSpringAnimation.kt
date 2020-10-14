@@ -7,6 +7,10 @@ import br.alexandregpereira.jerry.fadeInSpring
 import br.alexandregpereira.jerry.fadeOutSpring
 import br.alexandregpereira.jerry.isVisible
 
+/**
+ * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
+ * [expandHeightFadingSpring] is called, else the [collapseHeightFadingSpring] is called.
+ */
 fun View.animateHeightFadingVisibility(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
@@ -19,6 +23,10 @@ fun View.animateHeightFadingVisibility(
     }
 }
 
+/**
+ * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
+ * [expandWidthFadingSpring] is called, else the [collapseWidthFadingSpring] is called.
+ */
 fun View.animateWidthFadingVisibility(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,

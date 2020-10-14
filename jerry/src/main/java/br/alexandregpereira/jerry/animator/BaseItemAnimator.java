@@ -20,7 +20,12 @@ import br.alexandregpereira.jerry.ViewAnimationKt;
 /**
  * This implementation of {@link RecyclerView.ItemAnimator} provides basic
  * animations on remove, add, and move events that happen to the items in
- * a RecyclerView. RecyclerView uses a DefaultItemAnimator by default.
+ * a RecyclerView. The functions {@link BaseItemAnimator#preAnimateAdd},
+ * {@link BaseItemAnimator#startRemoveAnimation},
+ * {@link BaseItemAnimator#startAddAnimation},
+ * {@link BaseItemAnimator#startOldHolderChangeAnimation},
+ * {@link BaseItemAnimator#startNewHolderChangeAnimation} and
+ * {@link BaseItemAnimator#startMoveAnimation} gives the option to override the default animations.
  *
  * @see RecyclerView#setItemAnimator(RecyclerView.ItemAnimator)
  */
@@ -41,22 +46,62 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
     final ArrayList<RecyclerView.ViewHolder> mRemoveAnimations = new ArrayList<>();
     final ArrayList<RecyclerView.ViewHolder> mChangeAnimations = new ArrayList<>();
 
+    /**
+     * It is call before the {@link BaseItemAnimator#startAddAnimation} execution. Utilizes
+     * this function to change the view properties to animate on the
+     * {@link BaseItemAnimator#startAddAnimation}.
+     *
+     * @param holder The {@link RecyclerView.ViewHolder} who contains the view that will
+     *               be animated.
+     * @return true if the method was override and you want to animate the add action.
+     */
     protected boolean preAnimateAdd(RecyclerView.ViewHolder holder) {
         return false;
     }
 
+    /**
+     * Override this function if you want to change the default remove animation.
+     * When the animation finishes, or when the animation is canceled,
+     * the method {@link BaseItemAnimator#onAnimateRemoveFinished} needs to be called.
+     *
+     * @param holder The {@link RecyclerView.ViewHolder} who contains the view that will
+     *               be animated.
+     * @return true if the method was override and you want to animate the remove action.
+     */
     protected boolean startRemoveAnimation(
             RecyclerView.ViewHolder holder
     ) {
         return false;
     }
 
+    /**
+     * Override this function if you want to change the default add animation.
+     * When the animation finishes, or when the animation is canceled,
+     * the method {@link BaseItemAnimator#onAnimateAddFinished} needs to be called.
+     *
+     * @param holder The {@link RecyclerView.ViewHolder} who contains the view that will
+     *               be animated.
+     * @return true if the method was override and you want to animate the remove action.
+     */
     protected boolean startAddAnimation(
             RecyclerView.ViewHolder holder
     ) {
         return false;
     }
 
+    /**
+     * Override this function if you want to change the default change animation.
+     * When the animation finishes, or when the animation is canceled,
+     * the method {@link BaseItemAnimator#onAnimateChangeFinished} needs to be called.
+     * The method {@link BaseItemAnimator#startNewHolderChangeAnimation} needs to be override
+     * too when this method is override.
+     *
+     * @param oldHolder The {@link RecyclerView.ViewHolder} who contains the view that will
+     *               be animated.
+     * @param translationX The final value of the {@link View#getTranslationX}
+     * @param translationY The final value of the {@link View#getTranslationY}
+     * @return true if the method was override and you want to animate the remove action.
+     */
     protected boolean startOldHolderChangeAnimation(
             RecyclerView.ViewHolder oldHolder,
             float translationX,
@@ -65,22 +110,42 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
         return false;
     }
 
+    /**
+     * Override this function if you want to change the default change animation.
+     * When the animation finishes, or when the animation is canceled,
+     * the method {@link BaseItemAnimator#onAnimateChangeFinished} needs to be called.
+     * The method {@link BaseItemAnimator#startOldHolderChangeAnimation} needs to be override
+     * too when this method is override.
+     *
+     * @param newHolder The {@link RecyclerView.ViewHolder} who contains the view that will
+     *               be animated.
+     * @return true if the method was override and you want to animate the remove action.
+     */
     protected boolean startNewHolderChangeAnimation(
             RecyclerView.ViewHolder newHolder
     ) {
         return false;
     }
 
+    /**
+     * Override this function if you want to change the default add animation.
+     * When the animation finishes, or when the animation is canceled,
+     * the method {@link BaseItemAnimator#onAnimateMoveFinished} needs to be called.
+     *
+     * @param holder The {@link RecyclerView.ViewHolder} who contains the view that will
+     *               be animated.
+     * @param deltaX Indicates if the {@link View#getTranslationX} needs to be changed to the
+     *               original position (0f). deltaX needs to be different to 0.
+     * @param deltaY Indicates if the {@link View#getTranslationY} needs to be changed to the
+     *               original position (0f). deltaY needs to be different to 0.
+     * @return true if the method was override and you want to animate the remove action.
+     */
     protected boolean startMoveAnimation(
             RecyclerView.ViewHolder holder,
             int deltaX,
             int deltaY
     ) {
         return false;
-    }
-
-    public interface OnAnimationEndListener {
-        void onAnimationEnd();
     }
 
     private static class MoveInfo {
