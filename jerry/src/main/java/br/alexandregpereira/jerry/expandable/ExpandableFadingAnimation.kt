@@ -1,6 +1,10 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.expandable
 
 import android.view.View
+import br.alexandregpereira.jerry.ANIMATION_SHORT_TIME
+import br.alexandregpereira.jerry.fadeIn
+import br.alexandregpereira.jerry.hideFadeOut
+import br.alexandregpereira.jerry.isVisible
 
 /**
  * Uses the [expandHeight] and [fadeIn] animations in sequence. This animation

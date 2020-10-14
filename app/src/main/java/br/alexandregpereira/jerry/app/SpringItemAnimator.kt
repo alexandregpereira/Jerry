@@ -3,7 +3,7 @@ package br.alexandregpereira.jerry.app
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
-import br.alexandregpereira.jerry.BaseItemAnimator
+import br.alexandregpereira.jerry.animator.BaseItemAnimator
 import br.alexandregpereira.jerry.dpToPx
 import br.alexandregpereira.jerry.fadeSpring
 import br.alexandregpereira.jerry.startElevationSpringAnimation

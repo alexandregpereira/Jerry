@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.setTextExpandableSpring
+import br.alexandregpereira.jerry.textview.setTextExpandableSpring
 import kotlinx.android.synthetic.main.activity_text_expandable_animation.*
 
 class TextExpandableAnimationActivity : AppCompatActivity() {

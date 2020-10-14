@@ -5,12 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.collapseHeightFadingSpring
-import br.alexandregpereira.jerry.collapseWidthFading
-import br.alexandregpereira.jerry.collapseWidthFadingSpring
-import br.alexandregpereira.jerry.expandHeightFadingSpring
-import br.alexandregpereira.jerry.expandWidthFading
-import br.alexandregpereira.jerry.expandWidthFadingSpring
+import br.alexandregpereira.jerry.expandable.collapseHeightFadingSpring
+import br.alexandregpereira.jerry.expandable.collapseWidthFadingSpring
+import br.alexandregpereira.jerry.expandable.expandHeightFadingSpring
+import br.alexandregpereira.jerry.expandable.expandWidthFadingSpring
 import kotlinx.android.synthetic.main.activity_expand_fading_animation.*
 
 class ExpandFadingAnimationActivity : AppCompatActivity() {

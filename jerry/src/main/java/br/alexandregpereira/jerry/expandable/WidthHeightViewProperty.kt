@@ -1,4 +1,4 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.expandable
 
 import android.view.View
 import android.view.ViewGroup

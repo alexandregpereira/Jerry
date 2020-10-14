@@ -31,7 +31,22 @@ fun View.fadeOutSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    hideFadeOutSpring(stiffness, hide = ::gone, onAnimationEnd = onAnimationEnd)
+    if (isVisible().not() || isFadeOutRunning()) {
+        if (isFadeOutRunning().not()) {
+            onAnimationEnd?.invoke(false)
+        }
+        return
+    }
+    startFadeOutRunning()
+
+    startFadeSpringAnimation(
+        targetValue = 0f,
+        stiffness = stiffness,
+        onAnimationEnd = { canceled ->
+            gone()
+            onAnimationEnd?.invoke(canceled)
+        }
+    )
 }
 
 /**
@@ -64,40 +79,6 @@ fun View.fadeInSpring(
         targetValue = 1f,
         stiffness = stiffness,
         onAnimationEnd = onAnimationEnd
-    )
-}
-
-/**
- * Start the fade out animation without changing the visibility status. The changes in the
- * visibility status is delegate to the function [hide].
- *
- * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
- * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_STIFFNESS].
- * @param onAnimationEnd The function to call when the animation is finished.
- *
- * @see [SpringAnimation]
- */
-internal fun View.hideFadeOutSpring(
-    stiffness: Float,
-    hide: (() -> Unit)? = null,
-    onAnimationEnd: ((canceled: Boolean) -> Unit)?
-) {
-    if (isVisible().not() || isFadeOutRunning()) {
-        if (isFadeOutRunning().not()) {
-            onAnimationEnd?.invoke(false)
-        }
-        return
-    }
-    startFadeOutRunning()
-
-    startFadeSpringAnimation(
-        targetValue = 0f,
-        stiffness = stiffness,
-        onAnimationEnd = { canceled ->
-            hide?.invoke()
-            onAnimationEnd?.invoke(canceled)
-        }
     )
 }
 

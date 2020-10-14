@@ -1,7 +1,14 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.textview
 
 import android.widget.TextView
 import androidx.dynamicanimation.animation.SpringAnimation
+import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
+import br.alexandregpereira.jerry.expandable.collapseHeightFadingSpring
+import br.alexandregpereira.jerry.expandable.expandHeightFadingSpring
+import br.alexandregpereira.jerry.expandable.isCollapsingRunning
+import br.alexandregpereira.jerry.isFadeOutRunning
+import br.alexandregpereira.jerry.isVisible
+import br.alexandregpereira.jerry.startFadeSpringAnimation
 
 /**
  * Uses the [setTextFadeSpring], [expandHeightFadingSpring] or [collapseHeightFadingSpring]

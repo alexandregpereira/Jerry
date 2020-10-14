@@ -1,9 +1,13 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.expandable
 
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
+import br.alexandregpereira.jerry.ANIMATION_SHORT_TIME
+import br.alexandregpereira.jerry.gone
+import br.alexandregpereira.jerry.isVisible
+import br.alexandregpereira.jerry.visible
 
 /**
  * Animates expanding the height and changes the visibility status to VISIBLE.

@@ -1,7 +1,12 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.expandable
 
 import android.view.View
 import androidx.dynamicanimation.animation.SpringAnimation
+import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
+import br.alexandregpereira.jerry.gone
+import br.alexandregpereira.jerry.isVisible
+import br.alexandregpereira.jerry.startSpringAnimation
+import br.alexandregpereira.jerry.visible
 
 fun View.animateHeightVisibility(
     visible: Boolean,
@@ -32,7 +37,7 @@ fun View.animateWidthVisibility(
 /**
  * Animates collapsing the height and changes the visibility status to GONE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [expandHeight] method is called.
+ * if the [expandHeightSpring] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -55,7 +60,7 @@ fun View.collapseHeightSpring(
 /**
  * Animates collapsing the width and changes the visibility status to GONE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [expandWidth] method is called.
+ * if the [expandWidthSpring] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -78,7 +83,7 @@ fun View.collapseWidthSpring(
 /**
  * Animates expanding the height and changes the visibility status to VISIBLE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [collapseHeight] method is called. Any alteration of the parent width during the this
+ * if the [collapseHeightSpring] method is called. Any alteration of the parent width during the this
  * animation makes glitches in the animation.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
@@ -102,7 +107,7 @@ fun View.expandHeightSpring(
 /**
  * Animates expanding the width and changes the visibility status to VISIBLE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [collapseWidth] method is called. Any alteration of the parent width during the this
+ * if the [collapseWidthSpring] method is called. Any alteration of the parent width during the this
  * animation makes glitches in the animation.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to

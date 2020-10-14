@@ -1,7 +1,11 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.expandable
 
 import android.view.View
 import androidx.dynamicanimation.animation.SpringAnimation
+import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
+import br.alexandregpereira.jerry.fadeInSpring
+import br.alexandregpereira.jerry.fadeOutSpring
+import br.alexandregpereira.jerry.isVisible
 
 fun View.animateHeightFadingVisibility(
     visible: Boolean,
@@ -28,9 +32,9 @@ fun View.animateWidthFadingVisibility(
 }
 
 /**
- * Uses the [expandHeight] and [fadeIn] animations in sequence. This animation
+ * Uses the [expandHeightSpring] and [fadeInSpring] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [collapseHeightFading] method is called.
+ * [collapseHeightFadingSpring] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -45,9 +49,9 @@ fun View.expandHeightFadingSpring(
 ) = expandFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [expandWidth] and [fadeIn] animations in sequence. This animation
+ * Uses the [expandWidthSpring] and [fadeInSpring] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [collapseWidthFading] method is called.
+ * [collapseWidthFadingSpring] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -62,9 +66,9 @@ fun View.expandWidthFadingSpring(
 ) = expandFadingSpring(stiffness, isHeight = false, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [hideFadeOut] and [collapseHeight] animations in sequence. This animation
+ * Uses the [fadeOutSpring] and [collapseHeightSpring] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [expandHeightFading] method is called.
+ * [expandHeightFadingSpring] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -79,9 +83,9 @@ fun View.collapseHeightFadingSpring(
 ) = collapseFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [hideFadeOut] and [collapseWidth] animations in sequence. This animation
+ * Uses the [fadeOutSpring] and [collapseWidthSpring] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [expandWidthFading] method is called.
+ * [expandWidthFadingSpring] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -105,7 +109,7 @@ private fun View.collapseFadingSpring(
         return
     }
 
-    hideFadeOutSpring(stiffness = stiffness * 2f) {
+    fadeOutSpring(stiffness = stiffness * 2f) {
         collapseSpring(
             stiffness = stiffness * 2f,
             isHeight = isHeight,

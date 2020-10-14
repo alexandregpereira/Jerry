@@ -121,10 +121,10 @@ internal fun View.getSpringEndListener(key: Int): DynamicAnimation.OnAnimationEn
  */
 internal fun View.isAnimationRunning(key: Int, animationMode: AnimationMode): Boolean {
     return runCatching {
-        getTag(key) as Int
+        getTag(key) as AnimationMode
     }.getOrElse {
-        0
-    } == animationMode.ordinal
+        AnimationMode.NONE_ANIMATION_MODE
+    } == animationMode
 }
 
 /**
