@@ -18,7 +18,7 @@ class GridRecyclerViewActivity : AppCompatActivity() {
         }
     }
 
-    private val list = (0..20).map {
+    private val list = (0..14).map {
         Item(id = it, value = it.toString())
     }
 
