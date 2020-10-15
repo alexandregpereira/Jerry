@@ -53,6 +53,7 @@ class ExampleAdapter(
                         setPadding(padding, padding, padding, padding)
                         gravity = Gravity.CENTER_VERTICAL
                         setTextColor(ContextCompat.getColor(context, R.color.textSecondaryColor))
+                        maxLines = 1
                     }
                 )
             }
