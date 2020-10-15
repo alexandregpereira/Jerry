@@ -104,6 +104,7 @@ internal fun View.collapse(
     val animation = object : Animation() {
         override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
             if (interpolatedTime == 1f) {
+                gone()
                 setLayoutParamSize(originalValue, isHeight)
             } else {
                 val value = initialValue - (initialValue * interpolatedTime).toInt()
@@ -121,8 +122,7 @@ internal fun View.collapse(
     }
     animation.setAnimationListener(
         onEnd = {
-            gone()
-            finishExpandingCollapsingAnimation(onAnimationEnd)
+            finishExpandingCollapsingAnimation(isHeight, onAnimationEnd)
         }
     )
 
@@ -147,7 +147,7 @@ internal fun View.expand(
     val targetValue = getTargetValue(originalValue, isHeight)
 
     if (targetValue == null) {
-        finishExpandingCollapsingAnimation(onAnimationEnd)
+        finishExpandingCollapsingAnimation(isHeight, onAnimationEnd)
         return
     }
     startExpandingRunning()
@@ -179,7 +179,7 @@ internal fun View.expand(
     }
     animation.setAnimationListener(
         onEnd = {
-            finishExpandingCollapsingAnimation(onAnimationEnd)
+            finishExpandingCollapsingAnimation(isHeight, onAnimationEnd)
         }
     )
 

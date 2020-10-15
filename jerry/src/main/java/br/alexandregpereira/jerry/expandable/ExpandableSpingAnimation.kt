@@ -152,9 +152,10 @@ internal fun View.collapseSpring(
         stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange,
-        onAnimationEnd = {
+        onAnimationEnd = { canceled ->
             gone()
-            onAnimationEnd?.invoke(it)
+            setLayoutParamSize(getOrStoreWidthOrHeightOriginalValue(isHeight), isHeight)
+            finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
         }
     )
 }
@@ -176,7 +177,11 @@ internal fun View.expandSpring(
     val targetValue = getTargetValue(originalValue, isHeight)
 
     if (targetValue == null) {
-        finishExpandingCollapsingAnimation(canceled = false, onAnimationEnd = onAnimationEnd)
+        finishExpandingCollapsingAnimation(
+            isHeight,
+            canceled = false,
+            onAnimationEnd
+        )
         return
     }
     startExpandingRunning()
@@ -191,7 +196,9 @@ internal fun View.expandSpring(
         stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange,
-        onAnimationEnd = onAnimationEnd
+        onAnimationEnd = { canceled ->
+            finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
+        }
     )
 }
 
@@ -200,13 +207,11 @@ private fun View.startExpandCollapseSpringAnimation(
     stiffness: Float,
     isHeight: Boolean,
     onProgressChange: ((progress: Float) -> Unit)?,
-    onAnimationEnd: ((canceled: Boolean) -> Unit)?,
+    onAnimationEnd: ((canceled: Boolean) -> Unit),
 ) = startSpringAnimation(
     key = getExpandingCollapsingSpringKey(isHeight),
     property = widthHeightViewProperty(isHeight, onProgressChange),
     targetValue = targetValue,
     stiffness = stiffness,
-    endListenerPair = getExpandingCollapsingEndListenerKey(isHeight) to { canceled ->
-        finishExpandingCollapsingAnimation(canceled, onAnimationEnd)
-    }
+    endListenerPair = getExpandingCollapsingEndListenerKey(isHeight) to onAnimationEnd
 )

@@ -1,69 +1,66 @@
 package br.alexandregpereira.jerry.app.recyclerview
 
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.app.widgets.setMaterialShapeDrawable
 import br.alexandregpereira.jerry.dpToPx
-import androidx.recyclerview.widget.DiffUtil
 
-class ExampleAdapter : ListAdapter<Item, ExampleAdapter.ExampleViewHolder>(DiffUtil) {
+class ExampleAdapter(
+    private val itemWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT,
+    private val itemHeight: Int? = null
+) : ListAdapter<Item, ExampleAdapter.ExampleViewHolder>(DiffUtil) {
 
     fun setData(list: List<Item>) {
         submitList(list)
     }
 
     inner class ExampleViewHolder(
-        private val view: View
-    ) : RecyclerView.ViewHolder(view) {
+        private val viewGroup: ViewGroup
+    ) : RecyclerView.ViewHolder(viewGroup) {
 
-        fun bind(item: Item) {
-            if (view is TextView) {
-                view.text = item.value
-            }
+        fun bind(item: Item) = viewGroup.runCatching { getChildAt(0) }.getOrNull()?.run {
+            this as? TextView
+        }?.let { textView ->
+            textView.text = item.value
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
-        val height = when (viewType) {
-            ViewType.TYPE_2.ordinal -> ViewType.TYPE_2.height
-            else -> ViewType.TYPE_1.height
-        }
         return ExampleViewHolder(
-            AppCompatTextView(parent.context).apply {
+            CardView(parent.context).apply {
                 val padding = resources.getDimensionPixelOffset(R.dimen.text_padding)
                 layoutParams = ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    height.dpToPx(resources)
+                    itemWidth,
+                    itemHeight ?: 60.dpToPx(parent.resources)
                 ).apply {
                     setMargins(padding / 2, padding / 2, padding / 2, padding / 2)
                 }
-                setPadding(padding, padding, padding, padding)
-                gravity = Gravity.CENTER_VERTICAL
-                setTextColor(ContextCompat.getColor(context, R.color.textSecondaryColor))
-                setMaterialShapeDrawable(ContextCompat.getColor(context,
-                    R.color.backgroundHelperColor
-                ))
+//                setCardBackgroundColor(ContextCompat.getColor(context, R.color.backgroundHelperColor))
+                radius = resources.getDimension(R.dimen.corner_size)
+                addView(
+                    AppCompatTextView(parent.context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                        setPadding(padding, padding, padding, padding)
+                        gravity = Gravity.CENTER_VERTICAL
+                        setTextColor(ContextCompat.getColor(context, R.color.textSecondaryColor))
+                    }
+                )
             }
         )
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return (if (position == 1) ViewType.TYPE_2 else ViewType.TYPE_1).ordinal
-    }
-
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
-
-    enum class ViewType(val height: Int) {
-        TYPE_1(60), TYPE_2(100)
     }
 }
 

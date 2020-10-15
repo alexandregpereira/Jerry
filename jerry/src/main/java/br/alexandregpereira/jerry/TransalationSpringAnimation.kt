@@ -7,7 +7,7 @@ import androidx.dynamicanimation.animation.SpringForce
 fun View.translationXSpring(
     stiffness: Float = SpringForce.STIFFNESS_LOW
 ) = spring(
-    key = SpringAnimationPropertyKey.TRANSLATION_X,
+    key = SpringAnimationPropertyKey.TRANSLATION_X.id,
     property = DynamicAnimation.TRANSLATION_X,
     stiffness = stiffness
 )
@@ -18,7 +18,7 @@ fun View.startTranslationXSpringAnimation(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     startSpringAnimation(
-        key = SpringAnimationPropertyKey.TRANSLATION_X,
+        key = SpringAnimationPropertyKey.TRANSLATION_X.id,
         property = DynamicAnimation.TRANSLATION_X,
         targetValue = targetValue,
         stiffness = stiffness,
@@ -31,7 +31,7 @@ fun View.startTranslationXSpringAnimation(
 fun View.translationYSpring(
     stiffness: Float = SpringForce.STIFFNESS_LOW
 ) = spring(
-    key = SpringAnimationPropertyKey.TRANSLATION_Y,
+    key = SpringAnimationPropertyKey.TRANSLATION_Y.id,
     property = DynamicAnimation.TRANSLATION_Y,
     stiffness = stiffness
 )
@@ -42,7 +42,7 @@ fun View.startTranslationYSpringAnimation(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     startSpringAnimation(
-        key = SpringAnimationPropertyKey.TRANSLATION_Y,
+        key = SpringAnimationPropertyKey.TRANSLATION_Y.id,
         property = DynamicAnimation.TRANSLATION_Y,
         targetValue = targetValue,
         stiffness = stiffness,

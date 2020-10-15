@@ -64,12 +64,20 @@ fun View.fadeInSpring(
     if (alpha == 1f) alpha = 0f
     visible()
 
-    startFadeSpringAnimation(
-        targetValue = 1f,
+    startFadeInSpringAnimation(
         stiffness = stiffness,
         onAnimationEnd = onAnimationEnd
     )
 }
+
+fun View.startFadeInSpringAnimation(
+    stiffness: Float = ANIMATION_STIFFNESS,
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) = startFadeSpringAnimation(
+    targetValue = 1f,
+    stiffness = stiffness,
+    onAnimationEnd = onAnimationEnd
+)
 
 /**
  * Start the fade out animation without changing the visibility status. The changes in the
@@ -82,7 +90,7 @@ fun View.fadeInSpring(
  *
  * @see [SpringAnimation]
  */
-internal fun View.hideFadeOutSpring(
+fun View.hideFadeOutSpring(
     stiffness: Float,
     hide: (() -> Unit)? = null,
     onAnimationEnd: ((canceled: Boolean) -> Unit)?
@@ -95,8 +103,7 @@ internal fun View.hideFadeOutSpring(
     }
     startFadeOutRunning()
 
-    startFadeSpringAnimation(
-        targetValue = 0f,
+    startFadeOutSpringAnimation(
         stiffness = stiffness,
         onAnimationEnd = { canceled ->
             hide?.invoke()
@@ -105,10 +112,21 @@ internal fun View.hideFadeOutSpring(
     )
 }
 
+fun View.startFadeOutSpringAnimation(
+    stiffness: Float = ANIMATION_STIFFNESS,
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) = startFadeSpringAnimation(
+    targetValue = 0f,
+    stiffness = stiffness,
+    onAnimationEnd = { canceled ->
+        onAnimationEnd?.invoke(canceled)
+    }
+)
+
 fun View.fadeSpring(
     stiffness: Float = ANIMATION_STIFFNESS
 ) = spring(
-    key = SpringAnimationPropertyKey.ALPHA,
+    key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
     stiffness = stiffness
 )
@@ -118,7 +136,7 @@ fun View.startFadeSpringAnimation(
     stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null,
 ) = startSpringAnimation(
-    key = SpringAnimationPropertyKey.ALPHA,
+    key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
     targetValue = targetValue,
     stiffness = stiffness,

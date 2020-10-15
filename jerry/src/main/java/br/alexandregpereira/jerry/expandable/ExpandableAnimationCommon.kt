@@ -4,17 +4,18 @@ import android.view.View
 import android.view.View.MeasureSpec
 import android.view.ViewGroup
 import br.alexandregpereira.jerry.AnimationMode
+import br.alexandregpereira.jerry.OriginalValueKey
 import br.alexandregpereira.jerry.R
 import br.alexandregpereira.jerry.SpringAnimationPropertyKey
 import br.alexandregpereira.jerry.isAnimationRunning
 import br.alexandregpereira.jerry.setAnimationRunning
 import br.alexandregpereira.jerry.visible
 
-internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): SpringAnimationPropertyKey {
+internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): Int {
     return if (isHeight) {
-        SpringAnimationPropertyKey.HEIGHT
+        SpringAnimationPropertyKey.HEIGHT.id
     } else {
-        SpringAnimationPropertyKey.WIDTH
+        SpringAnimationPropertyKey.WIDTH.id
     }
 }
 
@@ -26,17 +27,21 @@ internal fun getExpandingCollapsingEndListenerKey(isHeight: Boolean): Int {
     }
 }
 
-internal fun View.finishExpandingCollapsingAnimation(onAnimationEnd: (() -> Unit)?) {
-    clearOriginalValue()
+internal fun View.finishExpandingCollapsingAnimation(
+    isHeight: Boolean,
+    onAnimationEnd: (() -> Unit)?
+) {
+    clearWidthOrHeightOriginalValue(isHeight)
     clearExpandingCollapsingRunning()
     onAnimationEnd?.invoke()
 }
 
 internal fun View.finishExpandingCollapsingAnimation(
+    isHeight: Boolean,
     canceled: Boolean,
     onAnimationEnd: ((canceled: Boolean) -> Unit)?
 ) {
-    clearOriginalValue()
+    clearWidthOrHeightOriginalValue(isHeight)
     clearExpandingCollapsingRunning()
     onAnimationEnd?.invoke(canceled)
 }
@@ -60,16 +65,20 @@ internal fun View.isExpandingCollapsingRunning(animationMode: AnimationMode): Bo
 internal fun View.setExpandingCollapsingRunning(animationMode: AnimationMode) =
     setAnimationRunning(R.string.is_expanding_collapsing_key, animationMode)
 
-internal fun View.isExpandingRunning() = isExpandingCollapsingRunning(AnimationMode.ENTER_ANIMATION_MODE)
+internal fun View.isExpandingRunning() =
+    isExpandingCollapsingRunning(AnimationMode.ENTER_ANIMATION_MODE)
 
-internal fun View.isCollapsingRunning() = isExpandingCollapsingRunning(AnimationMode.POP_ANIMATION_MODE)
+internal fun View.isCollapsingRunning() =
+    isExpandingCollapsingRunning(AnimationMode.POP_ANIMATION_MODE)
 
 internal fun View.clearExpandingCollapsingRunning() =
     setExpandingCollapsingRunning(AnimationMode.NONE_ANIMATION_MODE)
 
-internal fun View.startExpandingRunning() = setExpandingCollapsingRunning(AnimationMode.ENTER_ANIMATION_MODE)
+internal fun View.startExpandingRunning() =
+    setExpandingCollapsingRunning(AnimationMode.ENTER_ANIMATION_MODE)
 
-internal fun View.startCollapsingRunning() = setExpandingCollapsingRunning(AnimationMode.POP_ANIMATION_MODE)
+internal fun View.startCollapsingRunning() =
+    setExpandingCollapsingRunning(AnimationMode.POP_ANIMATION_MODE)
 
 internal fun View.getCollapsingInitialValue(isHeight: Boolean): Int {
     val value = getLayoutParamSize(isHeight)
@@ -91,14 +100,16 @@ internal fun View.getOrStoreWidthOrHeightOriginalValue(isHeight: Boolean): Int {
 
 internal fun getWidthOrHeightOriginalValueKey(isHeight: Boolean): Int {
     return if (isHeight) {
-        R.string.expanding_collapsing_height_original_value_key
+        OriginalValueKey.HEIGHT.id
     } else {
-        R.string.expanding_collapsing_width_original_value_key
+        OriginalValueKey.WIDTH.id
     }
 }
 
-internal fun View.clearOriginalValue() {
-    runCatching { setTag(id, null) }
+internal fun View.clearWidthOrHeightOriginalValue(isHeight: Boolean) {
+    runCatching {
+        setTag(getWidthOrHeightOriginalValueKey(isHeight), null)
+    }
 }
 
 internal fun View.getTargetValue(originalValue: Int, isHeight: Boolean): Int? {
