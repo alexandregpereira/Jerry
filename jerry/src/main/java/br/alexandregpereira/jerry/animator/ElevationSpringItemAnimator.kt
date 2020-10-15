@@ -61,6 +61,8 @@ class ElevationSpringItemAnimator(
     ): Boolean {
         val onAnimationEnd: RecyclerView.ViewHolder.(completed: Boolean) -> Unit = { completed ->
             if (completed) {
+                itemView.alpha = alphaFull
+                itemView.elevation = itemView.elevationFull
                 onAnimateMoveFinished(this)
             }
         }
