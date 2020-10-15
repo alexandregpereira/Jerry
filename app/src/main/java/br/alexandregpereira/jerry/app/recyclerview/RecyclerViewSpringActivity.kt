@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.alexandregpereira.jerry.animator.ElevationSpringItemAnimator
 import br.alexandregpereira.jerry.app.R
 import kotlinx.android.synthetic.main.activity_recycler_view.*
 import java.util.*
@@ -32,7 +33,7 @@ class RecyclerViewSpringActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            recyclerView.itemAnimator = SpringItemAnimator()
+            recyclerView.itemAnimator = ElevationSpringItemAnimator()
         }
 
         button.setOnClickListener {

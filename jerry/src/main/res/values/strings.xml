@@ -9,7 +9,6 @@
 
     <string name="elevation_spring_key">elevation_spring_key</string>
     <string name="elevation_end_listener_key">elevation_end_listener_key</string>
-    <string name="elevation_original_value_key">elevation_original_value_key</string>
 
     <string name="translation_x_spring_key">translation_x_spring_key</string>
     <string name="translation_x_end_listener_key">translation_x_end_listener_key</string>
