@@ -19,14 +19,6 @@ internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): Int {
     }
 }
 
-internal fun getExpandingCollapsingEndListenerKey(isHeight: Boolean): Int {
-    return if (isHeight) {
-        R.string.expanding_collapsing_height_end_listener_key
-    } else {
-        R.string.expanding_collapsing_width_end_listener_key
-    }
-}
-
 internal fun View.finishExpandingCollapsingAnimation(
     isHeight: Boolean,
     onAnimationEnd: (() -> Unit)?

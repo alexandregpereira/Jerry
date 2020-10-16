@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.alexandregpereira.jerry.ViewAnimationKt;
+import br.alexandregpereira.jerry.SpringAnimationKt;
 
 /**
  * This implementation of {@link RecyclerView.ItemAnimator} provides basic
@@ -587,7 +587,7 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
         final View view = item.itemView;
         // this will trigger end callback which should set properties to their target values.
         view.animate().cancel();
-        ViewAnimationKt.cancelSpringAnimation(view);
+        SpringAnimationKt.cancelSpringAnimation(view);
         // TODO if some other animations are chained to end, how do we cancel them as well?
         for (int i = mPendingMoves.size() - 1; i >= 0; i--) {
             MoveInfo moveInfo = mPendingMoves.get(i);
@@ -784,7 +784,7 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
         for (int i = viewHolders.size() - 1; i >= 0; i--) {
             final View view = viewHolders.get(i).itemView;
             view.animate().cancel();
-            ViewAnimationKt.cancelSpringAnimation(view);
+            SpringAnimationKt.cancelSpringAnimation(view);
         }
     }
 

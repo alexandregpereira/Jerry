@@ -6,6 +6,7 @@ import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.expandable.collapseHeightFadingSpring
 import br.alexandregpereira.jerry.expandable.expandHeightFadingSpring
 import br.alexandregpereira.jerry.expandable.isCollapsingRunning
+import br.alexandregpereira.jerry.fadeSpring
 import br.alexandregpereira.jerry.isFadeOutRunning
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.startFadeSpringAnimation
@@ -68,23 +69,21 @@ fun TextView.setTextFadeSpring(
     if (oldText.isEmpty()) {
         textView.text = text
         textView.alpha = 0f
-        startFadeSpringAnimation(
+        fadeSpring(stiffness = stiffness).startFadeSpringAnimation(
             targetValue = 1f,
-            stiffness = stiffness,
             onAnimationEnd = onAnimationEnd
         )
         return
     }
 
-    startFadeSpringAnimation(
-        targetValue = 0f,
-        stiffness = stiffness * 1.5f
-    ) {
-        textView.text = text
-        startFadeSpringAnimation(
-            targetValue = 1f,
-            stiffness = stiffness * 1.5f,
-            onAnimationEnd = onAnimationEnd
-        )
-    }
+    fadeSpring(stiffness = stiffness * 1.5f)
+        .startFadeSpringAnimation(
+            targetValue = 0f
+        ) {
+            textView.text = text
+            fadeSpring(stiffness = stiffness * 1.5f).startFadeSpringAnimation(
+                targetValue = 1f,
+                onAnimationEnd = onAnimationEnd
+            )
+        }
 }
