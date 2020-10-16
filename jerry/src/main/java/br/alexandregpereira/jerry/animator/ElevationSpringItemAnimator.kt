@@ -4,14 +4,14 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
-import br.alexandregpereira.jerry.animationSet
+import br.alexandregpereira.jerry.after
 import br.alexandregpereira.jerry.dpToPx
 import br.alexandregpereira.jerry.elevationSpring
 import br.alexandregpereira.jerry.fadeSpring
-import br.alexandregpereira.jerry.startFadeInSpringAnimation
-import br.alexandregpereira.jerry.startFadeOutSpringAnimation
 import br.alexandregpereira.jerry.startSpringAnimation
 import br.alexandregpereira.jerry.target
+import br.alexandregpereira.jerry.targetFadeIn
+import br.alexandregpereira.jerry.targetFadeOut
 import br.alexandregpereira.jerry.translationXSpring
 import br.alexandregpereira.jerry.translationYSpring
 
@@ -59,38 +59,23 @@ class ElevationSpringItemAnimator(
         deltaX: Int,
         deltaY: Int
     ): Boolean {
-        val onAnimationEnd: RecyclerView.ViewHolder.(completed: Boolean) -> Unit = { completed ->
-            if (completed) {
-                itemView.alpha = alphaFull
-                itemView.elevation = itemView.elevationFull
-                onAnimateMoveFinished(this)
-            }
-        }
-
         holder.itemView.apply {
             val translationXTargetValue = if (deltaX != 0) translationOrigin else translationX
             val translationYTargetValue = if (deltaY != 0) translationOrigin else translationY
 
-            translationXSpring(stiffness = translationStiffness).startSpringAnimation(
-                targetValue = translationXTargetValue
-            ) { canceled ->
-                if (canceled) {
-                    if (deltaX != 0) translationX = translationOrigin
+            translationXSpring(stiffness = translationStiffness)
+                .target(translationXTargetValue)
+                .translationYSpring(stiffness = translationStiffness)
+                .target(translationYTargetValue)
+                .startSpringAnimation { canceled ->
+                    if (canceled) {
+                        if (deltaX != 0) translationX = translationOrigin
+                        if (deltaY != 0) translationY = translationOrigin
+                    }
+                    alpha = alphaFull
+                    elevation = elevationFull
+                    onAnimateMoveFinished(holder)
                 }
-                holder.onAnimationEnd(
-                    translationYSpring().isRunning.not()
-                )
-            }
-            translationYSpring(stiffness = translationStiffness).startSpringAnimation(
-                targetValue = translationYTargetValue
-            ) { canceled ->
-                if (canceled) {
-                    if (deltaY != 0) translationY = translationOrigin
-                }
-                holder.onAnimationEnd(
-                    translationXSpring().isRunning.not()
-                )
-            }
         }
         return true
     }
@@ -130,80 +115,50 @@ class ElevationSpringItemAnimator(
         oldItem: Boolean
     ) {
         val elevationFull = itemView.elevationFull
-        val onAnimationEnd: RecyclerView.ViewHolder.(canceled: Boolean) -> Unit = { canceled ->
-            if (canceled) {
-                itemView.alpha = alphaFull
-                itemView.elevation = elevationFull
-                itemView.translationX = translationOrigin
-                itemView.translationY = translationOrigin
-                onAnimateChangeFinished(this, oldItem)
-            } else {
-                itemView.elevationSpring(stiffness = elevationStiffness)
-                    .startSpringAnimation(
-                        targetValue = elevationFull
-                    ) {
-                        itemView.alpha = alphaFull
-                        itemView.elevation = elevationFull
-                        itemView.translationX = translationOrigin
-                        itemView.translationY = translationOrigin
-                        onAnimateChangeFinished(this, oldItem)
-                    }
-            }
-        }
-
         this.itemView.apply {
-            elevationSpring(stiffness = elevationStiffness).startSpringAnimation(
-                targetValue = elevationNone
-            ) { canceled ->
-                if (canceled) {
-                    onAnimationEnd(canceled)
-                    return@startSpringAnimation
+            elevationSpring(stiffness = elevationStiffness)
+                .target(elevationNone)
+                .after(
+                    fadeSpring(stiffness = alphaStiffness)
+                        .target(alphaTargetValue)
+                        .translationXSpring(stiffness = translationStiffness)
+                        .target(translationXTargetValue)
+                        .translationYSpring(stiffness = translationStiffness)
+                        .target(translationYTargetValue)
+                        .after(
+                            elevationSpring(stiffness = elevationStiffness).target(elevationFull)
+                        )
+                ).startSpringAnimation {
+                    itemView.alpha = alphaFull
+                    itemView.elevation = elevationFull
+                    itemView.translationX = translationOrigin
+                    itemView.translationY = translationOrigin
+                    onAnimateChangeFinished(this@startChangeAnimation, oldItem)
                 }
-
-                fadeSpring(stiffness = alphaStiffness)
-                    .target(alphaTargetValue)
-                    .animationSet()
-                    .translationXSpring(stiffness = translationStiffness)
-                    .target(translationXTargetValue)
-                    .translationYSpring(stiffness = translationStiffness)
-                    .target(translationYTargetValue)
-                    .startSpringAnimation {
-                        onAnimationEnd(it)
-                    }
-            }
         }
     }
 
     private fun View.startFadeElevationInAnimation(onAnimationFinished: () -> Unit) {
-        fadeSpring(stiffness = alphaStiffness).startFadeInSpringAnimation { canceled ->
-            if (canceled) {
-                onAnimationFinished()
-                return@startFadeInSpringAnimation
-            }
-
-            elevationSpring(stiffness = elevationStiffness).startSpringAnimation(
-                targetValue = elevationFull
-            ) {
+        fadeSpring(stiffness = alphaStiffness)
+            .targetFadeIn()
+            .after(
+                elevationSpring(stiffness = elevationStiffness).target(elevationFull)
+            )
+            .startSpringAnimation {
                 onAnimationFinished()
             }
-        }
     }
 
     private fun View.startFadeElevationOutAnimation(onAnimationFinished: () -> Unit) {
-        elevationSpring(stiffness = elevationStiffness).startSpringAnimation(
-            targetValue = elevationNone
-        ) { canceled ->
-
-            if (canceled) {
-                onAnimationFinished()
-                return@startSpringAnimation
-            }
-
-            fadeSpring(stiffness = alphaStiffness).startFadeOutSpringAnimation {
+        elevationSpring(stiffness = elevationStiffness)
+            .target(elevationNone)
+            .after(
+                fadeSpring(stiffness = alphaStiffness).targetFadeOut()
+            )
+            .startSpringAnimation {
                 alpha = alphaFull
                 elevation = elevationFull
                 onAnimationFinished()
             }
-        }
     }
 }

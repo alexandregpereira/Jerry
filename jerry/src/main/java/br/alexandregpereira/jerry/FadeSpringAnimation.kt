@@ -69,13 +69,6 @@ fun View.fadeInSpring(
     )
 }
 
-fun JerryAnimation.startFadeInSpringAnimation(
-    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = startFadeSpringAnimation(
-    targetValue = 1f,
-    onAnimationEnd = onAnimationEnd
-)
-
 /**
  * Start the fade out animation without changing the visibility status. The changes in the
  * visibility status is delegate to the function [hide].
@@ -115,6 +108,37 @@ fun JerryAnimation.startFadeOutSpringAnimation(
     onAnimationEnd = { canceled ->
         onAnimationEnd?.invoke(canceled)
     }
+)
+
+fun JerryAnimation.startFadeInSpringAnimation(
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) = startFadeSpringAnimation(
+    targetValue = 1f,
+    onAnimationEnd = onAnimationEnd
+)
+
+fun JerryAnimation.targetFadeIn() = target(1f)
+
+fun JerryAnimation.targetFadeOut() = target(0f)
+
+fun JerryAnimationSet.targetFadeIn() = target(1f)
+
+fun JerryAnimationSet.targetFadeOut() = target(0f)
+
+fun JerryAnimationSet.fadeSpring(
+    stiffness: Float = ANIMATION_STIFFNESS
+) = spring(
+    key = SpringAnimationPropertyKey.ALPHA.id,
+    property = DynamicAnimation.ALPHA,
+    stiffness = stiffness
+)
+
+fun JerryAnimation.fadeSpring(
+    stiffness: Float = ANIMATION_STIFFNESS
+) = spring(
+    key = SpringAnimationPropertyKey.ALPHA.id,
+    property = DynamicAnimation.ALPHA,
+    stiffness = stiffness
 )
 
 fun View.fadeSpring(

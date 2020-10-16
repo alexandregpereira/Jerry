@@ -28,6 +28,10 @@ fun View.skipToEndSpringAnimation(key: Int) {
     getSpringAnimation(key)?.takeIf { it.canSkipToEnd() }?.skipToEnd()
 }
 
+fun View.clearSpring(key: Int) {
+    setTag(key, null)
+}
+
 /**
  *
  */
@@ -51,13 +55,25 @@ fun View.spring(
     return JerryAnimation(key = key, view = this, springAnimation)
 }
 
-fun List<JerryAnimation>.spring(
+fun JerryAnimation.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     stiffness: Float = SpringForce.STIFFNESS_LOW
-): List<JerryAnimation> {
-    return this + listOf(last().view.spring(key, property, dampingRatio, stiffness))
+): JerryAnimationSet {
+    return animationSet().spring(key, property, dampingRatio, stiffness)
+}
+
+fun JerryAnimationSet.spring(
+    key: Int,
+    property: FloatPropertyCompat<View>,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
+    stiffness: Float = SpringForce.STIFFNESS_LOW
+): JerryAnimationSet {
+    return this.copy(
+        jerryAnimations = jerryAnimations +
+                listOf(jerryAnimations.last().view.spring(key, property, dampingRatio, stiffness))
+    )
 }
 
 fun JerryAnimation.startSpringAnimation(
@@ -72,43 +88,65 @@ fun JerryAnimation.startSpringAnimation(
     springAnimation.animateToFinalPosition(targetValue)
 }
 
-fun JerryAnimation.animationSet(): List<JerryAnimation> {
-    return listOf(this)
+private fun JerryAnimation.animationSet(): JerryAnimationSet {
+    return JerryAnimationSet(jerryAnimations = listOf(this))
 }
 
-fun List<JerryAnimation>.target(targetValue: Float): List<JerryAnimation> {
-    return this.subList(0, this.size - 1) + this.last().target(targetValue)
+fun JerryAnimationSet.target(targetValue: Float): JerryAnimationSet {
+    return this.copy(
+        jerryAnimations = jerryAnimations.subList(0, jerryAnimations.size - 1) +
+                jerryAnimations.last().target(targetValue)
+    )
 }
 
 fun JerryAnimation.target(targetValue: Float): JerryAnimation {
     return this.copy(targetValue = targetValue)
 }
 
-fun List<JerryAnimation>.startSpringAnimation(
+fun JerryAnimation.after(jerryAnimationSet: JerryAnimationSet): JerryAnimationSet {
+    return animationSet().after(jerryAnimationSet)
+}
+
+fun JerryAnimation.after(jerryAnimation: JerryAnimation): JerryAnimationSet {
+    return animationSet().after(jerryAnimation)
+}
+
+fun JerryAnimationSet.after(jerryAnimationSet: JerryAnimationSet): JerryAnimationSet {
+    return this.copy(jerryAfterAnimationSet = jerryAnimationSet)
+}
+
+fun JerryAnimationSet.after(jerryAnimation: JerryAnimation): JerryAnimationSet {
+    return this.copy(jerryAfterAnimationSet = jerryAnimation.animationSet())
+}
+
+fun JerryAnimationSet.startSpringAnimation(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    val onAnimationsEnd: (canceled: Boolean, completed: Boolean) -> Unit =
-        { canceled, completed ->
-            if (completed) {
+    val onAnimationsEnd: (canceled: Boolean, completed: Boolean) -> Unit = { canceled, completed ->
+        if (completed) {
+            if (canceled || jerryAfterAnimationSet == null) {
                 onAnimationEnd?.invoke(canceled)
+            } else {
+                jerryAfterAnimationSet.startSpringAnimation(onAnimationEnd)
             }
         }
-    return this.forEach { animation ->
-        val targetValue = animation.targetValue
-        if (targetValue != null) {
-            val otherAnimations = this.filterNot { it.key == animation.key }
-            animation.startSpringAnimation(targetValue) { canceled ->
-                onAnimationsEnd(
-                    canceled,
-                    otherAnimations.isRunning().not()
-                )
-            }
+    }
+    return jerryAnimations.forEachIndexed { index, animation ->
+        val targetValue = animation.targetValue ?: throw IllegalStateException(
+            "The animation target from index $index must be set before execution of a list of animations"
+        )
+        val otherAnimations = jerryAnimations.filterNot { it.key == animation.key }
+        animation.startSpringAnimation(targetValue) { canceled ->
+            onAnimationsEnd(
+                canceled,
+                otherAnimations.isRunning().not()
+            )
         }
     }
 }
 
 fun List<JerryAnimation>.isRunning(): Boolean {
-    return map { it.isRunning }.reduce { acc, isRunning -> acc || isRunning }
+    return isNotEmpty() && map { it.isRunning }.reduce { acc, isRunning -> acc || isRunning }
 }
 
 internal fun JerryAnimation.addSpringEndListener(

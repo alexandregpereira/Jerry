@@ -6,6 +6,24 @@ import androidx.dynamicanimation.animation.FloatPropertyCompat
 import androidx.dynamicanimation.animation.SpringForce
 
 @RequiresApi(21)
+fun JerryAnimationSet.elevationSpring(
+    stiffness: Float = SpringForce.STIFFNESS_LOW
+) = spring(
+    key = SpringAnimationPropertyKey.ELEVATION.id,
+    property = elevationViewProperty(),
+    stiffness = stiffness
+)
+
+@RequiresApi(21)
+fun JerryAnimation.elevationSpring(
+    stiffness: Float = SpringForce.STIFFNESS_LOW
+) = spring(
+    key = SpringAnimationPropertyKey.ELEVATION.id,
+    property = elevationViewProperty(),
+    stiffness = stiffness
+)
+
+@RequiresApi(21)
 fun View.elevationSpring(
     stiffness: Float = SpringForce.STIFFNESS_LOW
 ) = spring(

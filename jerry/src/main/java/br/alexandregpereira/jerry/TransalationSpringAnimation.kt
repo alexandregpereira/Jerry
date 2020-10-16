@@ -4,7 +4,15 @@ import android.view.View
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringForce
 
-fun List<JerryAnimation>.translationXSpring(
+fun JerryAnimation.translationXSpring(
+    stiffness: Float = SpringForce.STIFFNESS_LOW
+) = spring(
+    key = SpringAnimationPropertyKey.TRANSLATION_X.id,
+    property = DynamicAnimation.TRANSLATION_X,
+    stiffness = stiffness
+)
+
+fun JerryAnimationSet.translationXSpring(
     stiffness: Float = SpringForce.STIFFNESS_LOW
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_X.id,
@@ -20,7 +28,15 @@ fun View.translationXSpring(
     stiffness = stiffness
 )
 
-fun List<JerryAnimation>.translationYSpring(
+fun JerryAnimation.translationYSpring(
+    stiffness: Float = SpringForce.STIFFNESS_LOW
+) = spring(
+    key = SpringAnimationPropertyKey.TRANSLATION_Y.id,
+    property = DynamicAnimation.TRANSLATION_Y,
+    stiffness = stiffness
+)
+
+fun JerryAnimationSet.translationYSpring(
     stiffness: Float = SpringForce.STIFFNESS_LOW
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_Y.id,
