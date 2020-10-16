@@ -7,3 +7,5 @@ build/
 captures/
 .externalNativeBuild
 .cxx
+github.properties
+versionlint.properties
