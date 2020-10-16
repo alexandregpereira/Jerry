@@ -64,18 +64,15 @@ fun View.fadeInSpring(
     if (alpha == 1f) alpha = 0f
     visible()
 
-    startFadeInSpringAnimation(
-        stiffness = stiffness,
+    fadeSpring(stiffness = stiffness).startFadeInSpringAnimation(
         onAnimationEnd = onAnimationEnd
     )
 }
 
-fun View.startFadeInSpringAnimation(
-    stiffness: Float = ANIMATION_STIFFNESS,
+fun JerryAnimation.startFadeInSpringAnimation(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) = startFadeSpringAnimation(
     targetValue = 1f,
-    stiffness = stiffness,
     onAnimationEnd = onAnimationEnd
 )
 
@@ -103,8 +100,7 @@ fun View.hideFadeOutSpring(
     }
     startFadeOutRunning()
 
-    startFadeOutSpringAnimation(
-        stiffness = stiffness,
+    fadeSpring(stiffness = stiffness).startFadeOutSpringAnimation(
         onAnimationEnd = { canceled ->
             hide?.invoke()
             onAnimationEnd?.invoke(canceled)
@@ -112,12 +108,10 @@ fun View.hideFadeOutSpring(
     )
 }
 
-fun View.startFadeOutSpringAnimation(
-    stiffness: Float = ANIMATION_STIFFNESS,
+fun JerryAnimation.startFadeOutSpringAnimation(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) = startFadeSpringAnimation(
     targetValue = 0f,
-    stiffness = stiffness,
     onAnimationEnd = { canceled ->
         onAnimationEnd?.invoke(canceled)
     }
@@ -131,17 +125,13 @@ fun View.fadeSpring(
     stiffness = stiffness
 )
 
-fun View.startFadeSpringAnimation(
+fun JerryAnimation.startFadeSpringAnimation(
     targetValue: Float,
-    stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null,
 ) = startSpringAnimation(
-    key = SpringAnimationPropertyKey.ALPHA.id,
-    property = DynamicAnimation.ALPHA,
     targetValue = targetValue,
-    stiffness = stiffness,
-    endListenerPair = R.string.alpha_end_listener_key to { canceled ->
-        clearFadeInFadeOutRunning()
+    onAnimationEnd = { canceled ->
+        view.clearFadeInFadeOutRunning()
         onAnimationEnd?.invoke(canceled)
     }
 )
