@@ -5,8 +5,9 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.fadeInSpring
 import br.alexandregpereira.jerry.fadeOutSpring
-import br.alexandregpereira.jerry.hideFadeOutSpring
+import br.alexandregpereira.jerry.fadeSpring
 import br.alexandregpereira.jerry.isVisible
+import br.alexandregpereira.jerry.startFadeOutSpringAnimation
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
@@ -92,7 +93,7 @@ fun View.collapseHeightFadingSpring(
 ) = collapseFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [hideFadeOutSpring] and [collapseWidthSpring] animations in sequence. This animation
+ * Uses the [fadeSpring] and [collapseWidthSpring] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
  * [expandWidthFadingSpring] method is called.
  *
@@ -113,12 +114,7 @@ private fun View.collapseFadingSpring(
     isHeight: Boolean = true,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    if (isExpandingRunning()) {
-        collapseSpring(isHeight = isHeight, onAnimationEnd = onAnimationEnd)
-        return
-    }
-
-    hideFadeOutSpring(stiffness = stiffness * 2f) {
+    fadeSpring(stiffness = stiffness * 2f).startFadeOutSpringAnimation {
         collapseSpring(
             stiffness = stiffness * 2f,
             isHeight = isHeight,
@@ -132,16 +128,7 @@ private fun View.expandFadingSpring(
     isHeight: Boolean = true,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    if (alpha == 1f && (isVisible() && isCollapsingRunning().not())) {
-        return
-    }
-    if (alpha == 1f) alpha = 0f
-
-    if (alpha > 0f && alpha < 1f) {
-        fadeInSpring(onAnimationEnd = onAnimationEnd)
-        return
-    }
-
+    if (isVisible().not()) alpha = 0f
     expandSpring(stiffness = stiffness * 2f, isHeight = isHeight) {
         fadeInSpring(stiffness = stiffness * 2f, onAnimationEnd = onAnimationEnd)
     }

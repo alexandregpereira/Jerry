@@ -3,8 +3,6 @@ package br.alexandregpereira.jerry.expandable
 import android.view.View
 import androidx.dynamicanimation.animation.SpringAnimation
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
-import br.alexandregpereira.jerry.JerryAnimation
-import br.alexandregpereira.jerry.JerryAnimationSet
 import br.alexandregpereira.jerry.gone
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.spring
@@ -146,6 +144,9 @@ internal fun View.collapseSpring(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (isVisible().not() || isCollapsingRunning()) {
+        if (isCollapsingRunning().not()) {
+            onAnimationEnd?.invoke(false)
+        }
         return
     }
     startCollapsingRunning()
@@ -171,6 +172,9 @@ internal fun View.expandSpring(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (isExpandingRunning() || (isVisible() && isCollapsingRunning().not())) {
+        if (isExpandingRunning().not()) {
+            onAnimationEnd?.invoke(false)
+        }
         return
     }
 
@@ -206,26 +210,6 @@ internal fun View.expandSpring(
         }
     )
 }
-
-private fun JerryAnimationSet.expandCollapseSpring(
-    stiffness: Float,
-    isHeight: Boolean,
-    onProgressChange: ((progress: Float) -> Unit)?,
-) = spring(
-    key = getExpandingCollapsingSpringKey(isHeight),
-    property = jerryAnimations.last().view.widthHeightViewProperty(isHeight, onProgressChange),
-    stiffness = stiffness
-)
-
-private fun JerryAnimation.expandCollapseSpring(
-    stiffness: Float,
-    isHeight: Boolean,
-    onProgressChange: ((progress: Float) -> Unit)?,
-) = spring(
-    key = getExpandingCollapsingSpringKey(isHeight),
-    property = view.widthHeightViewProperty(isHeight, onProgressChange),
-    stiffness = stiffness
-)
 
 private fun View.expandCollapseSpring(
     stiffness: Float,

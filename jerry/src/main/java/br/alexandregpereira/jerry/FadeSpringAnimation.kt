@@ -35,7 +35,12 @@ fun View.fadeOutSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    hideFadeOutSpring(stiffness, hide = { gone() }, onAnimationEnd = onAnimationEnd)
+    fadeSpring(stiffness = stiffness).startFadeOutSpringAnimation(
+        onAnimationEnd = { canceled ->
+            gone()
+            onAnimationEnd?.invoke(canceled)
+        }
+    )
 }
 
 /**
@@ -54,50 +59,10 @@ fun View.fadeInSpring(
     stiffness: Float = ANIMATION_STIFFNESS,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    if (isFadeInRunning() || (alpha == 1f && isVisible() && isFadeOutRunning().not())) {
-        if (isFadeInRunning().not()) {
-            onAnimationEnd?.invoke(false)
-        }
-        return
-    }
-    startFadeInRunning()
-    if (alpha == 1f) alpha = 0f
+    if (isVisible().not()) alpha = 0f
     visible()
-
     fadeSpring(stiffness = stiffness).startFadeInSpringAnimation(
         onAnimationEnd = onAnimationEnd
-    )
-}
-
-/**
- * Start the fade out animation without changing the visibility status. The changes in the
- * visibility status is delegate to the function [hide].
- *
- * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
- * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_STIFFNESS].
- * @param onAnimationEnd The function to call when the animation is finished.
- *
- * @see [SpringAnimation]
- */
-fun View.hideFadeOutSpring(
-    stiffness: Float,
-    hide: (() -> Unit)? = null,
-    onAnimationEnd: ((canceled: Boolean) -> Unit)?
-) {
-    if (isVisible().not() || isFadeOutRunning()) {
-        if (isFadeOutRunning().not()) {
-            onAnimationEnd?.invoke(false)
-        }
-        return
-    }
-    startFadeOutRunning()
-
-    fadeSpring(stiffness = stiffness).startFadeOutSpringAnimation(
-        onAnimationEnd = { canceled ->
-            hide?.invoke()
-            onAnimationEnd?.invoke(canceled)
-        }
     )
 }
 
@@ -154,8 +119,5 @@ fun JerryAnimation.startFadeSpringAnimation(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null,
 ) = startSpringAnimation(
     targetValue = targetValue,
-    onAnimationEnd = { canceled ->
-        view.clearFadeInFadeOutRunning()
-        onAnimationEnd?.invoke(canceled)
-    }
+    onAnimationEnd = onAnimationEnd
 )
