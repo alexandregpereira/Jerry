@@ -5,22 +5,24 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.fadeOut
-import br.alexandregpereira.jerry.textview.setTextFade
-import br.alexandregpereira.jerry.fadeIn
+import br.alexandregpereira.jerry.fadeInSpring
+import br.alexandregpereira.jerry.fadeOutSpring
+import br.alexandregpereira.jerry.textview.setTextFadeSpring
 import kotlinx.android.synthetic.main.activity_fade_animation.*
 
-class FadeAnimationActivity : AppCompatActivity() {
+class FadeSpringAnimationActivity : AppCompatActivity() {
 
     companion object {
         fun getStartIntent(context: Context): Intent {
-            return Intent(context, FadeAnimationActivity::class.java)
+            return Intent(context, FadeSpringAnimationActivity::class.java)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fade_animation)
+
+        fadeLabel.setText(R.string.fade_spring)
 
         val list = listOf(
             "Fade text changeasaaaaa 2",
@@ -30,23 +32,25 @@ class FadeAnimationActivity : AppCompatActivity() {
             "Fade text change 1",
         ).circularIterator()
         fadeTextButton.setOnClickListener {
-            fadeTextView.setTextFade(list.next())
+            fadeTextView.setTextFadeSpring(list.next())
         }
 
         goneTextButton.setOnClickListener {
-            goneTextView.fadeOut()
+            goneTextView.fadeOutSpring()
         }
 
         goneVisibleTextButton.setOnClickListener {
-            goneTextView.fadeIn()
+            goneTextView.fadeInSpring()
         }
 
         visibleTextButton.setOnClickListener {
-            visibleTextView.fadeIn()
+            visibleTextView.fadeInSpring()
         }
 
         visibleInvisibleTextButton.setOnClickListener {
-            visibleTextView.fadeOut()
+            visibleTextView.fadeOutSpring()
         }
     }
 }
+
+

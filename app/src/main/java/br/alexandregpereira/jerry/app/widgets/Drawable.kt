@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
-import android.graphics.drawable.ShapeDrawable
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +32,7 @@ fun View.setRippleDrawable(contentDrawable: Drawable): View {
     }
 }
 
-fun View.setMaterialShapeDrawable(): View {
-    val cornerSize = resources.getDimension(R.dimen.corner_size)
+fun View.configMaterialShapeDrawable(): View {
     val padding = resources.getDimensionPixelOffset(R.dimen.text_padding)
 
     layoutParams = ViewGroup.MarginLayoutParams(
@@ -45,15 +43,22 @@ fun View.setMaterialShapeDrawable(): View {
     }
     setPadding(padding, padding, padding, padding)
 
+    return setMaterialShapeDrawable()
+}
+
+fun View.setMaterialShapeDrawable(
+    color: Int = Color.WHITE
+): View {
+    val cornerSize = resources.getDimension(R.dimen.corner_size)
     val shapeAppearanceModel = ShapeAppearanceModel.builder()
         .setAllCornerSizes(cornerSize).build()
 
     val materialShapeDrawable = MaterialShapeDrawable(shapeAppearanceModel).apply {
-        this.fillColor = ColorStateList.valueOf(Color.WHITE)
-        this.elevation = resources.getDimension(R.dimen.elevation)
+        this.fillColor = ColorStateList.valueOf(color)
+        this.elevation = resources.getDimension(R.dimen.low_elevation)
     }
 
-    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.elevation))
+    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.strong_elevation))
 
     return this.apply {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -70,7 +75,7 @@ fun View.setRoundShape(): View {
         shape = GradientDrawable.OVAL
     }
 
-    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.elevation2))
+    ViewCompat.setElevation(this,  resources.getDimension(R.dimen.medium_elevation))
     ViewCompat.setBackground(this, ovalDrawable)
 
     return this

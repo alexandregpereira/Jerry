@@ -5,17 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.expandable.collapseHeight
-import br.alexandregpereira.jerry.expandable.collapseWidth
-import br.alexandregpereira.jerry.expandable.expandHeight
-import br.alexandregpereira.jerry.expandable.expandWidth
+import br.alexandregpereira.jerry.expandable.collapseHeightSpring
+import br.alexandregpereira.jerry.expandable.collapseWidthSpring
+import br.alexandregpereira.jerry.expandable.expandHeightSpring
+import br.alexandregpereira.jerry.expandable.expandWidthSpring
 import kotlinx.android.synthetic.main.activity_expand_animation.*
 
-class ExpandAnimationActivity : AppCompatActivity() {
+class ExpandSpringAnimationActivity : AppCompatActivity() {
 
     companion object {
         fun getStartIntent(context: Context): Intent {
-            return Intent(context, ExpandAnimationActivity::class.java)
+            return Intent(context, ExpandSpringAnimationActivity::class.java)
         }
     }
 
@@ -23,68 +23,70 @@ class ExpandAnimationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expand_animation)
 
+        expandLabel.setText(R.string.expand_spring)
+
         expandTextButton.setOnClickListener {
-            expandTextView.expandHeight()
+            expandTextView.expandHeightSpring()
         }
 
         expandCollapseTextButton.setOnClickListener {
-            expandTextView.collapseHeight()
+            expandTextView.collapseHeightSpring()
         }
 
         expandWidthTextButton.setOnClickListener {
-            expandWidthTextView.expandWidth()
+            expandWidthTextView.expandWidthSpring()
         }
 
         expandCollapseWidthTextButton.setOnClickListener {
-            expandWidthTextView.collapseWidth()
+            expandWidthTextView.collapseWidthSpring()
         }
 
         expandFixedTextButton.setOnClickListener {
-            expandFixedTextView.expandHeight()
+            expandFixedTextView.expandHeightSpring()
         }
 
         expandCollapseFixedTextButton.setOnClickListener {
-            expandFixedTextView.collapseHeight()
+            expandFixedTextView.collapseHeightSpring()
         }
 
         expandWidthTextButton.setOnClickListener {
-            expandWidthTextView.expandWidth()
+            expandWidthTextView.expandWidthSpring()
         }
 
         expandCollapseWidthTextButton.setOnClickListener {
-            expandWidthTextView.collapseWidth()
+            expandWidthTextView.collapseWidthSpring()
         }
 
         expandMatchWidthButton.setOnClickListener {
-            expandMatchWidthView.expandWidth()
+            expandMatchWidthView.expandWidthSpring()
         }
 
         expandCollapseMatchWidthButton.setOnClickListener {
-            expandMatchWidthView.collapseWidth()
+            expandMatchWidthView.collapseWidthSpring()
         }
 
         expand0dpWidthButton.setOnClickListener {
-            expand0dpWidthView.expandWidth()
+            expand0dpWidthView.expandWidthSpring()
         }
 
         expandCollapse0dpWidthButton.setOnClickListener {
-            expand0dpWidthView.collapseWidth()
+            expand0dpWidthView.collapseWidthSpring()
         }
 
         expandHalf0dpWidthButton.setOnClickListener {
-            expandHalf0dpWidthView.expandWidth()
+            expandHalf0dpWidthView.expandWidthSpring()
         }
 
         expandCollapseHalf0dpWidthButton.setOnClickListener {
-            expandHalf0dpWidthView.collapseWidth()
+            expandHalf0dpWidthView.collapseWidthSpring()
         }
 
         expandFixedWidthButton.setOnClickListener {
-            expandFixedWidthView.expandWidth()
+            expandFixedWidthView.expandWidthSpring()
         }
 
         expandCollapseFixedWidthButton.setOnClickListener {
-            expandFixedWidthView.collapseWidth()
+            expandFixedWidthView.collapseWidthSpring()
         }
     }
 }

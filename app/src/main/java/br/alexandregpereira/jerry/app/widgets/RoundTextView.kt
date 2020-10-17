@@ -16,7 +16,6 @@ class RoundTextView @JvmOverloads constructor(
     init {
         setRoundShape()
         setTextColor(Color.WHITE)
-        text = "0"
         gravity = Gravity.CENTER
         textSize = 12f
         height = 40.dpToPx(resources)

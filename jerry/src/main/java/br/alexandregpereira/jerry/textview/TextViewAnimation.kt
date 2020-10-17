@@ -1,8 +1,17 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.textview
 
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
+import br.alexandregpereira.jerry.ANIMATION_SHORT_TIME
+import br.alexandregpereira.jerry.expandable.collapseHeightFading
+import br.alexandregpereira.jerry.expandable.expandHeightFading
+import br.alexandregpereira.jerry.expandable.isCollapsingRunning
+import br.alexandregpereira.jerry.fadeInAnimation
+import br.alexandregpereira.jerry.fadeOutAnimation
+import br.alexandregpereira.jerry.isFadeOutRunning
+import br.alexandregpereira.jerry.isVisible
+import br.alexandregpereira.jerry.onAnimationEnd
 
 /**
  * Uses the [setTextFade], [expandHeightFading] or [collapseHeightFading] animation methods
@@ -15,7 +24,7 @@ import android.widget.TextView
  * @param onFirstFadeEnd The function to call when the first fade of the [setTextFade] is finished
  * @param onAnimationEnd The function to call when the animation is finished
  */
-fun TextView.setTextExpandableAnimation(
+fun TextView.setTextExpandable(
     text: String?,
     duration: Long = ANIMATION_SHORT_TIME,
     onAnimationEnd: (() -> Unit)? = null,

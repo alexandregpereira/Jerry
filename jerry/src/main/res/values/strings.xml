@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Used to check if animation is running-->
+    <!--Used to store values on the view tag system-->
     <string name="is_expanding_collapsing_key">is_expanding_collapsing_key</string>
     <string name="is_fade_in_fade_out_key">is_fade_in_fade_out_key</string>
+
+    <string name="alpha_spring_key">alpha_spring_key</string>
+    <string name="elevation_spring_key">elevation_spring_key</string>
+    <string name="translation_x_spring_key">translation_x_spring_key</string>
+    <string name="translation_y_spring_key">translation_y_spring_key</string>
+
+    <string name="expanding_collapsing_height_original_value_key">expanding_collapsing_height_original_value_key</string>
+    <string name="expanding_collapsing_height_spring_key">expanding_collapsing_height_spring_key</string>
+    <string name="expanding_collapsing_width_original_value_key">expanding_collapsing_width_original_value_key</string>
+    <string name="expanding_collapsing_width_spring_key">expanding_collapsing_width_spring_key</string>
+
+    <string name="keys_key">keys_key</string>
 </resources>
