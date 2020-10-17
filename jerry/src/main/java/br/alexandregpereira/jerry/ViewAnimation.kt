@@ -3,7 +3,7 @@ package br.alexandregpereira.jerry
 import android.view.View
 import android.view.ViewPropertyAnimator
 
-const val ANIMATION_SHORT_TIME = 200L
+const val ANIMATION_SHORT_TIME = 300L
 
 enum class AnimationMode {
     /**

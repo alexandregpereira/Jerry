@@ -34,7 +34,7 @@ fun TextView.setTextExpandableSpring(
         return
     }
 
-    if (isVisible() && isCollapsingRunning().not() && isFadeOutRunning().not()) {
+    if (isVisible() && isCollapsingRunning().not()) {
         setTextFadeSpring(
             text,
             stiffness = stiffness,
