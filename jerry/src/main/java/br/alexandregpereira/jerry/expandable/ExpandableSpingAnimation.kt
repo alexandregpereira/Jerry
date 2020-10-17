@@ -11,42 +11,42 @@ import br.alexandregpereira.jerry.visible
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
- * [expandHeightSpring] is called, else the [collapseHeightSpring] is called.
+ * [visibleExpandHeight] is called, else the [goneCollapseHeight] is called.
  */
-fun View.animateHeightVisibility(
+fun View.visibleOrGoneExpandableHeight(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
-        expandHeightSpring(stiffness, onProgressChange, onAnimationEnd)
+        visibleExpandHeight(stiffness, onProgressChange, onAnimationEnd)
     } else {
-        collapseHeightSpring(stiffness, onProgressChange, onAnimationEnd)
+        goneCollapseHeight(stiffness, onProgressChange, onAnimationEnd)
     }
 }
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
- * [expandWidthSpring] is called, else the [collapseWidthSpring] is called.
+ * [visibleExpandWidth] is called, else the [goneCollapseWidth] is called.
  */
-fun View.animateWidthVisibility(
+fun View.visibleOrGoneExpandableWidth(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
-        expandWidthSpring(stiffness, onProgressChange, onAnimationEnd)
+        visibleExpandWidth(stiffness, onProgressChange, onAnimationEnd)
     } else {
-        collapseWidthSpring(stiffness, onProgressChange, onAnimationEnd)
+        goneCollapseWidth(stiffness, onProgressChange, onAnimationEnd)
     }
 }
 
 /**
  * Animates collapsing the height and changes the visibility status to GONE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [expandHeightSpring] method is called.
+ * if the [visibleExpandHeight] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -55,11 +55,11 @@ fun View.animateWidthVisibility(
  *
  * @see [SpringAnimation]
  */
-fun View.collapseHeightSpring(
+fun View.goneCollapseHeight(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = collapseSpring(
+) = goneCollapse(
     stiffness = stiffness,
     isHeight = true,
     onProgressChange = onProgressChange,
@@ -69,7 +69,7 @@ fun View.collapseHeightSpring(
 /**
  * Animates collapsing the width and changes the visibility status to GONE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [expandWidthSpring] method is called.
+ * if the [visibleExpandWidth] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -78,11 +78,11 @@ fun View.collapseHeightSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.collapseWidthSpring(
+fun View.goneCollapseWidth(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = collapseSpring(
+) = goneCollapse(
     stiffness = stiffness,
     isHeight = false,
     onProgressChange = onProgressChange,
@@ -92,7 +92,7 @@ fun View.collapseWidthSpring(
 /**
  * Animates expanding the height and changes the visibility status to VISIBLE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [collapseHeightSpring] method is called. Any alteration of the parent width during the this
+ * if the [goneCollapseHeight] method is called. Any alteration of the parent width during the this
  * animation makes glitches in the animation.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
@@ -102,11 +102,11 @@ fun View.collapseWidthSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.expandHeightSpring(
+fun View.visibleExpandHeight(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = expandSpring(
+) = visibleExpand(
     stiffness = stiffness,
     isHeight = true,
     onProgressChange = onProgressChange,
@@ -116,7 +116,7 @@ fun View.expandHeightSpring(
 /**
  * Animates expanding the width and changes the visibility status to VISIBLE.
  * This animation handles double click. This method can be reverted in the middle of the animation
- * if the [collapseWidthSpring] method is called. Any alteration of the parent width during the this
+ * if the [goneCollapseWidth] method is called. Any alteration of the parent width during the this
  * animation makes glitches in the animation.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
@@ -126,18 +126,18 @@ fun View.expandHeightSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.expandWidthSpring(
+fun View.visibleExpandWidth(
     stiffness: Float = ANIMATION_STIFFNESS,
     onProgressChange: ((progress: Float) -> Unit)? = null,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = expandSpring(
+) = visibleExpand(
     stiffness = stiffness,
     isHeight = false,
     onProgressChange = onProgressChange,
     onAnimationEnd = onAnimationEnd
 )
 
-internal fun View.collapseSpring(
+internal fun View.goneCollapse(
     stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
     onProgressChange: ((progress: Float) -> Unit)? = null,
@@ -152,20 +152,18 @@ internal fun View.collapseSpring(
     startCollapsingRunning()
     getOrStoreWidthOrHeightOriginalValue(isHeight)
     expandCollapseSpring(
+        targetValue = 0f,
         stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange,
-    ).startSpringAnimation(
-        targetValue = 0f,
-        onAnimationEnd = { canceled ->
-            gone()
-            setLayoutParamSize(getOrStoreWidthOrHeightOriginalValue(isHeight), isHeight)
-            finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
-        }
-    )
+    ).startSpringAnimation { canceled ->
+        gone()
+        setLayoutParamSize(getOrStoreWidthOrHeightOriginalValue(isHeight), isHeight)
+        finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
+    }
 }
 
-internal fun View.expandSpring(
+internal fun View.visibleExpand(
     stiffness: Float = ANIMATION_STIFFNESS,
     isHeight: Boolean = true,
     onProgressChange: ((progress: Float) -> Unit)? = null,
@@ -200,23 +198,23 @@ internal fun View.expandSpring(
     visible()
 
     expandCollapseSpring(
+        targetValue = targetValue.toFloat(),
         stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange
-    ).startSpringAnimation(
-        targetValue = targetValue.toFloat(),
-        onAnimationEnd = { canceled ->
-            finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
-        }
-    )
+    ).startSpringAnimation { canceled ->
+        finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
+    }
 }
 
 private fun View.expandCollapseSpring(
+    targetValue: Float,
     stiffness: Float,
     isHeight: Boolean,
     onProgressChange: ((progress: Float) -> Unit)?,
 ) = spring(
     key = getExpandingCollapsingSpringKey(isHeight),
     property = widthHeightViewProperty(isHeight, onProgressChange),
+    targetValue = targetValue,
     stiffness = stiffness
 )

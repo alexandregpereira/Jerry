@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.fadeInSpring
-import br.alexandregpereira.jerry.fadeOutSpring
+import br.alexandregpereira.jerry.goneFadeOut
 import br.alexandregpereira.jerry.textview.setTextFadeSpring
+import br.alexandregpereira.jerry.visibleFadeIn
 import kotlinx.android.synthetic.main.activity_fade_animation.*
 
 class FadeSpringAnimationActivity : AppCompatActivity() {
@@ -36,19 +36,19 @@ class FadeSpringAnimationActivity : AppCompatActivity() {
         }
 
         goneTextButton.setOnClickListener {
-            goneTextView.fadeOutSpring()
+            goneTextView.goneFadeOut()
         }
 
         goneVisibleTextButton.setOnClickListener {
-            goneTextView.fadeInSpring()
+            goneTextView.visibleFadeIn()
         }
 
         visibleTextButton.setOnClickListener {
-            visibleTextView.fadeInSpring()
+            visibleTextView.visibleFadeIn()
         }
 
         visibleInvisibleTextButton.setOnClickListener {
-            visibleTextView.fadeOutSpring()
+            visibleTextView.goneFadeOut()
         }
     }
 }

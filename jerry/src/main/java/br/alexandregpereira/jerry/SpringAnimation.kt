@@ -28,79 +28,64 @@ fun View.skipToEndSpringAnimation(key: Int) {
     getSpringAnimation(key)?.takeIf { it.canSkipToEnd() }?.skipToEnd()
 }
 
-fun View.clearSpring(key: Int) {
-    setTag(key, null)
-}
-
 /**
  *
  */
 fun View.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimation {
     var springAnimation = getSpringAnimation(key)
     if (springAnimation == null) {
         springAnimation = SpringAnimation(this, property).apply {
-            spring = SpringForce().apply {
-                this.dampingRatio = dampingRatio
-                this.stiffness = stiffness
-            }
+            spring = SpringForce()
         }
         addSpringAnimationKeyIfNotContains(key)
         setTag(key, SpringAnimationHolder(springAnimation))
     }
-    return JerryAnimation(key = key, view = this, springAnimation)
+    springAnimation.spring.apply {
+        this.dampingRatio = dampingRatio
+        this.stiffness = stiffness
+    }
+    return JerryAnimation(key = key, view = this, springAnimation, targetValue)
 }
 
 fun JerryAnimation.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
-    return animationSet().spring(key, property, dampingRatio, stiffness)
+    return animationSet().spring(
+        key = key,
+        property = property,
+        targetValue = targetValue,
+        stiffness = stiffness,
+        dampingRatio = dampingRatio
+    )
 }
 
 fun JerryAnimationSet.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
     return this.copy(
         jerryAnimations = jerryAnimations +
-                listOf(jerryAnimations.last().view.spring(key, property, dampingRatio, stiffness))
+                listOf(jerryAnimations.last().view.spring(
+                    key, property, targetValue, stiffness, dampingRatio
+                ))
     )
-}
-
-fun JerryAnimation.startSpringAnimation(
-    targetValue: Float,
-    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) {
-
-    this.addSpringEndListener(
-        onAnimationEnd = onAnimationEnd
-    )
-
-    springAnimation.animateToFinalPosition(targetValue)
 }
 
 private fun JerryAnimation.animationSet(): JerryAnimationSet {
     return JerryAnimationSet(jerryAnimations = listOf(this))
-}
-
-fun JerryAnimationSet.target(targetValue: Float): JerryAnimationSet {
-    return this.copy(
-        jerryAnimations = jerryAnimations.subList(0, jerryAnimations.size - 1) +
-                jerryAnimations.last().target(targetValue)
-    )
-}
-
-fun JerryAnimation.target(targetValue: Float): JerryAnimation {
-    return this.copy(targetValue = targetValue)
 }
 
 fun JerryAnimation.after(jerryAnimationSet: JerryAnimationSet): JerryAnimationSet {
@@ -131,18 +116,25 @@ fun JerryAnimationSet.startSpringAnimation(
             }
         }
     }
-    return jerryAnimations.forEachIndexed { index, animation ->
-        val targetValue = animation.targetValue ?: throw IllegalStateException(
-            "The animation target from index $index must be set before execution of a list of animations"
-        )
+    return jerryAnimations.forEach { animation ->
         val otherAnimations = jerryAnimations.filterNot { it.key == animation.key }
-        animation.startSpringAnimation(targetValue) { canceled ->
+        animation.startSpringAnimation { canceled ->
             onAnimationsEnd(
                 canceled,
                 otherAnimations.isRunning().not()
             )
         }
     }
+}
+
+fun JerryAnimation.startSpringAnimation(
+    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
+) {
+    this.addSpringEndListener(
+        onAnimationEnd = onAnimationEnd
+    )
+
+    springAnimation.animateToFinalPosition(targetValue)
 }
 
 fun List<JerryAnimation>.isRunning(): Boolean {

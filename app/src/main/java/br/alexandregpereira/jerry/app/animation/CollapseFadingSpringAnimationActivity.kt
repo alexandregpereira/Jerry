@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.expandable.collapseHeightFadingSpring
-import br.alexandregpereira.jerry.expandable.collapseWidthFadingSpring
-import br.alexandregpereira.jerry.expandable.expandHeightFadingSpring
-import br.alexandregpereira.jerry.expandable.expandWidthFadingSpring
+import br.alexandregpereira.jerry.expandable.goneCollapseHeightFadeOut
+import br.alexandregpereira.jerry.expandable.goneCollapseWidthFadeOut
+import br.alexandregpereira.jerry.expandable.visibleExpandHeightFadeIn
+import br.alexandregpereira.jerry.expandable.visibleExpandWidthFadeIn
 import kotlinx.android.synthetic.main.activity_collapse_fading_animation.*
 
 class CollapseFadingSpringAnimationActivity : AppCompatActivity() {
@@ -26,43 +26,43 @@ class CollapseFadingSpringAnimationActivity : AppCompatActivity() {
         collapseFadingLabel.setText(R.string.collapse_fading_spring)
 
         collapseFadingTextButton.setOnClickListener {
-            collapseFadingTextView.collapseHeightFadingSpring()
+            collapseFadingTextView.goneCollapseHeightFadeOut()
         }
 
         collapseExpandFadingTextButton.setOnClickListener {
-            collapseFadingTextView.expandHeightFadingSpring()
+            collapseFadingTextView.visibleExpandHeightFadeIn()
         }
 
         collapseFixedFadingTextButton.setOnClickListener {
-            collapseFixedFadingTextView.collapseHeightFadingSpring()
+            collapseFixedFadingTextView.goneCollapseHeightFadeOut()
         }
 
         collapseExpandFixedFadingTextButton.setOnClickListener {
-            collapseFixedFadingTextView.expandHeightFadingSpring()
+            collapseFixedFadingTextView.visibleExpandHeightFadeIn()
         }
 
         collapseWidthFadingTextButton.setOnClickListener {
-            collapseWidthFadingTextView.collapseWidthFadingSpring()
+            collapseWidthFadingTextView.goneCollapseWidthFadeOut()
         }
 
         collapseExpandWidthFadingTextButton.setOnClickListener {
-            collapseWidthFadingTextView.expandWidthFadingSpring()
+            collapseWidthFadingTextView.visibleExpandWidthFadeIn()
         }
 
         collapseMatchWidthFadingButton.setOnClickListener {
-            collapseMatchWidthFadingView.collapseWidthFadingSpring()
+            collapseMatchWidthFadingView.goneCollapseWidthFadeOut()
         }
 
         collapseExpandMatchWidthFadingButton.setOnClickListener {
-            collapseMatchWidthFadingView.expandWidthFadingSpring()
+            collapseMatchWidthFadingView.visibleExpandWidthFadeIn()
         }
 
         collapseFixedWidthFadingButton.setOnClickListener {
-            collapseFixedWidthFadingView.collapseWidthFadingSpring()
+            collapseFixedWidthFadingView.goneCollapseWidthFadeOut()
         }
 
         collapseExpandFixedWidthFadingButton.setOnClickListener {
-            collapseFixedWidthFadingView.expandWidthFadingSpring()
+            collapseFixedWidthFadingView.visibleExpandWidthFadeIn()
         }
     }
 }

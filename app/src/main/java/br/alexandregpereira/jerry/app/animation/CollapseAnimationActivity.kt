@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import br.alexandregpereira.jerry.expandable.animateWidthVisibility
+import br.alexandregpereira.jerry.expandable.visibleOrGoneExpandableWidth
 import br.alexandregpereira.jerry.app.R
 import br.alexandregpereira.jerry.expandable.collapseHeight
 import br.alexandregpereira.jerry.expandable.collapseWidth
@@ -71,7 +71,7 @@ class CollapseAnimationActivity : AppCompatActivity(R.layout.activity_collapse_a
         }
 
         collapseReverseMatchWidthButton.setOnClickListener {
-            collapseMatchWidthView.animateWidthVisibility(
+            collapseMatchWidthView.visibleOrGoneExpandableWidth(
                 visible = collapseMatchWidthViewVisible.not().also {
                     collapseMatchWidthViewVisible = it
                 }

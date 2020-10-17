@@ -35,11 +35,11 @@ class GridRecyclerViewSpringActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 4)
         recyclerView.adapter = adapter
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            recyclerView.itemAnimator = ElevationSpringItemAnimator(
-                elevationStiffness = 400f,
-                alphaStiffness = 380f,
+            recyclerView.itemAnimator = ElevationSpringItemAnimator().apply {
+                elevationStiffness = 400f
+                alphaStiffness = 380f
                 translationStiffness = 120f
-            )
+            }
         }
 
         button.setOnClickListener {

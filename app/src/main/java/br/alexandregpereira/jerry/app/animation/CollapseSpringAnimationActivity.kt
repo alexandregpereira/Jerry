@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import br.alexandregpereira.jerry.expandable.animateWidthVisibility
+import br.alexandregpereira.jerry.expandable.visibleOrGoneExpandableWidth
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.expandable.collapseHeightSpring
-import br.alexandregpereira.jerry.expandable.collapseWidthSpring
-import br.alexandregpereira.jerry.expandable.expandHeightSpring
-import br.alexandregpereira.jerry.expandable.expandWidthSpring
+import br.alexandregpereira.jerry.expandable.goneCollapseHeight
+import br.alexandregpereira.jerry.expandable.goneCollapseWidth
+import br.alexandregpereira.jerry.expandable.visibleExpandHeight
+import br.alexandregpereira.jerry.expandable.visibleExpandWidth
 import kotlinx.android.synthetic.main.activity_collapse_animation.*
 import kotlinx.android.synthetic.main.container_animation_info.view.*
 
@@ -35,9 +35,9 @@ class CollapseSpringAnimationActivity : AppCompatActivity(R.layout.activity_coll
             resources.getDimension(R.dimen.strong_elevation)
         )
 
-        collapseTextView.expandHeightSpring()
+        collapseTextView.visibleExpandHeight()
         collapseTextButton.setOnClickListener {
-            collapseTextView.collapseHeightSpring(
+            collapseTextView.goneCollapseHeight(
                 onProgressChange = { interpolatedTime ->
                     collapseAnimationInfo.percentageTextView.text = (interpolatedTime * 100).toInt().toString()
                 }
@@ -47,7 +47,7 @@ class CollapseSpringAnimationActivity : AppCompatActivity(R.layout.activity_coll
         }
 
         collapseExpandTextButton.setOnClickListener {
-            collapseTextView.expandHeightSpring(
+            collapseTextView.visibleExpandHeight(
                 onProgressChange = { interpolatedTime ->
                     collapseAnimationInfo.percentageTextView.text = (interpolatedTime * 100).toInt().toString()
                 }
@@ -57,23 +57,23 @@ class CollapseSpringAnimationActivity : AppCompatActivity(R.layout.activity_coll
         }
 
         collapseFixedTextButton.setOnClickListener {
-            collapseFixedTextView.collapseHeightSpring()
+            collapseFixedTextView.goneCollapseHeight()
         }
 
         collapseExpandFixedTextButton.setOnClickListener {
-            collapseFixedTextView.expandHeightSpring()
+            collapseFixedTextView.visibleExpandHeight()
         }
 
         collapseWidthTextButton.setOnClickListener {
-            collapseWidthTextView.collapseWidthSpring()
+            collapseWidthTextView.goneCollapseWidth()
         }
 
         collapseExpandWidthTextButton.setOnClickListener {
-            collapseWidthTextView.expandWidthSpring()
+            collapseWidthTextView.visibleExpandWidth()
         }
 
         collapseReverseMatchWidthButton.setOnClickListener {
-            collapseMatchWidthView.animateWidthVisibility(
+            collapseMatchWidthView.visibleOrGoneExpandableWidth(
                 visible = collapseMatchWidthViewVisible.not().also {
                     collapseMatchWidthViewVisible = it
                 }
@@ -81,19 +81,19 @@ class CollapseSpringAnimationActivity : AppCompatActivity(R.layout.activity_coll
         }
 
         collapseMatchWidthButton.setOnClickListener {
-            collapseMatchWidthView.collapseWidthSpring()
+            collapseMatchWidthView.goneCollapseWidth()
         }
 
         collapseExpandMatchWidthButton.setOnClickListener {
-            collapseMatchWidthView.expandWidthSpring()
+            collapseMatchWidthView.visibleExpandWidth()
         }
 
         collapseFixedWidthButton.setOnClickListener {
-            collapseFixedWidthView.collapseWidthSpring()
+            collapseFixedWidthView.goneCollapseWidth()
         }
 
         collapseExpandFixedWidthButton.setOnClickListener {
-            collapseFixedWidthView.expandWidthSpring()
+            collapseFixedWidthView.visibleExpandWidth()
         }
     }
 }

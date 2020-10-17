@@ -10,7 +10,10 @@ internal fun View.setFadeInFadeOutRunning(animationMode: AnimationMode) =
 
 fun View.isFadeInRunning() = isFadeInFadeOutRunning(AnimationMode.ENTER_ANIMATION_MODE)
 
-fun View.isFadeOutRunning() = isFadeInFadeOutRunning(AnimationMode.POP_ANIMATION_MODE)
+fun View.isFadeOutRunning() = isFadeInFadeOutRunning(AnimationMode.POP_ANIMATION_MODE) ||
+        getSpringAnimation(SpringAnimationPropertyKey.ALPHA.id)?.run {
+            isRunning && spring?.finalPosition == 0f
+        } == true
 
 internal fun View.clearFadeInFadeOutRunning() = setFadeInFadeOutRunning(AnimationMode.NONE_ANIMATION_MODE)
 

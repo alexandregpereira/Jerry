@@ -5,49 +5,73 @@ import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringForce
 
 fun JerryAnimation.translationXSpring(
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_X.id,
     property = DynamicAnimation.TRANSLATION_X,
-    stiffness = stiffness
+    targetValue = targetValue,
+    stiffness = stiffness,
+    dampingRatio = dampingRatio,
 )
 
 fun JerryAnimationSet.translationXSpring(
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_X.id,
     property = DynamicAnimation.TRANSLATION_X,
-    stiffness = stiffness
+    targetValue = targetValue,
+    stiffness = stiffness,
+    dampingRatio = dampingRatio,
 )
 
 fun View.translationXSpring(
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_X.id,
     property = DynamicAnimation.TRANSLATION_X,
-    stiffness = stiffness
+    targetValue = targetValue,
+    stiffness = stiffness,
+    dampingRatio = dampingRatio,
 )
 
 fun JerryAnimation.translationYSpring(
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_Y.id,
     property = DynamicAnimation.TRANSLATION_Y,
-    stiffness = stiffness
+    targetValue = targetValue,
+    stiffness = stiffness,
+    dampingRatio = dampingRatio,
 )
 
 fun JerryAnimationSet.translationYSpring(
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_Y.id,
     property = DynamicAnimation.TRANSLATION_Y,
-    stiffness = stiffness
+    targetValue = targetValue,
+    stiffness = stiffness,
+    dampingRatio = dampingRatio,
 )
 
 fun View.translationYSpring(
-    stiffness: Float = SpringForce.STIFFNESS_LOW
+    targetValue: Float,
+    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ) = spring(
     key = SpringAnimationPropertyKey.TRANSLATION_Y.id,
     property = DynamicAnimation.TRANSLATION_Y,
-    stiffness = stiffness
+    targetValue = targetValue,
+    stiffness = stiffness,
+    dampingRatio = dampingRatio,
 )
