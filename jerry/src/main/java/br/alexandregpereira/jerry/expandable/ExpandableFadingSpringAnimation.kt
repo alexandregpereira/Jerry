@@ -5,11 +5,12 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.fadeOutSpring
-import br.alexandregpereira.jerry.visibleFadeIn
-import br.alexandregpereira.jerry.goneFadeOut
 import br.alexandregpereira.jerry.fadeSpring
+import br.alexandregpereira.jerry.force
+import br.alexandregpereira.jerry.goneFadeOut
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.start
+import br.alexandregpereira.jerry.visibleFadeIn
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
@@ -123,7 +124,7 @@ private fun View.goneCollapseFadeOut(
     isHeight: Boolean = true,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    fadeOutSpring(stiffness = stiffness * 2f, dampingRatio).start {
+    fadeOutSpring().force(stiffness = stiffness * 2f, dampingRatio).start {
         goneCollapse(
             stiffness = stiffness * 2f,
             isHeight = isHeight,

@@ -9,6 +9,7 @@ import br.alexandregpereira.jerry.expandable.isCollapsingRunning
 import br.alexandregpereira.jerry.expandable.visibleExpandHeightFadeIn
 import br.alexandregpereira.jerry.fadeInSpring
 import br.alexandregpereira.jerry.fadeOutSpring
+import br.alexandregpereira.jerry.force
 import br.alexandregpereira.jerry.isFadeOutRunning
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.start
@@ -73,16 +74,16 @@ fun TextView.setTextFadeSpring(
     if (oldText.isEmpty()) {
         textView.text = text
         textView.alpha = 0f
-        fadeInSpring(stiffness = stiffness, dampingRatio).start(
+        fadeInSpring().force(stiffness = stiffness, dampingRatio).start(
             onAnimationEnd = onAnimationEnd
         )
         return
     }
 
-    fadeOutSpring(stiffness = stiffness * 1.5f, dampingRatio)
+    fadeOutSpring().force(stiffness = stiffness * 1.5f, dampingRatio)
         .start {
             textView.text = text
-            fadeInSpring(stiffness = stiffness * 1.5f, dampingRatio).start(
+            fadeInSpring().force(stiffness = stiffness * 1.5f, dampingRatio).start(
                 onAnimationEnd = onAnimationEnd
             )
         }

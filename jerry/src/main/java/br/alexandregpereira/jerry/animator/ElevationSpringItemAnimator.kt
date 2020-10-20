@@ -11,6 +11,7 @@ import br.alexandregpereira.jerry.elevationSpring
 import br.alexandregpereira.jerry.fadeInSpring
 import br.alexandregpereira.jerry.fadeOutSpring
 import br.alexandregpereira.jerry.fadeSpring
+import br.alexandregpereira.jerry.force
 import br.alexandregpereira.jerry.start
 import br.alexandregpereira.jerry.translationXSpring
 import br.alexandregpereira.jerry.translationYSpring
@@ -69,23 +70,19 @@ class ElevationSpringItemAnimator(
             val translationXTargetValue = if (deltaX != 0) translationOrigin else translationX
             val translationYTargetValue = if (deltaY != 0) translationOrigin else translationY
 
-            translationXSpring(
-                translationXTargetValue,
-                translationStiffness,
-                translationDampingRatio
-            ).translationYSpring(
-                translationYTargetValue,
-                translationStiffness,
-                translationDampingRatio
-            ).start { canceled ->
-                if (canceled) {
-                    if (deltaX != 0) translationX = translationOrigin
-                    if (deltaY != 0) translationY = translationOrigin
+            translationXSpring(translationXTargetValue)
+                .force(translationStiffness, translationDampingRatio)
+                .translationYSpring(translationYTargetValue)
+                .force(translationStiffness, translationDampingRatio)
+                .start { canceled ->
+                    if (canceled) {
+                        if (deltaX != 0) translationX = translationOrigin
+                        if (deltaY != 0) translationY = translationOrigin
+                    }
+                    alpha = alphaFull
+                    elevation = elevationFull
+                    onAnimateMoveFinished(holder)
                 }
-                alpha = alphaFull
-                elevation = elevationFull
-                onAnimateMoveFinished(holder)
-            }
         }
         return true
     }
@@ -126,25 +123,18 @@ class ElevationSpringItemAnimator(
     ) {
         val elevationFull = itemView.elevationFull
         this.itemView.apply {
-            elevationSpring(targetValue = elevationNone, elevationStiffness, elevationDampingRatio)
+            elevationSpring(targetValue = elevationNone)
+                .force(elevationStiffness, elevationDampingRatio)
                 .after(
-                    fadeSpring(alphaTargetValue, alphaStiffness, alphaDampingRatio)
-                        .translationXSpring(
-                            translationXTargetValue,
-                            translationStiffness,
-                            translationDampingRatio
-                        )
-                        .translationYSpring(
-                            translationYTargetValue,
-                            translationStiffness,
-                            translationDampingRatio
-                        )
+                    fadeSpring(alphaTargetValue)
+                        .force(alphaStiffness, alphaDampingRatio)
+                        .translationXSpring(translationXTargetValue)
+                        .force(translationStiffness, translationDampingRatio)
+                        .translationYSpring(translationYTargetValue)
+                        .force(translationStiffness, translationDampingRatio)
                         .after(
-                            elevationSpring(
-                                targetValue = elevationFull,
-                                elevationStiffness,
-                                elevationDampingRatio
-                            )
+                            elevationSpring(targetValue = elevationFull)
+                                .force(elevationStiffness, elevationDampingRatio)
                         )
                 ).start {
                     itemView.alpha = alphaFull
@@ -157,13 +147,10 @@ class ElevationSpringItemAnimator(
     }
 
     private fun View.startFadeElevationInAnimation(onAnimationFinished: () -> Unit) {
-        fadeInSpring(stiffness = alphaStiffness, alphaDampingRatio)
+        fadeInSpring().force(stiffness = alphaStiffness, alphaDampingRatio)
             .after(
-                elevationSpring(
-                    targetValue = elevationFull,
-                    stiffness = elevationStiffness,
-                    dampingRatio = elevationDampingRatio
-                )
+                elevationSpring(targetValue = elevationFull)
+                    .force(stiffness = elevationStiffness, dampingRatio = elevationDampingRatio)
             )
             .start {
                 onAnimationFinished()
@@ -171,9 +158,10 @@ class ElevationSpringItemAnimator(
     }
 
     private fun View.startFadeElevationOutAnimation(onAnimationFinished: () -> Unit) {
-        elevationSpring(targetValue = elevationNone, elevationStiffness, elevationDampingRatio)
+        elevationSpring(targetValue = elevationNone)
+            .force(elevationStiffness, elevationDampingRatio)
             .after(
-                fadeOutSpring(stiffness = alphaStiffness, alphaDampingRatio)
+                fadeOutSpring().force(stiffness = alphaStiffness, alphaDampingRatio)
             )
             .start {
                 alpha = alphaFull

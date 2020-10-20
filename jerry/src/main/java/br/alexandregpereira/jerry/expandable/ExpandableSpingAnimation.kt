@@ -3,6 +3,7 @@ package br.alexandregpereira.jerry.expandable
 import android.view.View
 import androidx.dynamicanimation.animation.SpringAnimation
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
+import br.alexandregpereira.jerry.force
 import br.alexandregpereira.jerry.gone
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.spring
@@ -153,10 +154,9 @@ internal fun View.goneCollapse(
     getOrStoreWidthOrHeightOriginalValue(isHeight)
     expandCollapseSpring(
         targetValue = 0f,
-        stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange,
-    ).start { canceled ->
+    ).force(stiffness = stiffness).start { canceled ->
         gone()
         setLayoutParamSize(getOrStoreWidthOrHeightOriginalValue(isHeight), isHeight)
         finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
@@ -199,22 +199,19 @@ internal fun View.visibleExpand(
 
     expandCollapseSpring(
         targetValue = targetValue.toFloat(),
-        stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange
-    ).start { canceled ->
+    ).force(stiffness = stiffness).start { canceled ->
         finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
     }
 }
 
 private fun View.expandCollapseSpring(
     targetValue: Float,
-    stiffness: Float,
     isHeight: Boolean,
     onProgressChange: ((progress: Float) -> Unit)?,
 ) = spring(
     key = getExpandingCollapsingSpringKey(isHeight),
     property = widthHeightViewProperty(isHeight, onProgressChange),
-    targetValue = targetValue,
-    stiffness = stiffness
+    targetValue = targetValue
 )

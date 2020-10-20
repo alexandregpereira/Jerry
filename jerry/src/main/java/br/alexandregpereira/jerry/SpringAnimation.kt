@@ -34,9 +34,7 @@ fun View.skipToEndSpringAnimation(key: Int) {
 fun View.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
-    targetValue: Float,
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+    targetValue: Float
 ): JerryAnimation {
     var springAnimation = getSpringAnimation(key)
     if (springAnimation == null) {
@@ -47,8 +45,8 @@ fun View.spring(
         setTag(key, SpringAnimationHolder(springAnimation))
     }
     springAnimation.spring.apply {
-        this.dampingRatio = dampingRatio
-        this.stiffness = stiffness
+        this.dampingRatio = SpringForce.DAMPING_RATIO_NO_BOUNCY
+        this.stiffness = ANIMATION_STIFFNESS
     }
     return JerryAnimation(key = key, view = this, springAnimation, targetValue)
 }
@@ -56,32 +54,47 @@ fun View.spring(
 fun JerryAnimation.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
-    targetValue: Float,
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+    targetValue: Float
 ): JerryAnimationSet {
     return animationSet().spring(
         key = key,
         property = property,
-        targetValue = targetValue,
-        stiffness = stiffness,
-        dampingRatio = dampingRatio
+        targetValue = targetValue
     )
 }
 
 fun JerryAnimationSet.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
-    targetValue: Float,
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+    targetValue: Float
 ): JerryAnimationSet {
     return this.copy(
         jerryAnimations = jerryAnimations +
                 listOf(jerryAnimations.last().view.spring(
-                    key, property, targetValue, stiffness, dampingRatio
+                    key, property, targetValue
                 ))
     )
+}
+
+fun JerryAnimation.force(
+    stiffness: Float,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+): JerryAnimation {
+    return this.apply {
+        springAnimation.spring.apply {
+            this.dampingRatio = dampingRatio
+            this.stiffness = stiffness
+        }
+    }
+}
+
+fun JerryAnimationSet.force(
+    stiffness: Float,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+): JerryAnimationSet {
+    return this.apply {
+        jerryAnimations.last().force(stiffness, dampingRatio)
+    }
 }
 
 private fun JerryAnimation.animationSet(): JerryAnimationSet {

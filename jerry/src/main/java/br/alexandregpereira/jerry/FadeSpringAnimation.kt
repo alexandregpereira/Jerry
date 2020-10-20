@@ -38,7 +38,7 @@ fun View.goneFadeOut(
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    fadeOutSpring(
+    fadeOutSpring().force(
         stiffness = stiffness,
         dampingRatio = dampingRatio
     ).start { canceled ->
@@ -66,7 +66,7 @@ fun View.visibleFadeIn(
 ) {
     if (isVisible().not()) alpha = 0f
     visible()
-    fadeInSpring(
+    fadeInSpring().force(
         stiffness = stiffness,
         dampingRatio = dampingRatio
     ).start(
@@ -74,92 +74,50 @@ fun View.visibleFadeIn(
     )
 }
 
-fun JerryAnimationSet.fadeInSpring(
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
-) = fadeSpring(
-    targetValue = 1f,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+fun JerryAnimationSet.fadeInSpring() = fadeSpring(
+    targetValue = 1f
 )
 
-fun JerryAnimation.fadeInSpring(
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
-) = fadeSpring(
-    targetValue = 1f,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+fun JerryAnimation.fadeInSpring() = fadeSpring(
+    targetValue = 1f
 )
 
-fun View.fadeInSpring(
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
-) = fadeSpring(
-    targetValue = 1f,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+fun View.fadeInSpring() = fadeSpring(
+    targetValue = 1f
 )
 
-fun JerryAnimationSet.fadeOutSpring(
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
-) = fadeSpring(
-    targetValue = 0f,
-    dampingRatio = dampingRatio,
-    stiffness = stiffness
+fun JerryAnimationSet.fadeOutSpring() = fadeSpring(
+    targetValue = 0f
 )
 
-fun JerryAnimation.fadeOutSpring(
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
-) = fadeSpring(
-    targetValue = 0f,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+fun JerryAnimation.fadeOutSpring() = fadeSpring(
+    targetValue = 0f
 )
 
-fun View.fadeOutSpring(
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
-) = fadeSpring(
-    targetValue = 0f,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+fun View.fadeOutSpring() = fadeSpring(
+    targetValue = 0f
 )
 
 fun JerryAnimationSet.fadeSpring(
-    targetValue: Float,
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+    targetValue: Float
 ) = spring(
     key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
-    targetValue = targetValue,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+    targetValue = targetValue
 )
 
 fun JerryAnimation.fadeSpring(
-    targetValue: Float,
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+    targetValue: Float
 ) = spring(
     key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
-    targetValue = targetValue,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+    targetValue = targetValue
 )
 
 fun View.fadeSpring(
-    targetValue: Float,
-    stiffness: Float = ANIMATION_STIFFNESS,
-    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+    targetValue: Float
 ) = spring(
     key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
-    targetValue = targetValue,
-    stiffness = stiffness,
-    dampingRatio = dampingRatio
+    targetValue = targetValue
 )
