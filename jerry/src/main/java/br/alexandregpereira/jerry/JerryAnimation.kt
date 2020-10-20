@@ -7,8 +7,7 @@ data class JerryAnimation(
     val key: Int,
     val view: View,
     val springAnimation: SpringAnimation,
-    internal val targetValue: Float,
-    internal val jerryAnimations: List<JerryAnimation>? = null
+    internal val targetValue: Float
 ) {
     val isRunning: Boolean
         get() = springAnimation.isRunning
