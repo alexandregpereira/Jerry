@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.alexandregpereira.jerry.animation.setupLiftViewOnScrollCompat
 import br.alexandregpereira.jerry.app.animation.CollapseFadingSpringAnimationActivity
 import br.alexandregpereira.jerry.app.animation.CollapseSpringAnimationActivity
 import br.alexandregpereira.jerry.app.animation.ExpandFadingSpringAnimationActivity
@@ -19,13 +20,12 @@ import br.alexandregpereira.jerry.app.recyclerview.GridRecyclerViewSpringActivit
 import br.alexandregpereira.jerry.app.recyclerview.RecyclerViewActivity
 import br.alexandregpereira.jerry.app.recyclerview.RecyclerViewSpringActivity
 import br.alexandregpereira.jerry.app.widgets.configMaterialShapeDrawable
+import br.alexandregpereira.jerry.dpToPx
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        appBarLayout.isLiftOnScroll = true
 
         componentsRecycler.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
         }
+        componentsRecycler.setupLiftViewOnScrollCompat(appBarLayout, 2f.dpToPx(resources))
     }
 }
 
