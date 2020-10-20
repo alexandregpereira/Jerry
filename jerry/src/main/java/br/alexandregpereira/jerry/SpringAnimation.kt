@@ -97,6 +97,15 @@ fun JerryAnimationSet.force(
     }
 }
 
+fun JerryAnimationSet.animationSetForce(
+    stiffness: Float,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
+): JerryAnimationSet {
+    return this.apply {
+        jerryAnimations.forEach { it.force(stiffness, dampingRatio) }
+    }
+}
+
 private fun JerryAnimation.animationSet(): JerryAnimationSet {
     return JerryAnimationSet(jerryAnimations = listOf(this))
 }

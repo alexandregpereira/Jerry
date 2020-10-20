@@ -13,6 +13,7 @@ import br.alexandregpereira.jerry.app.animation.ExpandFadingSpringAnimationActiv
 import br.alexandregpereira.jerry.app.animation.ExpandSpringAnimationActivity
 import br.alexandregpereira.jerry.app.animation.FadeSpringAnimationActivity
 import br.alexandregpereira.jerry.app.animation.TextExpandableSpringAnimationActivity
+import br.alexandregpereira.jerry.app.animation.TranslationAnimationActivity
 import br.alexandregpereira.jerry.app.recyclerview.GridRecyclerViewActivity
 import br.alexandregpereira.jerry.app.recyclerview.GridRecyclerViewSpringActivity
 import br.alexandregpereira.jerry.app.recyclerview.RecyclerViewActivity
@@ -60,6 +61,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     AnimationComponent.GRID_RECYCLER_SPRING.ordinal -> startActivity(
                         GridRecyclerViewSpringActivity.getStartIntent(this@MainActivity)
                     )
+                    AnimationComponent.TRANSLATION.ordinal -> startActivity(
+                        TranslationAnimationActivity.getStartIntent(this@MainActivity)
+                    )
                 }
             }
         }
@@ -77,6 +81,7 @@ enum class AnimationComponent {
     EXPAND_FADING_SPRING,
     FADE_SPRING,
     TEXT_EXPANDABLE_SPRING,
+    TRANSLATION,
     RECYCLER,
     RECYCLER_SPRING,
     GRID_RECYCLER,

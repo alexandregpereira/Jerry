@@ -36,6 +36,8 @@
         <activity android:name=".recyclerview.GridRecyclerViewActivity" />
 
         <activity android:name=".recyclerview.GridRecyclerViewSpringActivity" />
+
+        <activity android:name=".animation.TranslationAnimationActivity" />
     </application>
 
 </manifest>
