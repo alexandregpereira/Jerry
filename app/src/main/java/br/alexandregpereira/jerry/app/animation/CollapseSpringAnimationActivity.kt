@@ -15,7 +15,7 @@ import br.alexandregpereira.jerry.animation.expandable.visibleExpandHeight
 import br.alexandregpereira.jerry.animation.expandable.visibleExpandWidth
 import br.alexandregpereira.jerry.animation.scaleXSpring
 import br.alexandregpereira.jerry.animation.scaleYSpring
-import br.alexandregpereira.jerry.animationSetForce
+import br.alexandregpereira.jerry.force
 import br.alexandregpereira.jerry.cancelSpringAnimation
 import br.alexandregpereira.jerry.spring
 import br.alexandregpereira.jerry.start
@@ -118,7 +118,7 @@ class CollapseSpringAnimationActivity : AppCompatActivity(R.layout.activity_coll
                             targetValue = 1f,
                             property = DynamicAnimation.SCALE_Y
                         )
-                        .animationSetForce(dampingRatio = 0.15f)
+                        .force(dampingRatio = 0.15f)
                 )
                 .start()
         }

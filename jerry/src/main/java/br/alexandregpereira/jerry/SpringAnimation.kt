@@ -99,16 +99,16 @@ fun JerryAnimationSet.force(
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
     return this.apply {
-        jerryAnimations.last().force(stiffness, dampingRatio)
+        jerryAnimations.forEach { it.force(stiffness, dampingRatio) }
     }
 }
 
-fun JerryAnimationSet.animationSetForce(
+fun JerryAnimationSet.lastForce(
     stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
     return this.apply {
-        jerryAnimations.forEach { it.force(stiffness, dampingRatio) }
+        jerryAnimations.last().force(stiffness, dampingRatio)
     }
 }
 
@@ -130,6 +130,18 @@ fun JerryAnimationSet.after(jerryAnimationSet: JerryAnimationSet): JerryAnimatio
 
 fun JerryAnimationSet.after(jerryAnimation: JerryAnimation): JerryAnimationSet {
     return this.copy(jerryAfterAnimationSet = jerryAnimation.animationSet())
+}
+
+fun JerryAnimation.add(
+    jerryAnimationSet: JerryAnimationSet
+): JerryAnimationSet {
+    return animationSet().add(jerryAnimationSet)
+}
+
+fun JerryAnimationSet.add(
+    jerryAnimationSet: JerryAnimationSet
+): JerryAnimationSet {
+    return this.copy(jerryAnimations = this.jerryAnimations + jerryAnimationSet.jerryAnimations)
 }
 
 fun JerryAnimationSet.start(

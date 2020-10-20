@@ -8,7 +8,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.animation.translationXSpring
 import br.alexandregpereira.jerry.animation.translationYSpring
-import br.alexandregpereira.jerry.animationSetForce
+import br.alexandregpereira.jerry.force
 import br.alexandregpereira.jerry.app.R
 import br.alexandregpereira.jerry.cancelSpringAnimation
 import br.alexandregpereira.jerry.start
@@ -56,7 +56,7 @@ class TranslationAnimationActivity : AppCompatActivity(R.layout.activity_transla
         moveView.animate().cancel()
         moveView.translationXSpring(targetValue = point.first)
             .translationYSpring(targetValue = point.second)
-            .animationSetForce(stiffness = 60f, dampingRatio = 0.8f)
+            .force(stiffness = 60f, dampingRatio = 0.8f)
             .start()
     }
 

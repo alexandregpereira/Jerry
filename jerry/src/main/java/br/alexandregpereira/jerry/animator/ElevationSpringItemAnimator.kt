@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.dynamicanimation.animation.SpringForce.DAMPING_RATIO_NO_BOUNCY
 import androidx.recyclerview.widget.RecyclerView
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
+import br.alexandregpereira.jerry.add
 import br.alexandregpereira.jerry.after
 import br.alexandregpereira.jerry.dpToPx
 import br.alexandregpereira.jerry.animation.elevationSpring
@@ -71,7 +72,6 @@ class ElevationSpringItemAnimator(
             val translationYTargetValue = if (deltaY != 0) translationOrigin else translationY
 
             translationXSpring(translationXTargetValue)
-                .force(translationStiffness, translationDampingRatio)
                 .translationYSpring(translationYTargetValue)
                 .force(translationStiffness, translationDampingRatio)
                 .start { canceled ->
@@ -128,10 +128,11 @@ class ElevationSpringItemAnimator(
                 .after(
                     fadeSpring(alphaTargetValue)
                         .force(alphaStiffness, alphaDampingRatio)
-                        .translationXSpring(translationXTargetValue)
-                        .force(translationStiffness, translationDampingRatio)
-                        .translationYSpring(translationYTargetValue)
-                        .force(translationStiffness, translationDampingRatio)
+                        .add(
+                            translationXSpring(translationXTargetValue)
+                                .translationYSpring(translationYTargetValue)
+                                .force(translationStiffness, translationDampingRatio)
+                        )
                         .after(
                             elevationSpring(targetValue = elevationFull)
                                 .force(elevationStiffness, elevationDampingRatio)
