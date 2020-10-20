@@ -8,24 +8,28 @@ import androidx.dynamicanimation.animation.SpringForce
 
 const val ANIMATION_STIFFNESS = 600f
 
-fun View.cancelSpringAnimation() {
+fun View.cancelSpringAnimation(): View {
     getSpringAnimationKeys().forEach {
         cancelSpringAnimation(key = it)
     }
+    return this
 }
 
-fun View.cancelSpringAnimation(key: Int) {
+fun View.cancelSpringAnimation(key: Int): View {
     getSpringAnimation(key)?.cancel()
+    return this
 }
 
-fun View.skipToEndSpringAnimation() {
+fun View.skipToEndSpringAnimation(): View {
     getSpringAnimationKeys().forEach {
         skipToEndSpringAnimation(key = it)
     }
+    return this
 }
 
-fun View.skipToEndSpringAnimation(key: Int) {
+fun View.skipToEndSpringAnimation(key: Int): View {
     getSpringAnimation(key)?.takeIf { it.canSkipToEnd() }?.skipToEnd()
+    return this
 }
 
 /**
@@ -70,14 +74,16 @@ fun JerryAnimationSet.spring(
 ): JerryAnimationSet {
     return this.copy(
         jerryAnimations = jerryAnimations +
-                listOf(jerryAnimations.last().view.spring(
-                    key, property, targetValue
-                ))
+                listOf(
+                    jerryAnimations.last().view.spring(
+                        key, property, targetValue
+                    )
+                )
     )
 }
 
 fun JerryAnimation.force(
-    stiffness: Float,
+    stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimation {
     return this.apply {
@@ -89,7 +95,7 @@ fun JerryAnimation.force(
 }
 
 fun JerryAnimationSet.force(
-    stiffness: Float,
+    stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
     return this.apply {
@@ -98,7 +104,7 @@ fun JerryAnimationSet.force(
 }
 
 fun JerryAnimationSet.animationSetForce(
-    stiffness: Float,
+    stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
     return this.apply {
