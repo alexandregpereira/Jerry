@@ -6,7 +6,7 @@ import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.gone
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.spring
-import br.alexandregpereira.jerry.startSpringAnimation
+import br.alexandregpereira.jerry.start
 import br.alexandregpereira.jerry.visible
 
 /**
@@ -156,7 +156,7 @@ internal fun View.goneCollapse(
         stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange,
-    ).startSpringAnimation { canceled ->
+    ).start { canceled ->
         gone()
         setLayoutParamSize(getOrStoreWidthOrHeightOriginalValue(isHeight), isHeight)
         finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
@@ -202,7 +202,7 @@ internal fun View.visibleExpand(
         stiffness = stiffness,
         isHeight = isHeight,
         onProgressChange = onProgressChange
-    ).startSpringAnimation { canceled ->
+    ).start { canceled ->
         finishExpandingCollapsingAnimation(isHeight, canceled, onAnimationEnd)
     }
 }

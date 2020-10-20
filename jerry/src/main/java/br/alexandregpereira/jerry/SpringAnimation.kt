@@ -35,7 +35,7 @@ fun View.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
     targetValue: Float,
-    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimation {
     var springAnimation = getSpringAnimation(key)
@@ -57,7 +57,7 @@ fun JerryAnimation.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
     targetValue: Float,
-    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
     return animationSet().spring(
@@ -73,7 +73,7 @@ fun JerryAnimationSet.spring(
     key: Int,
     property: FloatPropertyCompat<View>,
     targetValue: Float,
-    stiffness: Float = SpringForce.STIFFNESS_LOW,
+    stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
     return this.copy(
@@ -104,7 +104,7 @@ fun JerryAnimationSet.after(jerryAnimation: JerryAnimation): JerryAnimationSet {
     return this.copy(jerryAfterAnimationSet = jerryAnimation.animationSet())
 }
 
-fun JerryAnimationSet.startSpringAnimation(
+fun JerryAnimationSet.start(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     val onAnimationsEnd: (canceled: Boolean, completed: Boolean) -> Unit = { canceled, completed ->
@@ -112,13 +112,13 @@ fun JerryAnimationSet.startSpringAnimation(
             if (canceled || jerryAfterAnimationSet == null) {
                 onAnimationEnd?.invoke(canceled)
             } else {
-                jerryAfterAnimationSet.startSpringAnimation(onAnimationEnd)
+                jerryAfterAnimationSet.start(onAnimationEnd)
             }
         }
     }
     return jerryAnimations.forEach { animation ->
         val otherAnimations = jerryAnimations.filterNot { it.key == animation.key }
-        animation.startSpringAnimation { canceled ->
+        animation.start { canceled ->
             onAnimationsEnd(
                 canceled,
                 otherAnimations.isRunning().not()
@@ -127,7 +127,7 @@ fun JerryAnimationSet.startSpringAnimation(
     }
 }
 
-fun JerryAnimation.startSpringAnimation(
+fun JerryAnimation.start(
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     this.addSpringEndListener(

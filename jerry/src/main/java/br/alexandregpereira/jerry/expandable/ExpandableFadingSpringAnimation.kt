@@ -9,7 +9,7 @@ import br.alexandregpereira.jerry.visibleFadeIn
 import br.alexandregpereira.jerry.goneFadeOut
 import br.alexandregpereira.jerry.fadeSpring
 import br.alexandregpereira.jerry.isVisible
-import br.alexandregpereira.jerry.startSpringAnimation
+import br.alexandregpereira.jerry.start
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
@@ -123,7 +123,7 @@ private fun View.goneCollapseFadeOut(
     isHeight: Boolean = true,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    fadeOutSpring(stiffness = stiffness * 2f, dampingRatio).startSpringAnimation {
+    fadeOutSpring(stiffness = stiffness * 2f, dampingRatio).start {
         goneCollapse(
             stiffness = stiffness * 2f,
             isHeight = isHeight,

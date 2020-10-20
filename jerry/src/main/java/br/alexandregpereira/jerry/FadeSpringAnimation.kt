@@ -41,7 +41,7 @@ fun View.goneFadeOut(
     fadeOutSpring(
         stiffness = stiffness,
         dampingRatio = dampingRatio
-    ).startSpringAnimation { canceled ->
+    ).start { canceled ->
         gone()
         onAnimationEnd?.invoke(canceled)
     }
@@ -69,7 +69,7 @@ fun View.visibleFadeIn(
     fadeInSpring(
         stiffness = stiffness,
         dampingRatio = dampingRatio
-    ).startSpringAnimation(
+    ).start(
         onAnimationEnd = onAnimationEnd
     )
 }

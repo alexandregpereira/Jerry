@@ -1,9 +1,6 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.expandable
 
 import android.view.View
-import android.view.ViewPropertyAnimator
-
-const val ANIMATION_SHORT_TIME = 300L
 
 enum class AnimationMode {
     /**
@@ -45,11 +42,5 @@ internal fun View.isAnimationRunning(key: Int, animationMode: AnimationMode): Bo
 internal fun View.setAnimationRunning(key: Int, animationMode: AnimationMode) {
     runCatching {
         setTag(key, animationMode)
-    }
-}
-
-internal fun ViewPropertyAnimator.onAnimationEnd(onEnd: () -> Unit): ViewPropertyAnimator {
-    return withEndAction {
-        onEnd()
     }
 }

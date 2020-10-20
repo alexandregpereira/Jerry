@@ -11,7 +11,7 @@ import br.alexandregpereira.jerry.elevationSpring
 import br.alexandregpereira.jerry.fadeInSpring
 import br.alexandregpereira.jerry.fadeOutSpring
 import br.alexandregpereira.jerry.fadeSpring
-import br.alexandregpereira.jerry.startSpringAnimation
+import br.alexandregpereira.jerry.start
 import br.alexandregpereira.jerry.translationXSpring
 import br.alexandregpereira.jerry.translationYSpring
 
@@ -77,7 +77,7 @@ class ElevationSpringItemAnimator(
                 translationYTargetValue,
                 translationStiffness,
                 translationDampingRatio
-            ).startSpringAnimation { canceled ->
+            ).start { canceled ->
                 if (canceled) {
                     if (deltaX != 0) translationX = translationOrigin
                     if (deltaY != 0) translationY = translationOrigin
@@ -146,7 +146,7 @@ class ElevationSpringItemAnimator(
                                 elevationDampingRatio
                             )
                         )
-                ).startSpringAnimation {
+                ).start {
                     itemView.alpha = alphaFull
                     itemView.elevation = elevationFull
                     itemView.translationX = translationOrigin
@@ -165,7 +165,7 @@ class ElevationSpringItemAnimator(
                     dampingRatio = elevationDampingRatio
                 )
             )
-            .startSpringAnimation {
+            .start {
                 onAnimationFinished()
             }
     }
@@ -175,7 +175,7 @@ class ElevationSpringItemAnimator(
             .after(
                 fadeOutSpring(stiffness = alphaStiffness, alphaDampingRatio)
             )
-            .startSpringAnimation {
+            .start {
                 alpha = alphaFull
                 elevation = elevationFull
                 onAnimationFinished()
