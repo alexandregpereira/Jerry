@@ -1,49 +1,55 @@
-package br.alexandregpereira.jerry.expandable
+package br.alexandregpereira.jerry.animation.expandable
 
 import android.view.View
 import androidx.dynamicanimation.animation.SpringAnimation
+import androidx.dynamicanimation.animation.SpringForce
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
-import br.alexandregpereira.jerry.fadeInSpring
-import br.alexandregpereira.jerry.fadeOutSpring
-import br.alexandregpereira.jerry.hideFadeOutSpring
+import br.alexandregpereira.jerry.animation.fadeOutSpring
+import br.alexandregpereira.jerry.animation.fadeSpring
+import br.alexandregpereira.jerry.force
+import br.alexandregpereira.jerry.animation.goneFadeOut
 import br.alexandregpereira.jerry.isVisible
+import br.alexandregpereira.jerry.start
+import br.alexandregpereira.jerry.animation.visibleFadeIn
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
- * [expandHeightFadingSpring] is called, else the [collapseHeightFadingSpring] is called.
+ * [visibleExpandHeightFadeIn] is called, else the [goneCollapseHeightFadeOut] is called.
  */
-fun View.animateHeightFadingVisibility(
+fun View.visibleOrGoneExpandableHeightFade(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
-        expandHeightFadingSpring(stiffness, onAnimationEnd)
+        visibleExpandHeightFadeIn(stiffness, dampingRatio, onAnimationEnd)
     } else {
-        collapseHeightFadingSpring(stiffness, onAnimationEnd)
+        goneCollapseHeightFadeOut(stiffness, dampingRatio, onAnimationEnd)
     }
 }
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
- * [expandWidthFadingSpring] is called, else the [collapseWidthFadingSpring] is called.
+ * [visibleExpandWidthFadeIn] is called, else the [goneCollapseWidthFadeOut] is called.
  */
-fun View.animateWidthFadingVisibility(
+fun View.visibleOrGoneExpandableWidthFade(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
-        expandWidthFadingSpring(stiffness, onAnimationEnd)
+        visibleExpandWidthFadeIn(stiffness, dampingRatio, onAnimationEnd)
     } else {
-        collapseWidthFadingSpring(stiffness, onAnimationEnd)
+        goneCollapseWidthFadeOut(stiffness, dampingRatio, onAnimationEnd)
     }
 }
 
 /**
- * Uses the [expandHeightSpring] and [fadeInSpring] animations in sequence. This animation
+ * Uses the [visibleExpandHeight] and [visibleFadeIn] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [collapseHeightFadingSpring] method is called.
+ * [goneCollapseHeightFadeOut] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -52,15 +58,16 @@ fun View.animateWidthFadingVisibility(
  *
  * @see [SpringAnimation]
  */
-fun View.expandHeightFadingSpring(
+fun View.visibleExpandHeightFadeIn(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = expandFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
+) = visibleExpandFadeIn(stiffness, dampingRatio, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [expandWidthSpring] and [fadeInSpring] animations in sequence. This animation
+ * Uses the [visibleExpandWidth] and [visibleFadeIn] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [collapseWidthFadingSpring] method is called.
+ * [goneCollapseWidthFadeOut] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -69,15 +76,16 @@ fun View.expandHeightFadingSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.expandWidthFadingSpring(
+fun View.visibleExpandWidthFadeIn(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = expandFadingSpring(stiffness, isHeight = false, onAnimationEnd = onAnimationEnd)
+) = visibleExpandFadeIn(stiffness, dampingRatio, isHeight = false, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [fadeOutSpring] and [collapseHeightSpring] animations in sequence. This animation
+ * Uses the [goneFadeOut] and [goneCollapseHeight] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [expandHeightFadingSpring] method is called.
+ * [visibleExpandHeightFadeIn] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -86,15 +94,16 @@ fun View.expandWidthFadingSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.collapseHeightFadingSpring(
+fun View.goneCollapseHeightFadeOut(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = collapseFadingSpring(stiffness, isHeight = true, onAnimationEnd = onAnimationEnd)
+) = goneCollapseFadeOut(stiffness, dampingRatio, isHeight = true, onAnimationEnd = onAnimationEnd)
 
 /**
- * Uses the [hideFadeOutSpring] and [collapseWidthSpring] animations in sequence. This animation
+ * Uses the [fadeSpring] and [goneCollapseWidth] animations in sequence. This animation
  * handles double click. This method can be reverted in the middle of the animation if the
- * [expandWidthFadingSpring] method is called.
+ * [visibleExpandWidthFadeIn] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -103,23 +112,20 @@ fun View.collapseHeightFadingSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.collapseWidthFadingSpring(
+fun View.goneCollapseWidthFadeOut(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = collapseFadingSpring(stiffness, isHeight = false, onAnimationEnd = onAnimationEnd)
+) = goneCollapseFadeOut(stiffness, dampingRatio, isHeight = false, onAnimationEnd = onAnimationEnd)
 
-private fun View.collapseFadingSpring(
+private fun View.goneCollapseFadeOut(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     isHeight: Boolean = true,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    if (isExpandingRunning()) {
-        collapseSpring(isHeight = isHeight, onAnimationEnd = onAnimationEnd)
-        return
-    }
-
-    hideFadeOutSpring(stiffness = stiffness * 2f) {
-        collapseSpring(
+    fadeOutSpring().force(stiffness = stiffness * 2f, dampingRatio).start {
+        goneCollapse(
             stiffness = stiffness * 2f,
             isHeight = isHeight,
             onAnimationEnd = onAnimationEnd
@@ -127,22 +133,14 @@ private fun View.collapseFadingSpring(
     }
 }
 
-private fun View.expandFadingSpring(
+private fun View.visibleExpandFadeIn(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     isHeight: Boolean = true,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    if (alpha == 1f && (isVisible() && isCollapsingRunning().not())) {
-        return
-    }
-    if (alpha == 1f) alpha = 0f
-
-    if (alpha > 0f && alpha < 1f) {
-        fadeInSpring(onAnimationEnd = onAnimationEnd)
-        return
-    }
-
-    expandSpring(stiffness = stiffness * 2f, isHeight = isHeight) {
-        fadeInSpring(stiffness = stiffness * 2f, onAnimationEnd = onAnimationEnd)
+    if (isVisible().not()) alpha = 0f
+    visibleExpand(stiffness = stiffness * 2f, isHeight = isHeight) {
+        visibleFadeIn(stiffness = stiffness * 2f, dampingRatio, onAnimationEnd)
     }
 }

@@ -35,4 +35,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation project(":jerry")
+    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 }

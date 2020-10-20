@@ -46,5 +46,7 @@
     <string name="remove_button">Remove</string>
     <string name="shuffle">Shuffle</string>
     <string name="change">Change</string>
+    <string name="spring_animation">Spring animation</string>
+    <string name="normal_animation">Normal animation</string>
 
 </resources>

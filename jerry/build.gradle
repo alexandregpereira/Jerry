@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven-publish'
 
 group = 'com.github.alexandregpereira'
 
@@ -29,4 +30,22 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            library(MavenPublication) {
+                setGroupId groupId
+                setArtifactId 'jerry'
+                version versionSuffix()
+
+                artifact bundleReleaseAar
+            }
+        }
+    }
+}
+
+static def versionSuffix() {
+    return new Date().format('yyyyMMddHHmmss')
 }
