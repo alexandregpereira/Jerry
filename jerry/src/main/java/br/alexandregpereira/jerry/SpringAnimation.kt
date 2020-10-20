@@ -208,4 +208,3 @@ private fun View.addSpringAnimationKeyIfNotContains(key: Int) {
         })
     }
 }
-
