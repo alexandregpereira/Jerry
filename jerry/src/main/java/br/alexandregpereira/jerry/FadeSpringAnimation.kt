@@ -3,26 +3,28 @@ package br.alexandregpereira.jerry
 import android.view.View
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
+import androidx.dynamicanimation.animation.SpringForce
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
- * [fadeInSpring] is called, else the [fadeOutSpring] is called.
+ * [visibleFadeIn] is called, else the [goneFadeOut] is called.
  */
-fun View.animateAlphaVisibility(
+fun View.visibleOrGoneFade(
     visible: Boolean,
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
     if (visible) {
-        fadeInSpring(stiffness, onAnimationEnd = onAnimationEnd)
+        visibleFadeIn(stiffness, dampingRatio, onAnimationEnd = onAnimationEnd)
     } else {
-        fadeOutSpring(stiffness, onAnimationEnd = onAnimationEnd)
+        goneFadeOut(stiffness, dampingRatio, onAnimationEnd = onAnimationEnd)
     }
 }
 
 /**
  * Change the visibility to GONE of the view using fade out animation. This method can be
- * reverted in the middle of the animation if the [fadeInSpring] method is called.
+ * reverted in the middle of the animation if the [visibleFadeIn] method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
  * the object attached when the spring is not at the final position. Default stiffness is
@@ -31,16 +33,23 @@ fun View.animateAlphaVisibility(
  *
  * @see [SpringAnimation]
  */
-fun View.fadeOutSpring(
+fun View.goneFadeOut(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    hideFadeOutSpring(stiffness, hide = { gone() }, onAnimationEnd = onAnimationEnd)
+    fadeOutSpring().force(
+        stiffness = stiffness,
+        dampingRatio = dampingRatio
+    ).start { canceled ->
+        gone()
+        onAnimationEnd?.invoke(canceled)
+    }
 }
 
 /**
  * Change the visibility to VISIBLE of the view using fade in animation. This method can be
- * reverted in the middle of the animation if the [fadeOutSpring]
+ * reverted in the middle of the animation if the [goneFadeOut]
  * method is called.
  *
  * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
@@ -50,112 +59,65 @@ fun View.fadeOutSpring(
  *
  * @see [SpringAnimation]
  */
-fun View.fadeInSpring(
+fun View.visibleFadeIn(
     stiffness: Float = ANIMATION_STIFFNESS,
+    dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY,
     onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
 ) {
-    if (isFadeInRunning() || (alpha == 1f && isVisible() && isFadeOutRunning().not())) {
-        if (isFadeInRunning().not()) {
-            onAnimationEnd?.invoke(false)
-        }
-        return
-    }
-    startFadeInRunning()
-    if (alpha == 1f) alpha = 0f
+    if (isVisible().not()) alpha = 0f
     visible()
-
-    fadeSpring(stiffness = stiffness).startFadeInSpringAnimation(
+    fadeInSpring().force(
+        stiffness = stiffness,
+        dampingRatio = dampingRatio
+    ).start(
         onAnimationEnd = onAnimationEnd
     )
 }
 
-/**
- * Start the fade out animation without changing the visibility status. The changes in the
- * visibility status is delegate to the function [hide].
- *
- * @param stiffness Stiffness of a spring. The more stiff a spring is, the more force it applies to
- * the object attached when the spring is not at the final position. Default stiffness is
- * [ANIMATION_STIFFNESS].
- * @param onAnimationEnd The function to call when the animation is finished.
- *
- * @see [SpringAnimation]
- */
-fun View.hideFadeOutSpring(
-    stiffness: Float,
-    hide: (() -> Unit)? = null,
-    onAnimationEnd: ((canceled: Boolean) -> Unit)?
-) {
-    if (isVisible().not() || isFadeOutRunning()) {
-        if (isFadeOutRunning().not()) {
-            onAnimationEnd?.invoke(false)
-        }
-        return
-    }
-    startFadeOutRunning()
-
-    fadeSpring(stiffness = stiffness).startFadeOutSpringAnimation(
-        onAnimationEnd = { canceled ->
-            hide?.invoke()
-            onAnimationEnd?.invoke(canceled)
-        }
-    )
-}
-
-fun JerryAnimation.startFadeOutSpringAnimation(
-    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = startFadeSpringAnimation(
-    targetValue = 0f,
-    onAnimationEnd = { canceled ->
-        onAnimationEnd?.invoke(canceled)
-    }
+fun JerryAnimationSet.fadeInSpring() = fadeSpring(
+    targetValue = 1f
 )
 
-fun JerryAnimation.startFadeInSpringAnimation(
-    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null
-) = startFadeSpringAnimation(
-    targetValue = 1f,
-    onAnimationEnd = onAnimationEnd
+fun JerryAnimation.fadeInSpring() = fadeSpring(
+    targetValue = 1f
 )
 
-fun JerryAnimation.targetFadeIn() = target(1f)
+fun View.fadeInSpring() = fadeSpring(
+    targetValue = 1f
+)
 
-fun JerryAnimation.targetFadeOut() = target(0f)
+fun JerryAnimationSet.fadeOutSpring() = fadeSpring(
+    targetValue = 0f
+)
 
-fun JerryAnimationSet.targetFadeIn() = target(1f)
+fun JerryAnimation.fadeOutSpring() = fadeSpring(
+    targetValue = 0f
+)
 
-fun JerryAnimationSet.targetFadeOut() = target(0f)
+fun View.fadeOutSpring() = fadeSpring(
+    targetValue = 0f
+)
 
 fun JerryAnimationSet.fadeSpring(
-    stiffness: Float = ANIMATION_STIFFNESS
+    targetValue: Float
 ) = spring(
     key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
-    stiffness = stiffness
+    targetValue = targetValue
 )
 
 fun JerryAnimation.fadeSpring(
-    stiffness: Float = ANIMATION_STIFFNESS
+    targetValue: Float
 ) = spring(
     key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
-    stiffness = stiffness
+    targetValue = targetValue
 )
 
 fun View.fadeSpring(
-    stiffness: Float = ANIMATION_STIFFNESS
+    targetValue: Float
 ) = spring(
     key = SpringAnimationPropertyKey.ALPHA.id,
     property = DynamicAnimation.ALPHA,
-    stiffness = stiffness
-)
-
-fun JerryAnimation.startFadeSpringAnimation(
-    targetValue: Float,
-    onAnimationEnd: ((canceled: Boolean) -> Unit)? = null,
-) = startSpringAnimation(
-    targetValue = targetValue,
-    onAnimationEnd = { canceled ->
-        view.clearFadeInFadeOutRunning()
-        onAnimationEnd?.invoke(canceled)
-    }
+    targetValue = targetValue
 )

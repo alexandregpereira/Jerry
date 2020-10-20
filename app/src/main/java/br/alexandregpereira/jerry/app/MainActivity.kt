@@ -7,17 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.alexandregpereira.jerry.app.animation.CollapseAnimationActivity
-import br.alexandregpereira.jerry.app.animation.CollapseFadingAnimationActivity
-import br.alexandregpereira.jerry.app.animation.CollapseSpringAnimationActivity
 import br.alexandregpereira.jerry.app.animation.CollapseFadingSpringAnimationActivity
-import br.alexandregpereira.jerry.app.animation.ExpandAnimationActivity
-import br.alexandregpereira.jerry.app.animation.ExpandFadingAnimationActivity
-import br.alexandregpereira.jerry.app.animation.ExpandSpringAnimationActivity
+import br.alexandregpereira.jerry.app.animation.CollapseSpringAnimationActivity
 import br.alexandregpereira.jerry.app.animation.ExpandFadingSpringAnimationActivity
-import br.alexandregpereira.jerry.app.animation.FadeAnimationActivity
+import br.alexandregpereira.jerry.app.animation.ExpandSpringAnimationActivity
 import br.alexandregpereira.jerry.app.animation.FadeSpringAnimationActivity
-import br.alexandregpereira.jerry.app.animation.TextExpandableAnimationActivity
 import br.alexandregpereira.jerry.app.animation.TextExpandableSpringAnimationActivity
 import br.alexandregpereira.jerry.app.recyclerview.GridRecyclerViewActivity
 import br.alexandregpereira.jerry.app.recyclerview.GridRecyclerViewSpringActivity
@@ -36,41 +30,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = MainAdapter(getAnimationComponentsName()) {
                 when (it) {
-                    AnimationComponent.FADE.ordinal -> startActivity(
-                        FadeAnimationActivity.getStartIntent(this@MainActivity)
-                    )
                     AnimationComponent.FADE_SPRING.ordinal -> startActivity(
                         FadeSpringAnimationActivity.getStartIntent(this@MainActivity)
-                    )
-                    AnimationComponent.COLLAPSE_FADING.ordinal -> startActivity(
-                        CollapseFadingAnimationActivity.getStartIntent(this@MainActivity)
-                    )
-                    AnimationComponent.COLLAPSE_FADING.ordinal -> startActivity(
-                        CollapseFadingAnimationActivity.getStartIntent(this@MainActivity)
                     )
                     AnimationComponent.COLLAPSE_FADING_SPRING.ordinal -> startActivity(
                         CollapseFadingSpringAnimationActivity.getStartIntent(this@MainActivity)
                     )
-                    AnimationComponent.EXPAND_FADING.ordinal -> startActivity(
-                        ExpandFadingAnimationActivity.getStartIntent(this@MainActivity)
-                    )
                     AnimationComponent.EXPAND_FADING_SPRING.ordinal -> startActivity(
                         ExpandFadingSpringAnimationActivity.getStartIntent(this@MainActivity)
-                    )
-                    AnimationComponent.COLLAPSE.ordinal -> startActivity(
-                        CollapseAnimationActivity.getStartIntent(this@MainActivity)
                     )
                     AnimationComponent.COLLAPSE_SPRING.ordinal -> startActivity(
                         CollapseSpringAnimationActivity.getStartIntent(this@MainActivity)
                     )
-                    AnimationComponent.EXPAND.ordinal -> startActivity(
-                        ExpandAnimationActivity.getStartIntent(this@MainActivity)
-                    )
                     AnimationComponent.EXPAND_SPRING.ordinal -> startActivity(
                         ExpandSpringAnimationActivity.getStartIntent(this@MainActivity)
-                    )
-                    AnimationComponent.TEXT_EXPANDABLE.ordinal -> startActivity(
-                        TextExpandableAnimationActivity.getStartIntent(this@MainActivity)
                     )
                     AnimationComponent.TEXT_EXPANDABLE_SPRING.ordinal -> startActivity(
                         TextExpandableSpringAnimationActivity.getStartIntent(this@MainActivity)
@@ -98,17 +71,11 @@ fun getAnimationComponentsName(): List<String> {
 }
 
 enum class AnimationComponent {
-    COLLAPSE,
     COLLAPSE_SPRING,
-    COLLAPSE_FADING,
     COLLAPSE_FADING_SPRING,
-    EXPAND,
     EXPAND_SPRING,
-    EXPAND_FADING,
     EXPAND_FADING_SPRING,
-    FADE,
     FADE_SPRING,
-    TEXT_EXPANDABLE,
     TEXT_EXPANDABLE_SPRING,
     RECYCLER,
     RECYCLER_SPRING,

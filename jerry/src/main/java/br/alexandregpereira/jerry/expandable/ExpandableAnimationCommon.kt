@@ -3,12 +3,8 @@ package br.alexandregpereira.jerry.expandable
 import android.view.View
 import android.view.View.MeasureSpec
 import android.view.ViewGroup
-import br.alexandregpereira.jerry.AnimationMode
-import br.alexandregpereira.jerry.OriginalValueKey
 import br.alexandregpereira.jerry.R
 import br.alexandregpereira.jerry.SpringAnimationPropertyKey
-import br.alexandregpereira.jerry.isAnimationRunning
-import br.alexandregpereira.jerry.setAnimationRunning
 import br.alexandregpereira.jerry.visible
 
 internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): Int {
@@ -17,15 +13,6 @@ internal fun getExpandingCollapsingSpringKey(isHeight: Boolean): Int {
     } else {
         SpringAnimationPropertyKey.WIDTH.id
     }
-}
-
-internal fun View.finishExpandingCollapsingAnimation(
-    isHeight: Boolean,
-    onAnimationEnd: (() -> Unit)?
-) {
-    clearWidthOrHeightOriginalValue(isHeight)
-    clearExpandingCollapsingRunning()
-    onAnimationEnd?.invoke()
 }
 
 internal fun View.finishExpandingCollapsingAnimation(

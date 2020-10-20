@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.expandable.collapseHeightFadingSpring
-import br.alexandregpereira.jerry.expandable.collapseWidthFadingSpring
-import br.alexandregpereira.jerry.expandable.expandHeightFadingSpring
-import br.alexandregpereira.jerry.expandable.expandWidthFadingSpring
+import br.alexandregpereira.jerry.expandable.goneCollapseHeightFadeOut
+import br.alexandregpereira.jerry.expandable.goneCollapseWidthFadeOut
+import br.alexandregpereira.jerry.expandable.visibleExpandHeightFadeIn
+import br.alexandregpereira.jerry.expandable.visibleExpandWidthFadeIn
 import kotlinx.android.synthetic.main.activity_expand_fading_animation.*
 
 class ExpandFadingSpringAnimationActivity : AppCompatActivity() {
@@ -26,51 +26,51 @@ class ExpandFadingSpringAnimationActivity : AppCompatActivity() {
         expandFadingLabel.setText(R.string.expand_fading_spring)
 
         expandFadingTextButton.setOnClickListener {
-            expandFadingTextView.expandHeightFadingSpring()
+            expandFadingTextView.visibleExpandHeightFadeIn()
         }
 
         expandCollapseFadingTextButton.setOnClickListener {
-            expandFadingTextView.collapseHeightFadingSpring()
+            expandFadingTextView.goneCollapseHeightFadeOut()
         }
 
         expandWidthFadingTextButton.setOnClickListener {
-            expandWidthFadingTextView.expandWidthFadingSpring()
+            expandWidthFadingTextView.visibleExpandWidthFadeIn()
         }
 
         expandCollapseWidthFadingTextButton.setOnClickListener {
-            expandWidthFadingTextView.collapseWidthFadingSpring()
+            expandWidthFadingTextView.goneCollapseWidthFadeOut()
         }
 
         expandFixedFadingTextButton.setOnClickListener {
-            expandFixedFadingTextView.expandHeightFadingSpring()
+            expandFixedFadingTextView.visibleExpandHeightFadeIn()
         }
 
         expandCollapseFixedFadingTextButton.setOnClickListener {
-            expandFixedFadingTextView.collapseHeightFadingSpring()
+            expandFixedFadingTextView.goneCollapseHeightFadeOut()
         }
 
         expandWidthFadingTextButton.setOnClickListener {
-            expandWidthFadingTextView.expandWidthFadingSpring()
+            expandWidthFadingTextView.visibleExpandWidthFadeIn()
         }
 
         expandCollapseWidthFadingTextButton.setOnClickListener {
-            expandWidthFadingTextView.collapseWidthFadingSpring()
+            expandWidthFadingTextView.goneCollapseWidthFadeOut()
         }
 
         expandMatchWidthFadingButton.setOnClickListener {
-            expandMatchWidthFadingView.expandWidthFadingSpring()
+            expandMatchWidthFadingView.visibleExpandWidthFadeIn()
         }
 
         expandCollapseMatchWidthFadingButton.setOnClickListener {
-            expandMatchWidthFadingView.collapseWidthFadingSpring()
+            expandMatchWidthFadingView.goneCollapseWidthFadeOut()
         }
 
         expandFixedWidthFadingButton.setOnClickListener {
-            expandFixedWidthFadingView.expandWidthFadingSpring()
+            expandFixedWidthFadingView.visibleExpandWidthFadeIn()
         }
 
         expandCollapseFixedWidthFadingButton.setOnClickListener {
-            expandFixedWidthFadingView.collapseWidthFadingSpring()
+            expandFixedWidthFadingView.goneCollapseWidthFadeOut()
         }
     }
 }
