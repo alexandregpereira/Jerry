@@ -10,6 +10,8 @@ enum class SpringAnimationPropertyKey(@StringRes val id: Int) {
     ROTATION(R.string.rotation_spring_key),
     ROTATION_X(R.string.rotation_x_spring_key),
     ROTATION_Y(R.string.rotation_y_spring_key),
+    SCALE_X(R.string.scale_x_spring_key),
+    SCALE_Y(R.string.scale_y_spring_key),
     HEIGHT(R.string.expanding_collapsing_height_spring_key),
     WIDTH(R.string.expanding_collapsing_width_spring_key)
 }
