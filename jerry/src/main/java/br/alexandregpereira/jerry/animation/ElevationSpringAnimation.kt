@@ -1,8 +1,12 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.animation
 
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.dynamicanimation.animation.FloatPropertyCompat
+import br.alexandregpereira.jerry.JerryAnimation
+import br.alexandregpereira.jerry.JerryAnimationSet
+import br.alexandregpereira.jerry.SpringAnimationPropertyKey
+import br.alexandregpereira.jerry.spring
 
 @RequiresApi(21)
 fun JerryAnimationSet.elevationSpring(

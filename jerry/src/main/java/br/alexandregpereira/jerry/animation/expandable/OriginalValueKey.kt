@@ -1,4 +1,4 @@
-package br.alexandregpereira.jerry.expandable
+package br.alexandregpereira.jerry.animation.expandable
 
 import androidx.annotation.StringRes
 import br.alexandregpereira.jerry.R

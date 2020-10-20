@@ -1,16 +1,16 @@
-package br.alexandregpereira.jerry.expandable
+package br.alexandregpereira.jerry.animation.expandable
 
 import android.view.View
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
-import br.alexandregpereira.jerry.fadeOutSpring
-import br.alexandregpereira.jerry.fadeSpring
+import br.alexandregpereira.jerry.animation.fadeOutSpring
+import br.alexandregpereira.jerry.animation.fadeSpring
 import br.alexandregpereira.jerry.force
-import br.alexandregpereira.jerry.goneFadeOut
+import br.alexandregpereira.jerry.animation.goneFadeOut
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.start
-import br.alexandregpereira.jerry.visibleFadeIn
+import br.alexandregpereira.jerry.animation.visibleFadeIn
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the

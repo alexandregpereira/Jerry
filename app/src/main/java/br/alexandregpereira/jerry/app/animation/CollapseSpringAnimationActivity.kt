@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import br.alexandregpereira.jerry.expandable.visibleOrGoneExpandableWidth
+import br.alexandregpereira.jerry.animation.expandable.visibleOrGoneExpandableWidth
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.expandable.goneCollapseHeight
-import br.alexandregpereira.jerry.expandable.goneCollapseWidth
-import br.alexandregpereira.jerry.expandable.visibleExpandHeight
-import br.alexandregpereira.jerry.expandable.visibleExpandWidth
+import br.alexandregpereira.jerry.animation.expandable.goneCollapseHeight
+import br.alexandregpereira.jerry.animation.expandable.goneCollapseWidth
+import br.alexandregpereira.jerry.animation.expandable.visibleExpandHeight
+import br.alexandregpereira.jerry.animation.expandable.visibleExpandWidth
 import kotlinx.android.synthetic.main.activity_collapse_animation.*
 import kotlinx.android.synthetic.main.container_animation_info.view.*
 

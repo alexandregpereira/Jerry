@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.goneFadeOut
-import br.alexandregpereira.jerry.textview.setTextFadeSpring
-import br.alexandregpereira.jerry.visibleFadeIn
+import br.alexandregpereira.jerry.animation.goneFadeOut
+import br.alexandregpereira.jerry.animation.textview.setTextFadeSpring
+import br.alexandregpereira.jerry.animation.visibleFadeIn
 import kotlinx.android.synthetic.main.activity_fade_animation.*
 
 class FadeSpringAnimationActivity : AppCompatActivity() {

@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.alexandregpereira.jerry.app.R
-import br.alexandregpereira.jerry.expandable.goneCollapseHeight
-import br.alexandregpereira.jerry.expandable.goneCollapseWidth
-import br.alexandregpereira.jerry.expandable.visibleExpandHeight
-import br.alexandregpereira.jerry.expandable.visibleExpandWidth
+import br.alexandregpereira.jerry.animation.expandable.goneCollapseHeight
+import br.alexandregpereira.jerry.animation.expandable.goneCollapseWidth
+import br.alexandregpereira.jerry.animation.expandable.visibleExpandHeight
+import br.alexandregpereira.jerry.animation.expandable.visibleExpandWidth
 import kotlinx.android.synthetic.main.activity_expand_animation.*
 
 class ExpandSpringAnimationActivity : AppCompatActivity() {

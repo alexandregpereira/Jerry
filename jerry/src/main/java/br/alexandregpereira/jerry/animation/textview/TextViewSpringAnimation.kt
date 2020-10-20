@@ -1,16 +1,16 @@
-package br.alexandregpereira.jerry.textview
+package br.alexandregpereira.jerry.animation.textview
 
 import android.widget.TextView
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
-import br.alexandregpereira.jerry.expandable.goneCollapseHeightFadeOut
-import br.alexandregpereira.jerry.expandable.isCollapsingRunning
-import br.alexandregpereira.jerry.expandable.visibleExpandHeightFadeIn
-import br.alexandregpereira.jerry.fadeInSpring
-import br.alexandregpereira.jerry.fadeOutSpring
+import br.alexandregpereira.jerry.animation.expandable.goneCollapseHeightFadeOut
+import br.alexandregpereira.jerry.animation.expandable.isCollapsingRunning
+import br.alexandregpereira.jerry.animation.expandable.visibleExpandHeightFadeIn
+import br.alexandregpereira.jerry.animation.fadeInSpring
+import br.alexandregpereira.jerry.animation.fadeOutSpring
 import br.alexandregpereira.jerry.force
-import br.alexandregpereira.jerry.isFadeOutRunning
+import br.alexandregpereira.jerry.animation.isFadeOutRunning
 import br.alexandregpereira.jerry.isVisible
 import br.alexandregpereira.jerry.start
 

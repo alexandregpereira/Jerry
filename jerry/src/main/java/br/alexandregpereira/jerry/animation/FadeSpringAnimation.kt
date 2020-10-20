@@ -1,9 +1,20 @@
-package br.alexandregpereira.jerry
+package br.alexandregpereira.jerry.animation
 
 import android.view.View
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
+import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
+import br.alexandregpereira.jerry.JerryAnimation
+import br.alexandregpereira.jerry.JerryAnimationSet
+import br.alexandregpereira.jerry.SpringAnimationPropertyKey
+import br.alexandregpereira.jerry.force
+import br.alexandregpereira.jerry.getSpringAnimation
+import br.alexandregpereira.jerry.gone
+import br.alexandregpereira.jerry.isVisible
+import br.alexandregpereira.jerry.spring
+import br.alexandregpereira.jerry.start
+import br.alexandregpereira.jerry.visible
 
 /**
  * Animates the View visibility depending of the [visible] flag. If [visible] is true, the
@@ -73,6 +84,10 @@ fun View.visibleFadeIn(
         onAnimationEnd = onAnimationEnd
     )
 }
+
+fun View.isFadeOutRunning() = getSpringAnimation(SpringAnimationPropertyKey.ALPHA.id)?.run {
+    isRunning && spring?.finalPosition == 0f
+} == true
 
 fun JerryAnimationSet.fadeInSpring() = fadeSpring(
     targetValue = 1f

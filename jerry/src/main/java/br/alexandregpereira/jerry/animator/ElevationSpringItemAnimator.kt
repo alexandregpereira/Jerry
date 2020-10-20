@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import br.alexandregpereira.jerry.ANIMATION_STIFFNESS
 import br.alexandregpereira.jerry.after
 import br.alexandregpereira.jerry.dpToPx
-import br.alexandregpereira.jerry.elevationSpring
-import br.alexandregpereira.jerry.fadeInSpring
-import br.alexandregpereira.jerry.fadeOutSpring
-import br.alexandregpereira.jerry.fadeSpring
+import br.alexandregpereira.jerry.animation.elevationSpring
+import br.alexandregpereira.jerry.animation.fadeInSpring
+import br.alexandregpereira.jerry.animation.fadeOutSpring
+import br.alexandregpereira.jerry.animation.fadeSpring
 import br.alexandregpereira.jerry.force
 import br.alexandregpereira.jerry.start
-import br.alexandregpereira.jerry.translationXSpring
-import br.alexandregpereira.jerry.translationYSpring
+import br.alexandregpereira.jerry.animation.translationXSpring
+import br.alexandregpereira.jerry.animation.translationYSpring
 
 @RequiresApi(21)
 class ElevationSpringItemAnimator(
