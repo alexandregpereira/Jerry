@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
         }
-        componentsRecycler.setupLiftViewOnScrollCompat(appBarLayout, 2f.dpToPx(resources))
+        componentsRecycler.setupLiftViewOnScrollCompat(toolbar, 2f.dpToPx(resources))
     }
 }
 
