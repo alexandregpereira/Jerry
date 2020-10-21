@@ -40,15 +40,40 @@ fun View.elevationSpring(
 )
 
 @RequiresApi(21)
-fun RecyclerView.setupLiftViewOnScroll(liftView: View, elevation: Float) {
-    val layoutManager = layoutManager as? LinearLayoutManager ?: return
-    addOnScrolled {
-        val animation = if (layoutManager.findFirstCompletelyVisibleItemPosition() != 0) {
-            liftView.elevationSpring(targetValue = elevation)
-        } else {
-            liftView.elevationSpring(targetValue = 0f)
-        }
+fun RecyclerView.startLiftAnimation(liftView: View, elevation: Float) {
+    val layoutManager = this.layoutManager as? LinearLayoutManager ?: return
+    val adapter = this.adapter
+    val targetValue: Float = if (
+        adapter != null
+        && adapter.itemCount > 0
+        && layoutManager.findFirstCompletelyVisibleItemPosition() > 0
+    ) {
+        elevation
+    } else {
+        0f
+    }
+
+    if (liftView.elevation == targetValue) {
+        return
+    }
+
+    val animation = liftView.elevationSpring(targetValue = targetValue)
+    if (animation.targetValue == targetValue && animation.isRunning.not()) {
         animation.start()
+    }
+}
+
+fun RecyclerView.startLiftAnimationCompat(liftView: View, elevation: Float) {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        this.startLiftAnimation(liftView, elevation)
+    }
+}
+
+@RequiresApi(21)
+fun RecyclerView.setupLiftViewOnScroll(liftView: View, elevation: Float) {
+    if (layoutManager !is LinearLayoutManager) return
+    addOnScrolled {
+        this.startLiftAnimation(liftView, elevation)
     }
 }
 
