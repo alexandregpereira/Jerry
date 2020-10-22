@@ -236,7 +236,7 @@ view.visibleOrGoneExpandableWidthFade(visible = true)
 The class `BaseItemAnimator` provides the base of a custom `ItemAnimator` implementation. Overrides the methods `preAnimateAdd`, `startRemoveAnimation`, `startAddAnimation`, `startOldHolderChangeAnimation`, `startNewHolderChangeAnimation` or `startMoveAnimation` when you want to change any default animation. You can follow the `ElevationSpringItemAnimator` class in this repository as example.
 
 ### ElevationSpringItemAnimator
-The `ElevationSpringItemAnimator` resolves an animation problem post `LOLLIPOP` when we use a view with elevation in a RecyclerView with the default animations (`DefaultItemAnimator`). With default animations, the shadown behind view appears when fade animation starts. The `ElevationSpringItemAnimator` overrides the default animations, adding the spring animations, and animating the elevation too. The examples below ilustrate this.
+The `ElevationSpringItemAnimator` resolves an animation problem post `LOLLIPOP` when we use a view with elevation in a RecyclerView with the default animations (`DefaultItemAnimator`). With default animations, the shadown behind the view appears when fade animation starts. The `ElevationSpringItemAnimator` overrides the default animations, adding the spring animations, and animating the elevation too. The examples below ilustrate this.
 
 ElevationSpringItemAnimator | DefaultItemAnimator
 -|-
