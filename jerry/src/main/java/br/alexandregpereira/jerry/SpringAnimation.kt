@@ -48,10 +48,6 @@ fun View.spring(
         addSpringAnimationKeyIfNotContains(key)
         setTag(key, SpringAnimationHolder(springAnimation))
     }
-    springAnimation.spring.apply {
-        this.dampingRatio = SpringForce.DAMPING_RATIO_NO_BOUNCY
-        this.stiffness = ANIMATION_STIFFNESS
-    }
     return JerryAnimation(key = key, view = this, springAnimation, targetValue)
 }
 
@@ -86,30 +82,32 @@ fun JerryAnimation.force(
     stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimation {
-    return this.apply {
-        springAnimation.spring.apply {
-            this.dampingRatio = dampingRatio
-            this.stiffness = stiffness
-        }
+    val springForce = SpringForce().apply {
+        this.dampingRatio = dampingRatio
+        this.stiffness = stiffness
     }
+    return this.copy(
+        springForce = springForce
+    )
 }
 
 fun JerryAnimationSet.force(
     stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
-    return this.apply {
-        jerryAnimations.forEach { it.force(stiffness, dampingRatio) }
-    }
+    return this.copy(
+        jerryAnimations = jerryAnimations.map { it.force(stiffness, dampingRatio) }
+    )
 }
 
 fun JerryAnimationSet.lastForce(
     stiffness: Float = ANIMATION_STIFFNESS,
     dampingRatio: Float = SpringForce.DAMPING_RATIO_NO_BOUNCY
 ): JerryAnimationSet {
-    return this.apply {
-        jerryAnimations.last().force(stiffness, dampingRatio)
-    }
+    return this.copy(
+        jerryAnimations = jerryAnimations.subList(0, jerryAnimations.size - 1) +
+                jerryAnimations.last().force(stiffness, dampingRatio)
+    )
 }
 
 private fun JerryAnimation.animationSet(): JerryAnimationSet {
@@ -174,6 +172,10 @@ fun JerryAnimation.start(
         onAnimationEnd = onAnimationEnd
     )
 
+    springAnimation.spring.apply {
+        this.dampingRatio = springForce?.dampingRatio ?: SpringForce.DAMPING_RATIO_NO_BOUNCY
+        this.stiffness = springForce?.stiffness ?: ANIMATION_STIFFNESS
+    }
     springAnimation.animateToFinalPosition(targetValue)
 }
 
