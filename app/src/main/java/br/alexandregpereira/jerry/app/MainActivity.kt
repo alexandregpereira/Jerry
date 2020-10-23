@@ -19,7 +19,7 @@ import br.alexandregpereira.jerry.app.recyclerview.GridRecyclerViewActivity
 import br.alexandregpereira.jerry.app.recyclerview.GridRecyclerViewSpringActivity
 import br.alexandregpereira.jerry.app.recyclerview.RecyclerViewActivity
 import br.alexandregpereira.jerry.app.recyclerview.RecyclerViewSpringActivity
-import br.alexandregpereira.jerry.app.widgets.configMaterialShapeDrawable
+import br.alexandregpereira.jerry.app.widgets.SecondaryButton
 import br.alexandregpereira.jerry.dpToPx
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -105,7 +105,7 @@ class MainAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-       return MainViewHolder(TextView(parent.context).apply {
+       return MainViewHolder(SecondaryButton(parent.context).apply {
            val padding = resources.getDimensionPixelOffset(R.dimen.text_padding)
            layoutParams = ViewGroup.MarginLayoutParams(
                ViewGroup.LayoutParams.MATCH_PARENT,
@@ -113,9 +113,6 @@ class MainAdapter(
            ).apply {
                setMargins(padding / 2, padding / 2, padding / 2, padding / 2)
            }
-
-           setTextColor(ContextCompat.getColor(context, R.color.textSecondaryColor))
-           configMaterialShapeDrawable()
        })
     }
 
