@@ -3,7 +3,6 @@ package br.alexandregpereira.jerry.app.widgets
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -27,7 +26,6 @@ class SecondaryButton @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        Log.d("onTouchEvent", event?.toString() ?: "")
         when (event?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 this.scaleXSpring(targetValue = 0.92f)
